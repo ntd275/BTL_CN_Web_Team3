@@ -2,13 +2,14 @@ body,html {
     padding: 0;
     border: 0;
     margin: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 a {
     text-decoration: none;
+    color: white;
 }
-.navbar {
-    box-shadow: ;
-}
+
 .left {
     background-color: rgb(230, 107, 107);
     min-height: 80px;
@@ -37,21 +38,114 @@ a {
 li:last-child{
     margin-right: 15px;
 }
-ul {
+.right ul {
     padding: 0;
     border: 0;
     margin: 0;
     list-style: none;
     float: right;
 }
-ul li {
+.right ul li {
     display: inline-block;
     padding-left: 20px;
     padding-right: 20px;
 }
-li a {
+.right li a {
     text-decoration: none;
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
 }
+.right li a:hover {
+    color : rgb(230, 107, 107);
+}
+
+.content {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    margin-top: 90px;
+}
+.big {
+    width: 75%;
+    padding-right: 40px;
+}
+.small {
+    width: 30%;
+    background-color: red;
+}
+.slide {
+    height: 400px;
+}
+.title{
+    width: 20%;
+    min-width: 20%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 90;
+    background-color: yellowgreen;
+    height: 30px;
+    min-height: 30px;
+    padding: 10px 0 0 10px;
+}
+.title a {
+    
+    color: rgb(231, 229, 229);
+}
+.title a:hover {
+    color: white;
+}
+.content .menu{
+    
+    float: right;
+    list-style: none;
+    display: block;
+    overflow: auto;
+}
+.content .menu ul {
+    padding-top: 0;
+}
+.content .menu li{
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+    
+}
+hr{
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: yellowgreen;;
+    height: 2px;
+}
+.content .menu li a {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 800;
+    color: black;
+}
+.main {
+    display: flex;
+    clear: right;
+    width: 100%;
+}
+.card {
+    width: 50%;
+}
+.card h3 {
+    color: black;
+    font-size: 21px;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.card .about {
+    display: flex;
+    margin: 5px 0px 10px 0px;
+}
+.card img {
+    width: 90%;
+    height: auto;
+}
+.card .about >*{
+    padding-right: 15px;
+} 
