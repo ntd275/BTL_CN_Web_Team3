@@ -8,7 +8,7 @@ class BigContent extends Component {
             <div className="content">
                 <div className="big">
                     <div className="slide">
-                        <SlideShow/>
+                        
                     </div>
                     <div className="listevent">
                         <div className="title"><a href>Danh sách sự kiện</a></div>

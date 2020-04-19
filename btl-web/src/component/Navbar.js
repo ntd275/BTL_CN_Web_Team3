@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "../CSS/navbar.css";
+import { FaTimes, FaEllipsisH } from "react-icons/fa";
 class Navbar extends Component {
     render() {
         return (
@@ -7,7 +8,7 @@ class Navbar extends Component {
                 <h2 className="logo">Group 3</h2>
                 <input type="checkbox" name id="chk" />
                 <label htmlFor="chk" className="show-menu-btn">
-                    <i className="fas fa-ellipsis-h" />
+                    <FaEllipsisH />
                 </label>
                 <ul className="menu">
                     <a href="#">Trang chủ</a>
@@ -18,7 +19,7 @@ class Navbar extends Component {
                     <a href="#">Liên hệ</a>
                     <a href="#">Tìm kiếm</a>
                     <label htmlFor="chk" className="hide-menu-btn">
-                        <i className="fas fa-times" />
+                        <FaTimes />
                     </label>
                 </ul>
             </div>
