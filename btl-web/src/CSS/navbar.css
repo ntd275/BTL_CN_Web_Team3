@@ -1,63 +1,99 @@
-body,html {
+* {
     padding: 0;
     border: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: "montserrat",sans-serif;
 }
 a {
     text-decoration: none;
     color: white;
 }
-
-.left {
-    background-color: rgb(230, 107, 107);
-    min-height: 80px;
-    width: 15%;
-    line-height: 90px;
-    text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 50px;
+.header{
+    height: 100px;
+    background:#34495e;
+    padding: 0 20px;
+    color: #fff;
     position: fixed;
-    top: 0px;
+    top:0px;
     left: 0px;
+    width: 100%;
 }
-.left a {
-    display: inline;
-    color: white;
+.header .logo {
+    line-height: 100px;
+    float: left;
+
 }
-.right {
-    background-color: rgba(21, 26, 44, 1);
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 85%;
-    min-height: 80px;
-    line-height: 90px;
-}
-li:last-child{
-    margin-right: 15px;
-}
-.right ul {
-    padding: 0;
-    border: 0;
-    margin: 0;
-    list-style: none;
+.header .menu {
     float: right;
+    line-height: 100px;
 }
-.right ul li {
-    display: inline-block;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-.right li a {
-    text-decoration: none;
+
+.header .menu a {
+    color: #fff;
     text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
+    text-decoration: none;
+    padding: 0 10px;
+    transition: .4s;
 }
-.right li a:hover {
-    color : rgb(230, 107, 107);
+
+.show-menu-btn,.hide-menu-btn {
+    transition: .4s;
+    cursor: pointer;
+    font-size: 30px;
+    display: none;
+}
+.header .show-menu-btn{
+    float: right;
+    line-height: 100px;
+    
+}
+.header .menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover{
+    color: #3498db;
+}
+
+#chk {
+    position: absolute;
+    visibility: hidden;
+    z-index: -111;
+}
+
+
+@media screen and (max-width:800px){
+    .show-menu-btn,.hide-menu-btn {
+        display: block;
+    }
+    .header .menu {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #333;
+        top:0px;
+        right: -100%;
+        text-align: center;
+        line-height: normal;
+        padding: 80px 0px;
+        transition: .7s;
+    }
+    .header .menu a{
+        display: block;
+        padding: 20px;
+        width: 100%;
+    }
+    .header .menu a:hover{
+        background-color: rgb(71, 71, 71);
+    }
+
+    .header .hide-menu-btn{
+        position: absolute;
+        top: 40px;
+        right: 40px;
+    }
+    #chk:checked ~ .menu{
+        right: 0;
+    }
 }
 
 .content {
@@ -76,6 +112,7 @@ li:last-child{
 }
 .slide {
     height: 400px;
+    background-color: rebeccapurple;
 }
 .title{
     width: 20%;
