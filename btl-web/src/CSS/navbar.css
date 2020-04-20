@@ -182,7 +182,7 @@ hr{
 }
 .card .about {
     display: flex;
-    margin: 5px 0px 10px 0px;
+    margin: 20px 0px 20px 0px;
 }
 .card img {
     width: 100%;
@@ -218,4 +218,40 @@ hr{
 .small {
     width: 25%;
     margin-top: 100px;
+}
+.button-group {
+    display: flex;
+}
+.button-group button{
+    cursor: pointer;
+    padding: 10px 10px 10px 10px;
+    color: black;
+    font-size: 15px;
+    width: 100px;
+    background-color: rgba(75, 75, 75, 0.377);
+    border-radius: 10px;
+    outline: none;
+}
+.button-group button:hover {
+    background-color: rgba(146, 146, 146, 0.377);
+}
+.card3 {
+    width: 100%;
+    display: flex;
+    font-size: 13px;
+}
+.card3 img {
+    width: 30%;
+    height:50%;
+}
+.card3 a {
+    color: rgb(90, 90, 90);
+    font-size: 18px;
+}
+.card3 .about {
+    margin-left: 20px;
+}
+.card3 .place {
+    padding: 10px 0px 10px 0px;
+    font-size: 15px;
 }

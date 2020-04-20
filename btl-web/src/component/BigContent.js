@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "../CSS/navbar.css";
 import { FaComments } from "react-icons/fa";
+import WhatsNew from './WhatsNew';
 class BigContent extends Component {
     render() {
         return (
@@ -30,8 +31,8 @@ class BigContent extends Component {
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
                                 </a>
                                 <div className="about">
-                                    <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div className="date" style = {{ fontStyle: 'italic' }}>03/04/2020</div>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -45,7 +46,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -58,14 +59,14 @@ class BigContent extends Component {
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
                             <div className="card1 card2">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
@@ -74,14 +75,14 @@ class BigContent extends Component {
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
                             <div className="card1 card2">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
@@ -90,14 +91,14 @@ class BigContent extends Component {
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
                             <div className="card1 card2">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
@@ -106,14 +107,14 @@ class BigContent extends Component {
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
                             <div className="card1 card2">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
-                                    <a href><h4>Nghệ thuật trong thời kì Corona</h4></a>
+                                    <a href=""><h4>Nghệ thuật trong thời kì Corona</h4></a>
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
                                 </div>
                             </div>
@@ -130,7 +131,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -144,7 +145,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -160,7 +161,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -174,7 +175,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -190,7 +191,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -204,7 +205,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -220,7 +221,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -234,7 +235,7 @@ class BigContent extends Component {
                                 </a>
                                 <div className="about">
                                     <div className="date" style={{ fontStyle: 'italic' }}>03/04/2020</div>
-                                    <FaComments/>
+                                    <div><FaComments /></div>
                                     <div className="count">0</div>
                                 </div>
                                 <p>
@@ -244,10 +245,7 @@ class BigContent extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="small">
-                    <div className="title"><a href>Có gì hôm nay</a></div>
-                    <hr />
-                </div>
+                <WhatsNew />
             </div>
         );
     }
