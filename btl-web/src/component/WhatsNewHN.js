@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class WhatsNewHN extends Component {
     render() {
         return (
-            <div className="row">
+            <div className="row-normal">
                 <div className="card3">
                     <img src="./images/images1.jpg" alt="" />
                     <div className="about">

@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import "../CSS/navbar.css";
 import { FaComments } from "react-icons/fa";
 import WhatsNew from './WhatsNew';
+import Slide from './Slide'; 
 class BigContent extends Component {
     render() {
         return (
             <div className="content">
                 <div className="big">
                     <div className="slide">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus eveniet accusantium sit neque facilis ratione officiis ipsa distinctio corrupti laborum ipsam, vitae obcaecati porro recusandae id soluta quaerat necessitatibus numquam.
-                        <h1>Chỗ này là slide, bổ sung sau</h1>
+                        <Slide />
                     </div>
                     <div className="listevent">
                         <div className="title"><a href>Danh sách sự kiện</a></div>
@@ -25,7 +25,7 @@ class BigContent extends Component {
                             </ul>
                         </div>
                         <div className="mainrow">
-                            <div className="card">
+                            <div className="card-normal">
                                 <a href="#">
                                     <img src="images/images1.jpg" alt="abc" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -39,7 +39,7 @@ class BigContent extends Component {
                                     02/04 - 30/04 - Triển lãm nghệ thuật nhằm nâng cao nhận thức cộng đồng về hội chứng tự kỷ
                 </p>
                             </div>
-                            <div className="card card2">
+                            <div className="card-normal card2">
                                 <a href="#">
                                     <img src="./images/images2.jpg" alt="" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -55,7 +55,7 @@ class BigContent extends Component {
                 </p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row-normal">
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
@@ -71,7 +71,7 @@ class BigContent extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row-normal">
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
@@ -87,7 +87,7 @@ class BigContent extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row-normal">
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
@@ -103,7 +103,7 @@ class BigContent extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row-normal">
                             <div className="card1">
                                 <img src="images/images1.jpg" alt="" />
                                 <div className="about">
@@ -123,8 +123,8 @@ class BigContent extends Component {
                     <div className="news">
                         <div className="title"><a href>Tin tức mới nhất</a></div>
                         <hr />
-                        <div className="row">
-                            <div className="card">
+                        <div className="row-normal">
+                            <div className="card-normal">
                                 <a href="#">
                                     <img src="images/images1.jpg" alt="abc" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -138,7 +138,7 @@ class BigContent extends Component {
                                     02/04 - 30/04 - Triển lãm nghệ thuật nhằm nâng cao nhận thức cộng đồng về hội chứng tự kỷ
                 </p>
                             </div>
-                            <div className="card card2">
+                            <div className="card-normal card2">
                                 <a href="#">
                                     <img src="images/images2.jpg" alt="" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -153,8 +153,8 @@ class BigContent extends Component {
                 </p>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="card">
+                        <div className="row-normal">
+                            <div className="card-normal">
                                 <a href="#">
                                     <img src="images/images1.jpg" alt="abc" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -168,7 +168,7 @@ class BigContent extends Component {
                                     02/04 - 30/04 - Triển lãm nghệ thuật nhằm nâng cao nhận thức cộng đồng về hội chứng tự kỷ
                 </p>
                             </div>
-                            <div className="card card2">
+                            <div className="card-normal card2">
                                 <a href="#">
                                     <img src="images/images2.jpg" alt="" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -183,8 +183,8 @@ class BigContent extends Component {
                 </p>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="card">
+                        <div className="row-normal">
+                            <div className="card-normal">
                                 <a href="#">
                                     <img src="images/images1.jpg" alt="abc" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -198,7 +198,7 @@ class BigContent extends Component {
                                     02/04 - 30/04 - Triển lãm nghệ thuật nhằm nâng cao nhận thức cộng đồng về hội chứng tự kỷ
                 </p>
                             </div>
-                            <div className="card card2">
+                            <div className="card-normal card2">
                                 <a href="#">
                                     <img src="images/images2.jpg" alt="" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -213,8 +213,8 @@ class BigContent extends Component {
                 </p>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="card">
+                        <div className="row-normal">
+                            <div className="card-normal">
                                 <a href="#">
                                     <img src="images/images1.jpg" alt="abc" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>
@@ -228,7 +228,7 @@ class BigContent extends Component {
                                     02/04 - 30/04 - Triển lãm nghệ thuật nhằm nâng cao nhận thức cộng đồng về hội chứng tự kỷ
                 </p>
                             </div>
-                            <div className="card card2">
+                            <div className="card-normal card2">
                                 <a href="#">
                                     <img src="images/images2.jpg" alt="" />
                                     <h3>Triển lãm nghệ thuật cửng dái</h3>

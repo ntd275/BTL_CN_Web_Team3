@@ -35,7 +35,7 @@ class WhatsNew extends Component {
                             <button onClick={this.changeHCM}>TP HCM</button>
                         </div>
                         <div className="lichdaydu">
-                            <button><a href>Lịch dầy đủ</a></button>
+                            <button><a href="">Lịch dầy đủ</a></button>
                         </div>
                     </div>
                     <WhatsNewHN />
