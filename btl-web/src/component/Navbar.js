@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "../CSS/navbar.css";
 import { FaTimes, FaEllipsisH } from "react-icons/fa";
+import { Link } from "react-router-dom";
 class Navbar extends Component {
     render() {
         return (
@@ -11,16 +12,32 @@ class Navbar extends Component {
                     <FaEllipsisH />
                 </label>
                 <ul className="menu">
-                    <a href="#">Trang chủ</a>
-                    <a href="#">Lịch</a>
-                    <a href="#">Chuyên mục</a>
-                    <a href="#">Tin tức</a>
-                    <a href="#">Đối tác</a>
-                    <a href="#">Liên hệ</a>
-                    <a href="#">Tìm kiếm</a>
+                    <Link to="/" exact>
+                        <a href="#">Trang chủ</a>
+                    </Link>
+                    <Link to="/calendar" exact>
+                        <a href="#">Lịch</a>
+                    </Link>
+                    <Link to="/categories" exact>
+                        <a href="#">Chuyên mục</a>
+                    </Link>
+                    <Link to="/news" exact>
+                        <a href="#">Tin tức</a>
+                    </Link>
+                    <Link to="/partner" exact>
+                        <a href="#">Đối tác</a>
+                    </Link>
+
+                    <Link to="/contact" >
+                        <a href="#">Liên hệ</a>
+                    </Link>
+                    <Link to="/find" >
+                        <a href="#">Tìm kiếm</a>
+                    </Link>
                     <label htmlFor="chk" className="hide-menu-btn">
                         <FaTimes />
                     </label>
+
                 </ul>
             </div>
         );

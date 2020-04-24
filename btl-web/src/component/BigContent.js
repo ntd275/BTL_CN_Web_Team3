@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "../CSS/navbar.css";
+
 import { FaComments } from "react-icons/fa";
 import WhatsNew from './WhatsNew';
 import Slide from './Slide'; 

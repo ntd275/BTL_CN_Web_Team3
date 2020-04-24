@@ -6,17 +6,17 @@ class WhatsNew extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            option :1
+            option: 1
         })
     }
-    changeHN=()=>{
-        if (this.state.option !==1) this.setState({
-            option :1
+    changeHN = () => {
+        if (this.state.option !== 1) this.setState({
+            option: 1
         });
     }
-    changeHCM=()=>{
-        if (this.state.option !==2) this.setState({
-            option :2
+    changeHCM = () => {
+        if (this.state.option !== 2) this.setState({
+            option: 2
         });
     }
     render() {
@@ -27,20 +27,14 @@ class WhatsNew extends Component {
                         <a href>Có gì hôm nay</a>
                     </div>
                     <hr />
-                    <div className="button-group">
-                        <div className="hanoi">
-                            <button onClick={this.changeHN}>Hà Nội</button>
-                        </div>
-                        <div className="tphcm">
-                            <button onClick={this.changeHCM}>TP HCM</button>
-                        </div>
-                        <div className="lichdaydu">
-                            <button><a href="">Lịch dầy đủ</a></button>
-                        </div>
+                    <div className="btn-group button-group" >
+                        <button type="button" onClick={this.changeHN}  className="btn btn-success">Hà Nội</button>
+                        <button type="button" onClick={this.changeHCM}  className="btn btn-success">HCM</button>
+                        <button type="button" className="btn btn-success"><a href="">Lịch đầy đủ</a></button>
                     </div>
                     <WhatsNewHN />
                 </div>
-                
+
             );
         }
         else {
@@ -50,16 +44,10 @@ class WhatsNew extends Component {
                         <a href>Có gì hôm nay</a>
                     </div>
                     <hr />
-                    <div className="button-group">
-                        <div className="hanoi">
-                            <button onClick={this.changeHN}>Hà Nội</button>
-                        </div>
-                        <div className="tphcm">
-                            <button onClick={this.changeHCM}>TP HCM</button>
-                        </div>
-                        <div className="lichdaydu">
-                            <button><a href>Lịch dầy đủ</a></button>
-                        </div>
+                    <div className="btn-group button-group" >
+                        <button type="button" onClick={this.changeHN}  className="btn btn-success">Hà Nội</button>
+                        <button type="button" onClick={this.changeHCM}  className="btn btn-success">HCM</button>
+                        <button type="button" className="btn btn-success"><a href="">Lịch đầy đủ</a></button>
                     </div>
                     <WhatsNewHCM />
                 </div>
