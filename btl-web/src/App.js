@@ -14,6 +14,12 @@ import {
   Switch
   // etc.
 } from "react-router-dom"
+import Categories from './component/Categories';
+import News from './component/News';
+import Partners from './component/Partners';
+import Search from './component/Search';
+import Article from './component/Article';
+import Event from './component/Event';
 
 function App() {
   return (
@@ -22,12 +28,14 @@ function App() {
         <Navbar />
         <Switch >
           <Route path="/" exact component={Homepage} />
-          <Route path="/calendar" exact component={Nothing} />
-          <Route path="/categories" exact component={Nothing} />
-          <Route path="/news" exact component={Nothing} />
-          <Route path="/partner" exact component={Nothing} />
+          {/* <Route path="/calendar" exact component={Nothing} /> */}
+          <Route path="/categories" exact component={Categories} />
+          <Route path="/news" exact component={News} />
+          <Route path="/partners" exact component={Partners} />
           <Route path="/contact" component={Contact} />
-          <Route path="/find" exact component={Nothing} />
+          <Route path="/find" exact component={Search} />
+          <Route path="/news/123" exact component={Article} />
+          <Route path="/categories/123" exact component={Event} />
         </Switch >
         <Footer/>
       </div>
