@@ -20,6 +20,7 @@ import Partners from './component/Partners';
 import Search from './component/Search';
 import Article from './component/Article';
 import Event from './component/Event';
+import Calendar from './component/Calendar';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         <Navbar />
         <Switch >
           <Route path="/" exact component={Homepage} />
-          {/* <Route path="/calendar" exact component={Nothing} /> */}
+          <Route path="/calendar" exact component={Calendar} />
           <Route path="/categories" exact component={Categories} />
           <Route path="/news" exact component={News} />
           <Route path="/partners" exact component={Partners} />
