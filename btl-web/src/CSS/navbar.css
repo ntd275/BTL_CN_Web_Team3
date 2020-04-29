@@ -132,7 +132,9 @@ a {
   margin-bottom: -16px;
 }
 .title a {
-  font-size: 20px;
+    display: block;
+    padding: 5px 0 0 10px;
+    font-size: 20px;
 }
 .content .menu {
   float: right;
@@ -173,12 +175,12 @@ hr {
   margin-left: 100px;
 }
 .card-normal h3 {
-  color: black;
-  font-size: 21px;
-  font-weight: 100;
-  font-family: Arial, Helvetica, sans-serif;
-  margin-top: 5px;
-  margin-bottom: 5px;
+    color: black;
+    font-size: 25px;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .card-normal .about {
   display: flex;
@@ -191,6 +193,10 @@ hr {
 .card-normal .about > * {
   padding-right: 15px;
 }
+.card-normal .about >*{
+    padding-right: 15px;
+} 
+
 .row-normal {
   padding-top: 30px;
   display: flex;
@@ -214,7 +220,9 @@ hr {
 .card1 .about .date {
   margin-top: 20px;
 }
-
+.card1  .about h4{
+    font-size: 20px;
+}
 .small {
   width: 25%;
   margin-top: 150px;
@@ -243,106 +251,19 @@ hr {
   margin-left: 20px;
 }
 .card3 .place {
-  padding: 10px 0px 10px 0px;
-  font-size: 15px;
+    padding: 10px 0px 10px 0px;
+    font-size: 15px;
 }
-
-/* ----duc---- */
-.add-option-big {
-  margin-top: 150px;
+.btn-new .btn {
+    background-color: yellowgreen;
+    border:none;
 }
-
-.new-img {
-  width: 40%;
+.btn-new .btn:hover {
+    background-color: rgb(163, 230, 31);
 }
-
-.info-new {
-  margin: 0px 20px 0px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.btn-new a {
+    color: white;
 }
-
-.social-sharing {
-  margin-bottom: 42px;
-}
-
-.social-sharing-box {
-  border-bottom: 1px solid #f5f5f5;
-  border-top: 1px solid #f5f5f5;
-  border-left: 1px solid #f5f5f5;
-  border-right: 1px solid #f5f5f5;
-  background-color: #fcfcfc;
-  padding: 4px 2px 4px 10px;
-  display: flex;
-}
-
-.social-sharing-twitter {
-  color: white;
-  padding-right: 20px;
-  padding-left: 10px;
-  background-color: #3498db;
-  margin: 5px;
-}
-
-.social-sharing-facebook {
-  color: white;
-  padding-right: 20px;
-  padding-left: 10px;
-  background-color: #47639e;
-  margin: 5px;
-}
-
-.social-sharing-google-plus {
-  color: white;
-  padding-right: 20px;
-  padding-left: 10px;
-  background-color: #dd4b39;
-  margin: 5px;
-}
-
-.social-sharing-instagram {
-  color: white;
-  padding-right: 20px;
-  padding-left: 10px;
-  background-color: #cb2027;
-  margin: 5px;
-}
-
-.add-option-i {
-  margin: 10px;
-  display: inline-block;
-}
-
-.pre-next-box-article {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 50px;
-}
-
-.next-article div {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.img-pre-article {
-  padding-right: 7px;
-}
-
-.img-next-article {
-  padding-left: 7px;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
-.info-event {
-  font-weight: bolder;
-}
-
-.category-box {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: -21px;
+.btn-new a:hover {
+    color: rgb(82, 82, 82);
 }

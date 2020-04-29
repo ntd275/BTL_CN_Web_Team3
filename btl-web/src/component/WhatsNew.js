@@ -27,8 +27,8 @@ class WhatsNew extends Component {
                         <a href>Có gì hôm nay</a>
                     </div>
                     <hr />
-                    <div className="btn-group button-group" >
-                        <button type="button" onClick={this.changeHN}  className="btn btn-success">Hà Nội</button>
+                    <div className="btn-group button-group btn-new" >
+                        <button type="button" onClick={this.changeHN}  className="btn btn-success ">Hà Nội</button>
                         <button type="button" onClick={this.changeHCM}  className="btn btn-success">HCM</button>
                         <button type="button" className="btn btn-success"><a href="">Lịch đầy đủ</a></button>
                     </div>
@@ -44,7 +44,7 @@ class WhatsNew extends Component {
                         <a href>Có gì hôm nay</a>
                     </div>
                     <hr />
-                    <div className="btn-group button-group" >
+                    <div className="btn-group button-group btn-new" >
                         <button type="button" onClick={this.changeHN}  className="btn btn-success">Hà Nội</button>
                         <button type="button" onClick={this.changeHCM}  className="btn btn-success">HCM</button>
                         <button type="button" className="btn btn-success"><a href="">Lịch đầy đủ</a></button>
