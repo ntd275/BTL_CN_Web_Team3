@@ -1,9 +1,9 @@
 'use strict';
-var mongoose = require('../db');
-var Schema = mongoose.Schema;
+let mongoose = require('../db');
+let Schema = mongoose.Schema;
 
 
-var NewsSchema = new Schema({
+let NewsSchema = new Schema({
   id: {
     type: String,
     required: true,

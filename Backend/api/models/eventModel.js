@@ -1,11 +1,14 @@
 'use strict';
-var mongoose = require('../db');
-var Schema = mongoose.Schema;
+let mongoose = require('../db');
+let mongoosePaginate = require('mongoose-paginate');
+let Schema = mongoose.Schema;
 
-var EventSchema = new Schema({
+let EventSchema = new Schema({
   id: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    index: true
   },
   name: {
     type: String,
@@ -28,5 +31,7 @@ var EventSchema = new Schema({
     default: Date.now
   },
 });
+
+EventSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Event', EventSchema);

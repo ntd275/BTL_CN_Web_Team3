@@ -12,6 +12,12 @@ module.exports = function(app) {
     .put(eventCtr.update_a_event)
     .delete(eventCtr.delete_a_event);
 
+  app.route('/eventspage/:pagenum')
+    .get(eventCtr.get_page);
+    
+  app.route('/cmtevents')
+    .post(eventCtr.post_cmt);
+
   let newsCtr = require('../controllers/newsController');
 
   app.route('/news')
