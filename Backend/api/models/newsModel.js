@@ -1,6 +1,7 @@
 'use strict';
 let mongoose = require('../db');
 let Schema = mongoose.Schema;
+let mongoosePaginate = require('mongoose-paginate');
 
 
 let NewsSchema = new Schema({
