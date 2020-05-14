@@ -1,3 +1,4 @@
+'use strict';
 let multer = require('multer');
 let path = require('path');
 

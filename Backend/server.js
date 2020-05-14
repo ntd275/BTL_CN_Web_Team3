@@ -1,11 +1,14 @@
+'use strict';
+require('dotenv').config();
+
 let express = require('express'),
     app = express(),
     port = process.env.PORT || 3000,
     bodyParser = require('body-parser'),
+    cors = require('cors'),
     path = require('path');
-    
-require('dotenv').config();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/uploads',express.static(path.join(__dirname, 'uploads')));

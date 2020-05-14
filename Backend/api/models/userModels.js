@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 let mongoosePaginate = require('mongoose-paginate');
 
 
-let NewsSchema = new Schema({
+let UserSchema = new Schema({
   id: {
     type: String,
     required: true,
@@ -13,7 +13,16 @@ let NewsSchema = new Schema({
     type: String,
     required: true,
   },
-  content: {
+  username: {
+    type: String, 
+    required: true, 
+    index: { unique: true }
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
   },
   Created_date: {
@@ -22,6 +31,4 @@ let NewsSchema = new Schema({
   },
 });
 
-NewsSchema.plugin(mongoosePaginate);
-
-module.exports = mongoose.model('News', NewsSchema);
+module.exports = mongoose.model('User', UserSchema);
