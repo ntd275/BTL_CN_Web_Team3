@@ -5,18 +5,22 @@ let mongoose = require('../db'),
 
 
 exports.get_all_event = function (req, res) {
+  // console.log(req);
   Event.find({}, function (err, data) {
     if (err)
       res.send(err);
     res.json(data);
   });
 };
-
+;
 exports.create_a_event = function (req, res) {
+  console.log(req.body);
   let new_event = new Event(req.body);
   new_event.save(function (err, data) {
     if (err)
       res.send(err);
+      console.log("day la data: ");
+      console.log(data);
     res.json(data);
   });
 };

@@ -4,7 +4,6 @@ import Homepage from "./component/Homepage"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./CSS/navbar.css";
 import Contact from './component/Contact';
-import Nothing from "./component/Nothing"
 import Footer from './component/Footer';
 import {
   BrowserRouter as Router,
@@ -20,7 +19,8 @@ import Partners from './component/Partners';
 import Search from './component/Search';
 import Article from './component/Article';
 import Event from './component/Event';
-import Calendar from './component/Calendar';
+import Adminlogin from './component/Adminlogin';
+import Calendarpage from './component/Calendarpage';
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <Navbar />
         <Switch >
           <Route path="/" exact component={Homepage} />
-          <Route path="/calendar" exact component={Calendar} />
+          <Route path="/calendar" exact component={Calendarpage} />
           <Route path="/categories" exact component={Categories} />
           <Route path="/news" exact component={News} />
           <Route path="/partners" exact component={Partners} />
@@ -37,8 +37,10 @@ function App() {
           <Route path="/find" exact component={Search} />
           <Route path="/news/123" exact component={Article} />
           <Route path="/categories/123" exact component={Event} />
+          <Route path="/admin" exact component={Adminlogin} />
         </Switch >
-        <Footer/>
+        <Footer />
+
       </div>
     </Router>
   );

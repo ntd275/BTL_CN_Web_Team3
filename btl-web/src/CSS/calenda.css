@@ -17,7 +17,6 @@
     padding: 0;
     display: block;
     overflow: hidden;
-    position: absolute;
     border-collapse: separate;
     font-family: "Open Sans", Calibri, Arial, sans-serif;
     background-color: #ffffff;
@@ -44,7 +43,7 @@
     display: table;
     border-spacing: 0;
     border-collapse: separate;
-    background-color: #cd283c;
+    background-color: yellowgreen;
     border-radius: 3px 3px 0 0;
     -webkit-border-radius: 3px 3px 0 0;
   }
@@ -70,27 +69,7 @@
   .tail-datetime-calendar .calendar-navi span:hover {
     background-color: rgba(0, 0, 0, 0.15);
   }
-  .tail-datetime-calendar .calendar-navi span.button-prev {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
-      9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iT\
-      TYgMkwwIDhsNiA2VjJ6Ii8+PC9zdmc+");
-  }
-  .tail-datetime-calendar .calendar-navi span.button-next {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
-      9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iT\
-      TAgMTRsNi02LTYtNnYxMnoiLz48L3N2Zz4=");
-  }
-  .tail-datetime-calendar .calendar-navi span.button-check {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
-      9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkP\
-      SJNMTIgNWwtOCA4LTQtNCAxLjUtMS41TDQgMTBsNi41LTYuNUwxMiA1eiIvPjwvc3ZnPg==");
-  }
-  .tail-datetime-calendar .calendar-navi span.button-close {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
-      9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkP\
-      SJNNy40OCA4bDMuNzUgMy43NS0xLjQ4IDEuNDhMNiA5LjQ4bC0zLjc1IDMuNzUtMS40OC0xLjQ4TDQuNTIgOCAuNzcgNC4y\
-      NWwxLjQ4LTEuNDhMNiA2LjUybDMuNzUtMy43NSAxLjQ4IDEuNDhMNy40OCA4eiIvPjwvc3ZnPg==");
-  }
+  
   .tail-datetime-calendar .calendar-date {
     margin: 0;
     padding: 0;
@@ -125,13 +104,13 @@
   }
   .tail-datetime-calendar .calendar-date table tbody tr > * > span {
     color: inherit;
-    z-index: 10;
+    z-index: 0;
     position: relative;
   }
   /* Select a Day */
   .tail-datetime-calendar .calendar-date table tbody tr > *::after {
     top: 3px;
-    left: 3px;
+    left: 38px;
     width: 29px;
     height: 29px;
     content: "";
@@ -275,4 +254,3 @@
     line-height: 12px;
   }
   /* @end tail.DateTime */
-  

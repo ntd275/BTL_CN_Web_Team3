@@ -257,13 +257,13 @@ class Calendar extends Component {
                             this.onPrev();
                         }}
                         class="calendar-button button-prev"
-                    />
+                    >&lt;</span>
                     {!this.state.showMonthTable && !this.state.showYearEditor && (
                         <span
                             onClick={e => {
                                 this.showMonth();
                             }}
-                            class="calendar-label"
+                            className="calendar-label"
                         >
                             {this.month()},
                         </span>
@@ -276,13 +276,12 @@ class Calendar extends Component {
                     >
                         {this.year()}
                     </span>
-
                     <span
                         onClick={e => {
                             this.onNext();
                         }}
                         className="calendar-button button-next"
-                    />
+                    >&gt;</span>
                 </div>
                 <div className="calendar-date">
                     {this.state.showYearNav && <this.YearTable props={this.year()} />}
