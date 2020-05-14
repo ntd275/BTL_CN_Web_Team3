@@ -1,13 +1,12 @@
 'use strict';
 let mongoose = require('../db');
 let Schema = mongoose.Schema;
-let mongoosePaginate = require('mongoose-paginate');
 
-
+//Tạo Schema cho user
 let UserSchema = new Schema({
   id: {
-    type: String,
-    required: true,
+    type: String, //Kiểu dữ liệu
+    required: true, //Bắt buộc phải có
   },
   name: {
     type: String,
@@ -16,7 +15,7 @@ let UserSchema = new Schema({
   username: {
     type: String, 
     required: true, 
-    index: { unique: true }
+    index: { unique: true } // các user name phải phân biệt
   },
   password: {
     type: String,
@@ -27,8 +26,10 @@ let UserSchema = new Schema({
   },
   Created_date: {
     type: Date,
-    default: Date.now
+    default: Date.now // Ngày tạo mặc định
   },
 });
+
+
 
 module.exports = mongoose.model('User', UserSchema);

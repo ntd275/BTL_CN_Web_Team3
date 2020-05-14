@@ -6,8 +6,8 @@ let mongoosePaginate = require('mongoose-paginate');
 
 let NewsSchema = new Schema({
   id: {
-    type: String,
-    required: true,
+    type: String, // Kiểu dữ liệu
+    required: true, // Bắt buộc có
   },
   name: {
     type: String,
@@ -18,10 +18,11 @@ let NewsSchema = new Schema({
   },
   Created_date: {
     type: Date,
-    default: Date.now
+    default: Date.now // Ngày tạo mặc định
   },
 });
 
+//Thêm plugin phân trang
 NewsSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('News', NewsSchema);
