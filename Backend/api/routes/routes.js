@@ -1,14 +1,17 @@
 'use strict';
 let AuthMiddleWare = require("../../middleware/authMiddleware");
-module.exports = function(app) {
+module.exports = function (app) {
 
   let eventCtr = require('../controllers/eventController');
 
   app.route('/events')
     .get(eventCtr.get_all_event);
-  
+
   app.route('/events/:eventId')
     .get(eventCtr.get_a_event);
+
+  app.route('/cmtevents')
+    .post(eventCtr.post_cmt);
 
   app.route('/eventspage/:pagenum')
     .get(eventCtr.get_page);
@@ -17,7 +20,10 @@ module.exports = function(app) {
 
   app.route('/news')
     .get(newsCtr.get_all_news);
-  
+
+  app.route('/newspage/:pagenum')
+    .get(newsCtr.get_page);
+
   app.route('/news/:newsId')
     .get(newsCtr.get_a_news);
 
@@ -29,18 +35,15 @@ module.exports = function(app) {
   app.route('/register')
     .post(authCtr.register);
 
-  
+
   //Need token
   app.use(AuthMiddleWare.isAuth);
- 
+
   app.route('/events').post(eventCtr.create_a_event);
 
   app.route('/events/:eventId')
     .put(eventCtr.update_a_event)
     .delete(eventCtr.delete_a_event);
-
-  app.route('/cmtevents')
-    .post(eventCtr.post_cmt);
 
   app.route('/news')
     .post(newsCtr.create_a_news);
@@ -50,11 +53,11 @@ module.exports = function(app) {
     .delete(newsCtr.delete_a_news);
 
   let uploadCtr = require('../controllers/uploadController');
-  
+
   app.route('/upload')
     .post(uploadCtr.upload_a_photo);
 
   app.route('/logout')
     .post(authCtr.logout);
-  
+
 };

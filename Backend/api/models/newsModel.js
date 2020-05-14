@@ -21,4 +21,6 @@ let NewsSchema = new Schema({
   },
 });
 
+NewsSchema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model('News', NewsSchema);
