@@ -21,24 +21,12 @@ app.use(bodyParser.json());
 
 //Cho phép truy cập các ảnh đã upload lên bằng link
 app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
-<<<<<<< HEAD
 
 //Route
 let routes = require('./api/routes/routes');
 routes(app);
  
 //trả về 404 nếu đường dẫn không tồn tại
-=======
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
- });
-let routes = require('./api/routes/routes');
-routes(app);
-
-
->>>>>>> ea295d0cc0bf913de942f2bfd3464945a435142e
 app.use(function (req, res) {
     res.status(404).send({ url: req.originalUrl + ' not found' })
 });
