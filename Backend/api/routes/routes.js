@@ -8,9 +8,19 @@ module.exports = function (app) {
   app.route('/events')
     .get(eventCtr.get_all_event);
 
+<<<<<<< HEAD
   //API lấy 1 event theo id
+=======
+<<<<<<< HEAD
+  app.route('/events/:eventId')// hapi để làm gì
+    .get(eventCtr.get_a_event)
+    .put(eventCtr.update_a_event)
+    .delete(eventCtr.delete_a_event);
+=======
+>>>>>>> ea295d0cc0bf913de942f2bfd3464945a435142e
   app.route('/events/:eventId')
     .get(eventCtr.get_a_event);
+>>>>>>> 8dfc751533f68091682fe9be47591886869c03c5
 
   //API để comment vào 1 event
   app.route('/cmtevents')

@@ -8,7 +8,7 @@ function New() {
       <div className="info-new">
         <div>
           <div>
-            <h3>Triển lãm nghệ thuật cửng dái</h3>
+            <h3>Triển lãm nghệ thuật hửng nắng</h3>
           </div>
           <div style={{ display: "flex" }}>
             <div className="date" style={{ fontStyle: "italic" }}>

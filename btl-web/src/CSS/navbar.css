@@ -2,7 +2,6 @@
   padding: 0;
   border: 0;
   margin: 0;
-  box-sizing: border-box;
   font-family: "montserrat", sans-serif;
 }
 a {
@@ -60,7 +59,7 @@ a {
   z-index: -111;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .show-menu-btn,
   .hide-menu-btn {
     display: block;

@@ -7,7 +7,7 @@ class SlideCategories extends Component {
         <div className="card-normal">
           <a href="#">
             <img src="images/images1.jpg" alt="abc" />
-            <h3>Triển lãm nghệ thuật cửng dái</h3>
+            <h3>Triển lãm nghệ thuật hửng nắng</h3>
           </a>
           <div className="about">
             <div className="date" style={{ fontStyle: "italic" }}>
@@ -27,7 +27,7 @@ class SlideCategories extends Component {
         <div className="card-normal card2">
           <a href="#">
             <img src="images/images2.jpg" alt="" />
-            <h3>Triển lãm nghệ thuật cửng dái</h3>
+            <h3>Triển lãm nghệ thuật hửng nắng</h3>
           </a>
           <div className="about">
             <div className="date" style={{ fontStyle: "italic" }}>

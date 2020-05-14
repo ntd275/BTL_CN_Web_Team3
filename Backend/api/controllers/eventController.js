@@ -5,7 +5,11 @@ let mongoose = require('../db'),
 
 
 exports.get_all_event = function (req, res) {
+<<<<<<< HEAD
   //Tìm hết tất cả event trong DB
+=======
+  // console.log(req);
+>>>>>>> ea295d0cc0bf913de942f2bfd3464945a435142e
   Event.find({}, function (err, data) {
     if (err)
       //Trả về nếu bị lỗi
@@ -14,16 +18,25 @@ exports.get_all_event = function (req, res) {
     res.json(data);
   });
 };
-
+;
 exports.create_a_event = function (req, res) {
+<<<<<<< HEAD
   //Tạo 1 sự kiện mới
+=======
+  console.log(req.body);
+>>>>>>> ea295d0cc0bf913de942f2bfd3464945a435142e
   let new_event = new Event(req.body);
   //Lưu vào DB
   new_event.save(function (err, data) {
     if (err)
       //Trả về nếu lỗi
       res.send(err);
+<<<<<<< HEAD
     //Trả về bản ghi nếu không lỗi
+=======
+      console.log("day la data: ");
+      console.log(data);
+>>>>>>> ea295d0cc0bf913de942f2bfd3464945a435142e
     res.json(data);
   });
 };

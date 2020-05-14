@@ -30,7 +30,7 @@ class WhatsNew extends Component {
                     <div className="btn-group button-group btn-new" >
                         <button type="button" onClick={this.changeHN}  className="btn btn-success ">Hà Nội</button>
                         <button type="button" onClick={this.changeHCM}  className="btn btn-success">HCM</button>
-                        <button type="button" className="btn btn-success"><a href="">Lịch đầy đủ</a></button>
+                        <a href=""><button type="button" className="btn btn-success">Lịch đầy đủ</button></a>
                     </div>
                     <WhatsNewHN />
                 </div>
