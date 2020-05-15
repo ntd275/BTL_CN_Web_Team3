@@ -2,18 +2,26 @@
 
 let jwt = require('jsonwebtoken');
 
+//Tạo token
 exports.generateToken = function(user, secretSignature, tokenLife){
     return new Promise((resolve, reject) => {
+        //Dữ liệu user lưu vào token
         const userData = {
-            _id: user._id,
+            id: user.id,
             name: user.name,
             email: user.email,
+            username: user.username,
         }
+
+        //Sinh token
         jwt.sign(
             { data: userData },
             secretSignature,
             {
+                //Thuật toán mã hóa
                 algorithm: "HS256",
+
+                //Thời gian sống của token
                 expiresIn: tokenLife,
             },
             (error, token) => {
@@ -25,6 +33,7 @@ exports.generateToken = function(user, secretSignature, tokenLife){
     });
 }
 
+// Kiểm tra token
 exports.verifyToken = function(token, secretKey){
     return new Promise((resolve, reject) => {
         jwt.verify(token, secretKey, (error, decoded) => {
