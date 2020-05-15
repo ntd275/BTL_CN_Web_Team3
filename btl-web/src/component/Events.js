@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import WhatsNew from "./WhatsNew";
 import Slide from "./Slide";
-import New from "./NewComponent";
 import { Link } from "react-router-dom";
-import { getNews } from "../API/api";
+import { getEvents } from "../API/api";
+import Event from "./Event";
 
-class News extends Component {
+class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ class News extends Component {
     const currentPage = this.props.match.params.id || 1;
 
     if (currentPage !== this.state.pager.currentPage) {
-      const news = await getNews({ currentPage });
+      const news = await getEvents({ currentPage });
       var rank = [];
       for (let i = 1; i <= news.data.pages; i++) rank.push(i);
 
@@ -56,7 +56,7 @@ class News extends Component {
   render() {
     const { pager, pageOfItems } = this.state;
     var elmTasks = pageOfItems.map((doc, index) => {
-      return <New key={index} new={doc} />;
+      return <Event key={index} event={doc} />;
     });
 
     return (
@@ -166,4 +166,4 @@ class News extends Component {
   }
 }
 
-export default News;
+export default Events;

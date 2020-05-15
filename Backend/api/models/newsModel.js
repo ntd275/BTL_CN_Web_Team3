@@ -14,7 +14,7 @@ let NewsSchema = new Schema({
     required: true,
   },
   content: {
-    type: String,
+    type: Array,
   },
   Created_date: {
     type: Date,

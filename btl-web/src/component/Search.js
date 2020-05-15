@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WhatsNew from "./WhatsNew";
-import New from "./New";
+import New from "./NewComponent";
 
 class Search extends Component {
   render() {

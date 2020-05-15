@@ -283,6 +283,7 @@ hr {
 }
 
 .social-sharing {
+  margin-top: 20px;
   margin-bottom: 42px;
 }
 
@@ -294,7 +295,10 @@ hr {
   background-color: #fcfcfc;
   padding: 4px 2px 4px 10px;
   display: flex;
+  flex-direction: center;
+  align-items: center;
 }
+
 
 .social-sharing-twitter {
   color: white;

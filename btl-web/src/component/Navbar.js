@@ -21,7 +21,7 @@ class Navbar extends Component {
                     <Link to="/categories" exact>
                         <a href="#">Chuyên mục</a>
                     </Link>
-                    <Link to="/news" exact>
+                    <Link to="/newspage" exact>
                         <a href="#">Tin tức</a>
                     </Link>
                     <Link to="/partners" exact>

@@ -1,6 +1,6 @@
-'use strict';
-let mongoose = require('../db');
-let mongoosePaginate = require('mongoose-paginate');
+"use strict";
+let mongoose = require("../db");
+let mongoosePaginate = require("mongoose-paginate");
 let Schema = mongoose.Schema;
 
 let EventSchema = new Schema({
@@ -8,30 +8,39 @@ let EventSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    index: true
+    index: true,
   },
-  name: {
+  image: {
     type: String,
-    required: true
+    required: true,
   },
-  type: {
-      type: String,
+  title: {
+    type: String,
   },
-  date: {
-      type: Date,
+  start_time: {
+    type: Date,
+  },
+  finish_time: {
+    type: Date,
+  },
+  address: {
+    type: String,
+  },
+  locate: {
+    type: String,
   },
   content: {
-      type: String,
+    type: Array,
   },
-  comment: {
-      type: [],
+  category: {
+    type: String,
   },
-  Created_date: {
+  created_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 
 EventSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('Event', EventSchema);
+module.exports = mongoose.model("Event", EventSchema);
