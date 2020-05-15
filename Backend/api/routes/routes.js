@@ -12,6 +12,14 @@ module.exports = function (app) {
   app.route('/events/:eventId')
     .get(eventCtr.get_a_event);
 
+  //API lấy tất cả theo category
+  app.route('/eventscat/:category')
+    .get(eventCtr.get_all_by_category);
+  
+  //APi lấy một trang trong category
+  app.route('/eventscat/:category/:pagenum')
+    .get(eventCtr.get_page_by_category);
+
   //API để comment vào 1 event
   app.route('/cmtevents')
     .post(eventCtr.post_cmt);

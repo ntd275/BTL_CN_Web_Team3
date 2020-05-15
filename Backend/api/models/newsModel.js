@@ -1,7 +1,8 @@
 'use strict';
 let mongoose = require('../db');
-let Schema = mongoose.Schema;
 let mongoosePaginate = require('mongoose-paginate');
+let autoIncrement = require('mongoose-auto-increment');
+let Schema = mongoose.Schema;
 
 
 let NewsSchema = new Schema({
@@ -9,12 +10,19 @@ let NewsSchema = new Schema({
     type: String, // Kiểu dữ liệu
     required: true, // Bắt buộc có
   },
+  user_create: {
+    type: String,
+    require: true,
+  },
   name: {
     type: String,
     required: true,
   },
-  content: {
+  image: {
     type: String,
+  },
+  content: {
+    type: [],
   },
   Created_date: {
     type: Date,
@@ -24,5 +32,7 @@ let NewsSchema = new Schema({
 
 //Thêm plugin phân trang
 NewsSchema.plugin(mongoosePaginate);
+//Thêm plugin tự động tăng id
+NewsSchema.plugin(autoIncrement.plugin, { model: 'News', field: 'id' });
 
 module.exports = mongoose.model('News', NewsSchema);

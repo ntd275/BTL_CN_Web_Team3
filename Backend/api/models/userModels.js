@@ -1,5 +1,6 @@
 'use strict';
 let mongoose = require('../db');
+let autoIncrement = require('mongoose-auto-increment');
 let Schema = mongoose.Schema;
 
 //Tạo Schema cho user
@@ -30,6 +31,7 @@ let UserSchema = new Schema({
   },
 });
 
-
+//Thêm plugin tự động tăng id
+UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'id' });
 
 module.exports = mongoose.model('User', UserSchema);
