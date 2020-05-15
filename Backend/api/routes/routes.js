@@ -7,15 +7,8 @@ module.exports = function (app) {
   app.route('/events')
     .get(eventCtr.get_all_event);
 
-<<<<<<< HEAD
-  app.route('/events/:eventId')// hapi để làm gì
-    .get(eventCtr.get_a_event)
-    .put(eventCtr.update_a_event)
-    .delete(eventCtr.delete_a_event);
-=======
   app.route('/events/:eventId')
     .get(eventCtr.get_a_event);
->>>>>>> 8dfc751533f68091682fe9be47591886869c03c5
 
   app.route('/cmtevents')
     .post(eventCtr.post_cmt);
