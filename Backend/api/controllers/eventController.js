@@ -92,6 +92,28 @@ exports.get_page_by_category = function(req, res){
   });
 }
 
+exports.prev_event = function(req, res){
+  Event.findOne({ id: {$lt:req.params.eventId} },null,{sort:{id:-1}}, function (err, data) {
+    if (err)
+      //Trả về nếu lỗi
+      res.send(err);
+    else
+    //Trả về bản ghi nếu không lỗi
+    res.json(data);
+  });
+}
+
+exports.next_event = function(req, res){
+  Event.findOne({ id: {$gt:req.params.eventId} },null,{sort:{id:1}}, function (err, data) {
+    if (err)
+      //Trả về nếu lỗi
+      res.send(err);
+    else
+    //Trả về bản ghi nếu không lỗi
+    res.json(data);
+  });
+}
+
 exports.post_cmt = async function (req, res) {
   try {
     //Tìm bản ghi bằng id

@@ -8,6 +8,10 @@ module.exports = function (app) {
   app.route('/events')
     .get(eventCtr.get_all_event);
 
+  //API phân trang event
+  app.route('/eventspage/:pagenum')
+    .get(eventCtr.get_page);
+
   //API lấy 1 event theo id
   app.route('/events/:eventId')
     .get(eventCtr.get_a_event);
@@ -20,13 +24,19 @@ module.exports = function (app) {
   app.route('/eventscat/:category/:pagenum')
     .get(eventCtr.get_page_by_category);
 
+  //API lấy bài tiếp theo
+  app.route('/nextevent/:eventId')
+    .get(eventCtr.next_event);
+  
+  //API lấy bài trước
+  app.route('/prevevent/:eventId')
+    .get(eventCtr.prev_event);
+
   //API để comment vào 1 event
   app.route('/cmtevents')
     .post(eventCtr.post_cmt);
 
-  //API phân trang event
-  app.route('/eventspage/:pagenum')
-    .get(eventCtr.get_page);
+  
 
   let newsCtr = require('../controllers/newsController');
 
