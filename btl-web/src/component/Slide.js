@@ -12,7 +12,7 @@ function Slide() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="images/images1.jpg"
+            src="https://hanoigrapevine.com/wp-content/uploads/2020/02/tuan-le-phim-t%C3%ACnh-y%C3%AAu-700x357.jpg"
             alt="First slide"
           />
           <Carousel.Caption>
@@ -23,7 +23,7 @@ function Slide() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="images/images2.jpg"
+            src="https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg"
             alt="Second slide"
           />
   
@@ -35,7 +35,7 @@ function Slide() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="images/images3.jpg"
+            src="https://hanoigrapevine.com/wp-content/uploads/2020/03/02-700x357.jpg"
             alt="Third slide"
           />
   
