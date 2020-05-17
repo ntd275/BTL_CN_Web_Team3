@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import WhatsNew from "./WhatsNew";
 import Slide from "./Slide";
-import New from "./NewComponent";
 import { Link } from "react-router-dom";
 import { getNews } from "../API/api";
+import NewComponent from "./NewComponent";
 
 class News extends Component {
   constructor(props) {
     super(props);
+    this._isMounted = false;
     this.state = {
       pager: {
         totalItems: 0,
@@ -21,11 +22,18 @@ class News extends Component {
         pages: [],
       },
       pageOfItems: [],
+      isLoading: true
     };
   }
 
-  componentWillMount() {
-    this.loadPage();
+  componentDidMount() {
+    !this._isMounted && this.loadPage();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params !== prevProps.match.params) {
+      this.loadPage();
+    }
   }
 
   async loadPage() {
@@ -43,20 +51,18 @@ class News extends Component {
           currentPage: parseInt(currentPage),
           totalPages: news.data.pages,
         },
+        isLoading: false
       });
     }
   }
-
-  onClick(id) {
-    console.log(id)
-    window.location.href = 'http://localhost:3000/newspage/' + id;
-    window.scrollTo(0, 0);
-  };
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   render() {
     const { pager, pageOfItems } = this.state;
     var elmTasks = pageOfItems.map((doc, index) => {
-      return <New key={index} new={doc} />;
+      return <NewComponent key={index} new={doc} />;
     });
 
     return (
@@ -82,7 +88,6 @@ class News extends Component {
                     <Link
                       to="/newspage/1"
                       className="page-link"
-                      onClick={() => this.onClick(1)}
                     >
                       First
                     </Link>
@@ -98,7 +103,6 @@ class News extends Component {
                     <Link
                       to={`/newspage/${pager.currentPage - 1}`}
                       className="page-link"
-                      onClick={() => this.onClick(pager.currentPage - 1)}
                     >
                       Previous
                     </Link>
@@ -116,7 +120,6 @@ class News extends Component {
                       <Link
                         to={`/newspage/${page}`}
                         className="page-link"
-                        onClick={() => this.onClick(page)}
                       >
                         {page}
                       </Link>
@@ -133,7 +136,6 @@ class News extends Component {
                     <Link
                       to={`/newspage/${pager.currentPage + 1}`}
                       className="page-link"
-                      onClick={() => this.onClick(pager.currentPage + 1)}
                     >
                       Next
                     </Link>
@@ -149,7 +151,6 @@ class News extends Component {
                     <Link
                       to={`/newspage/${pager.totalPages}`}
                       className="page-link"
-                      onClick={() => this.onClick(pager.totalPages)}
                     >
                       Last
                     </Link>

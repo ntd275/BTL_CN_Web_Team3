@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import { FaComments } from "react-icons/fa";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 class EventComponent extends Component {
-  onClick(id) {
-    console.log(id);
-    window.location.href = "http://localhost:3000/event/" + id;
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const event = this.props.event;
     return (
@@ -17,12 +12,13 @@ class EventComponent extends Component {
         <div className="info-new">
           <div>
             <div>
-              <h3>{event.title}</h3>
+              <h3 style={{marginBottom : '0'}}>{event.title}</h3>
             </div>
             <div style={{ display: "flex" }}>
               <div className="date" style={{ fontStyle: "italic" }}>
                 <small>
-                  {moment(event.created_date).format("LL")} &nbsp;
+                  Thời gian: {moment(event.start_time).format("LL")} -{" "}
+                  {moment(event.finish_time).format("LL")} - &nbsp;
                 </small>
               </div>
               <div>
@@ -30,18 +26,24 @@ class EventComponent extends Component {
                 <small> (10)</small>
               </div>
             </div>
+            <div>
+              <small style={{ fontStyle: "italic" }}>
+                Địa điểm: {event.address}
+              </small>
+            </div>
           </div>
 
           <div>
             <p>{event.content[0].paragraph.substr(0, 120)}...</p>
+            <a href={`/events/${event.id}`}>
             <button
               type="button"
               className="btn btn-danger"
               style={{ backgroundColor: "#9acd32", border: "none" }}
-              onClick={() => this.onClick(event.id)}
             >
               Chi tiết
             </button>
+            </a>
           </div>
         </div>
       </div>

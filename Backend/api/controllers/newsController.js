@@ -13,7 +13,6 @@ exports.get_all_news = function(req, res) {
 
 exports.get_page = function (req, res) {
   News.paginate({}, { page: req.params.pagenum, limit: 8 }, function (err, data) {
-    console.log(data);
     if (err)
       res.send(err);
     res.json(data);

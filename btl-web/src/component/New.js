@@ -24,7 +24,7 @@ class New extends Component {
 
   render() {
     const { newspaper, content } = this.state;
-    console.log(content);
+
     var elmNew = content.map((element) => {
       console.log(element.paragraph);
       if (typeof element.paragraph === "undefined") {
@@ -80,11 +80,7 @@ class New extends Component {
             <div className="pre-next-box-article">
               <div className="pre-article">
                 <div>
-                  <img
-                    src="https://hanoigrapevine.com/wp-content/themes/Newspaper/images/icons/similar-left@2x.png"
-                    alt=""
-                    className="img-pre-article"
-                  />
+                  <i className="fa fa-chevron-left"></i>
                   TRƯỚC
                 </div>
                 <a href="123">Chiếu phim "The Meeting" của Alan Gilsenan</a>
@@ -92,11 +88,7 @@ class New extends Component {
               <div className="next-article">
                 <div>
                   SAU
-                  <img
-                    src="https://hanoigrapevine.com/wp-content/themes/Newspaper/images/icons/similar-right@2x.png"
-                    alt=""
-                    className="img-next-article"
-                  />
+                  <i className="fa fa-chevron-right"></i>
                 </div>
                 <a href="123">Chiếu phim "The Meeting" của Alan Gilsenan</a>
               </div>

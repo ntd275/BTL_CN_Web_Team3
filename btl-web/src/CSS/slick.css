@@ -1,0 +1,33 @@
+.slick-next,
+.slick-prev {
+  top: -5%;
+}
+.slick-next {
+  right: 0;
+  text-align: left;
+  width: 8.6%;
+}
+.slick-prev {
+  left: 0;
+  text-align: right;
+  margin-right: 1.4%;
+  width: 90%;
+}
+.slick-prev:before,
+.slick-next:before {
+  font-family: "FontAwesome";
+  font-size: 19px;
+  color: #9acd32;
+  line-height: 1;
+  opacity: 0.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: bolder;
+}
+
+.slick-prev:before {
+  content: "\f053";
+}
+.slick-next:before {
+  content: "\f054";
+}

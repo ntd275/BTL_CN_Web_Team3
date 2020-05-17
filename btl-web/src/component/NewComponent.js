@@ -1,15 +1,8 @@
 import React, { Component } from "react";
-import { FaComments } from "react-icons/fa";
 import moment from "moment";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class NewComponent extends Component {
-  onClick(id) {
-    console.log(id);
-    window.location.href = "http://localhost:3000/news/" + id;
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const newspaper = this.props.new;
     return (
@@ -18,7 +11,7 @@ class NewComponent extends Component {
         <div className="info-new">
           <div>
             <div>
-              <h3>{newspaper.name}</h3>
+              <h3 style={{ marginBottom: "0" }}>{newspaper.name}</h3>
             </div>
             <div style={{ display: "flex" }}>
               <div className="date" style={{ fontStyle: "italic" }}>
@@ -30,15 +23,16 @@ class NewComponent extends Component {
           </div>
 
           <div>
-            <p>{newspaper.content[0].paragraph.substr(0, 120)}...</p>
-            <button
-              type="button"
-              className="btn btn-danger"
-              style={{ backgroundColor: "#9acd32", border: "none" }}
-              onClick={() => this.onClick(newspaper.id)}
-            >
-              Chi tiết
-            </button>
+            <p>{newspaper.content[0].paragraph.substr(0, 210)}...</p>
+            <a href={`/news/${newspaper.id}`}>
+              <button
+                type="button"
+                className="btn btn-danger"
+                style={{ backgroundColor: "#9acd32", border: "none" }}
+              >
+                Chi tiết
+              </button>
+            </a>
           </div>
         </div>
       </div>

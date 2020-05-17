@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import WhatsNew from "./WhatsNew";
 import Slide from "./Slide";
 import { Link } from "react-router-dom";
-import { getEvents } from "../API/api";
-import Event from "./Event";
+import { getAllEvents, getEventsCategory } from "../API/api";
+import EventComponent from "./EventComponent";
 
 class Events extends Component {
   constructor(props) {
     super(props);
+    this._isMounted = false;
     this.state = {
       pager: {
         totalItems: 0,
@@ -21,51 +22,109 @@ class Events extends Component {
         pages: [],
       },
       pageOfItems: [],
+      currentURL: "",
+      isLoading: true,
+      flagLink: -1
     };
   }
 
-  componentWillMount() {
-    this.loadPage();
+  componentDidMount() {
+    !this._isMounted && this.loadPage();
   }
 
-  async loadPage() {
-    const currentPage = this.props.match.params.id || 1;
-
-    if (currentPage !== this.state.pager.currentPage) {
-      const news = await getEvents({ currentPage });
-      var rank = [];
-      for (let i = 1; i <= news.data.pages; i++) rank.push(i);
-
-      this.setState({
-        pageOfItems: news.data.docs,
-        pager: {
-          pages: rank,
-          currentPage: parseInt(currentPage),
-          totalPages: news.data.pages,
-        },
-      });
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params !== prevProps.match.params) {
+      this.loadPage();
     }
   }
 
-  onClick(id) {
-    console.log(id)
-    window.location.href = 'http://localhost:3000/newspage/' + id;
-    window.scrollTo(0, 0);
-  };
+  async loadPage() {
+    if (this.props.match.path === "/eventspage/:id") {
+      const currentPage = this.props.match.params.id || 1;
+      if (currentPage !== this.state.pager.currentPage) {
+        const events = await getAllEvents({ currentPage });
+
+        let rank = [];
+        for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+
+        this.setState({
+          pageOfItems: events.data.docs,
+          pager: {
+            pages: rank,
+            currentPage: parseInt(currentPage),
+            totalPages: events.data.pages,
+          },
+          currentURL: "eventspage",
+          isLoading: false,
+          flagLink : 0  
+        });
+      }
+    } else {
+      const currentPage = this.props.match.params.id || 1;
+      const category = this.props.match.params.category;
+      if (currentPage !== this.state.pager.currentPage) {
+        const events = await getEventsCategory({ category, currentPage });
+        console.log(events);
+        let rank = [];
+        for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+
+        this.setState({
+          pageOfItems: events.data.docs,
+          pager: {
+            pages: rank,
+            currentPage: parseInt(currentPage),
+            totalPages: events.data.pages,
+          },
+          currentURL: "eventscat/" + category,
+          isLoading: false,
+          flagLink: category
+        });
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   render() {
-    const { pager, pageOfItems } = this.state;
+    const { pager, pageOfItems, currentURL, flagLink } = this.state;
     var elmTasks = pageOfItems.map((doc, index) => {
-      return <Event key={index} event={doc} />;
+      return <EventComponent key={index} event={doc} />;
     });
-
+    console.log(flagLink)
     return (
       <div className="content">
         <div className="big">
           <div className="slide">
             <Slide />
           </div>
-
+          <div className="title">
+            <a href>Danh sách sự kiện</a>
+          </div>
+          <hr />
+          <div className="menu" style={{ marginBottom: "-30px" }}>
+            <ul>
+              <li>
+                <Link to="/eventspage/1" className={flagLink == 0 ? "event-link" : ""}>All</Link>
+              </li>
+              <li>
+                <Link to="/eventscat/1/1" className={flagLink == 1 ? "event-link" : ""}>Mĩ thuật</Link>
+              </li>
+              <li>
+                <Link to="/eventscat/2/1" className={flagLink == 2 ? "event-link" : ""}>Cho trẻ em</Link>
+              </li>
+              <li>
+                <Link to="/eventscat/3/1" className={flagLink == 3 ? "event-link" : ""}>Văn học</Link>
+              </li>
+              <li>
+                <Link to="/eventscat/4/1" className={flagLink == 4 ? "event-link" : ""}>Âm nhạc</Link>
+              </li>
+              <li>
+                <Link to="/eventscat/5/1" className={flagLink == 5 ? "event-link" : ""}>Nhiếp ảnh, Phim, Video</Link>
+              </li>
+            </ul>
+          </div>
           <div className="news">{elmTasks}</div>
 
           <div className="row">
@@ -80,9 +139,8 @@ class Events extends Component {
                     }`}
                   >
                     <Link
-                      to="/newspage/1"
+                      to={`/${currentURL}/1`}
                       className="page-link"
-                      onClick={() => this.onClick(1)}
                     >
                       First
                     </Link>
@@ -96,9 +154,8 @@ class Events extends Component {
                     }`}
                   >
                     <Link
-                      to={`/newspage/${pager.currentPage - 1}`}
+                      to={`/${currentURL}/${pager.currentPage - 1}`}
                       className="page-link"
-                      onClick={() => this.onClick(pager.currentPage - 1)}
                     >
                       Previous
                     </Link>
@@ -114,9 +171,8 @@ class Events extends Component {
                       }`}
                     >
                       <Link
-                        to={`/newspage/${page}`}
+                        to={`/${currentURL}/${page}`}
                         className="page-link"
-                        onClick={() => this.onClick(page)}
                       >
                         {page}
                       </Link>
@@ -131,9 +187,8 @@ class Events extends Component {
                     }`}
                   >
                     <Link
-                      to={`/newspage/${pager.currentPage + 1}`}
+                      to={`/${currentURL}/${pager.currentPage + 1}`}
                       className="page-link"
-                      onClick={() => this.onClick(pager.currentPage + 1)}
                     >
                       Next
                     </Link>
@@ -147,9 +202,8 @@ class Events extends Component {
                     }`}
                   >
                     <Link
-                      to={`/newspage/${pager.totalPages}`}
+                      to={`/${currentURL}/${pager.totalPages}`}
                       className="page-link"
-                      onClick={() => this.onClick(pager.totalPages)}
                     >
                       Last
                     </Link>

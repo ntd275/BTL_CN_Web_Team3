@@ -34,17 +34,17 @@ function App() {
           <Route path="/calendar" exact component={Calendarpage} />
           <Route path="/categories" exact component={Categories} />
 
-          <Route path="/events/:id" component={Events}/>
-          <Route path="/eventscat/:category/:id" component={Events}/>
+          <Route path="/eventspage/:id" exact component={Events}/>
+          <Route path="/eventscat/:category/:id" exact component={Events}/>
 
-          <Route path="/event/:id" exact component={Event} />
+          <Route path="/events/:id" exact component={Event} />
 
-          <Route path="/newspage/:id" component={News} />
-          <Route path="/newspage"><Redirect to="/newspage/1" /></Route>
+          <Route path="/newspage/:id" exact component={News} />
           <Route path="/news/:id" exact component={Article} />
 
           <Route path="/partners" exact component={Partners} />
           <Route path="/contact" component={Contact} />
+
           <Route path="/find" exact component={Search} />
 
           <Route path="/admin" exact component={Adminlogin} />
