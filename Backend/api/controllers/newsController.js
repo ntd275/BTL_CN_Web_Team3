@@ -36,7 +36,6 @@ exports.get_a_news = function(req, res) {
   });
 };
 
-
 exports.update_a_news = function(req, res) {
   News.findOneAndUpdate({id: req.params.newsId}, req.body, {new: true}, function(err, data) {
     if (err)

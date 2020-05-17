@@ -8,7 +8,6 @@ let Schema = mongoose.Schema;
 let NewsSchema = new Schema({
   id: {
     type: Number, // Kiểu dữ liệu
-    
     required: true, // Bắt buộc có
   },
   user_create: {
