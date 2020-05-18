@@ -20,9 +20,6 @@ class Adminlogin extends Component {
                         <div className="input-group input-group-icon">
                             <input type="submit" name="Đăng nhập" />
                         </div>
-                        <div className="regis">
-                        <h6><a href="#">Tạo tài khoản admin?</a></h6>
-                        </div>
                     </div>
                 </form>
             </div>

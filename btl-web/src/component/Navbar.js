@@ -13,7 +13,7 @@ class Navbar extends Component {
                 </label>
                 <ul className="menu">
                     <Link to="/" exact>
-                        <a href="#">Trang chủ</a>
+                        <a>Trang chủ</a>
                     </Link>
                     <Link to="/calendar" exact>
                         <a href="#">Lịch</a>
