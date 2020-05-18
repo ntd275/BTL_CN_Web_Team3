@@ -18,7 +18,13 @@ let EventSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+  },
+  title: {
+    type: String,
+  },
+  start_time: {
+    type: Date,
   },
   image: {
     type: String,
@@ -41,7 +47,7 @@ let EventSchema = new Schema({
   content: {
     type: [],
   },
-  Created_date: {
+  created_date: {
     type: Date,
     default: Date.now // Ngày tạo mặc định
   },
@@ -52,4 +58,4 @@ EventSchema.plugin(mongoosePaginate);
 //Thêm plugin tự động tăng id
 EventSchema.plugin(autoIncrement.plugin, { model: 'Event', field: 'id' });
 
-module.exports = mongoose.model('Event', EventSchema);
+module.exports = mongoose.model("Event", EventSchema);
