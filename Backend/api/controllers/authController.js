@@ -2,7 +2,7 @@
 let jwtHelper = require("../../helper/jwtHelper");
 let User = require("../models/userModels");
 let bcrypt = require('bcrypt');
-const saltRounds = parseInt(process.env.SALT_ROUNDS) || 10;
+const saltRounds = parseInt(process.env.SALT_ROUNDS) || 10; // Độ bảo mật
 
 let tokenList = {};
 

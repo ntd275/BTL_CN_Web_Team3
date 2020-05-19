@@ -47,10 +47,14 @@ let EventSchema = new Schema({
   content: {
     type: [],
   },
+  view: {
+    type: Number,
+    default: 0,
+  },
   created_date: {
     type: Date,
     default: Date.now // Ngày tạo mặc định
-  },
+  }
 });
 
 //Thêm plugin phân trang

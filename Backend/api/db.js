@@ -3,7 +3,7 @@ let mongoose = require('mongoose');
 let autoIncrement = require('mongoose-auto-increment');
 
 //Kết nối DB
-let mongoDB = "mongodb+srv://ducpb:ducpb@ducpb-wpscg.mongodb.net/WEB?retryWrites=true&w=majority"
+let mongoDB = "mongodb://20.44.200.142:27017/WEB"
 
 mongoose.connect(mongoDB); 
 //Kiểm tra kết nối

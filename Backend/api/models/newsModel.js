@@ -24,6 +24,10 @@ let NewsSchema = new Schema({
   content: {
     type: [],
   },
+  view: {
+    type: Number,
+    default: 0
+  },
   Created_date: {
     type: Date,
     default: Date.now // Ngày tạo mặc định

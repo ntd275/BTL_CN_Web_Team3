@@ -12,9 +12,25 @@ module.exports = function (app) {
   app.route('/eventspage/:pagenum')
     .get(eventCtr.get_page);
 
+  //API lấy 8 bài mới nhất
+  app.route('/newestevents')
+    .get(eventCtr.get_top_8_newest_event);
+
+  //API lấy 3 sự kiện nổi bật
+  app.route('/trendevents')
+    .get(eventCtr.get_top_3_trend_event);
+
   //API lấy 1 event theo id
   app.route('/events/:eventId')
     .get(eventCtr.get_a_event);
+
+  //API lấy sự kiện hà nội hôm nay
+  app.route('/eventshntoday')
+    .get(eventCtr.get_event_hanoi_today);
+
+  //API lấy sự kiện Hồ Chí Minh hôm nay
+  app.route('/eventshcmtoday')
+    .get(eventCtr.get_event_hcm_today);
 
   //API lấy tất cả theo category
   app.route('/eventscat/:category')
@@ -32,12 +48,6 @@ module.exports = function (app) {
   app.route('/prevevent/:eventId')
     .get(eventCtr.prev_event);
 
-  //API để comment vào 1 event
-  app.route('/cmtevents')
-    .post(eventCtr.post_cmt);
-
-  
-
   let newsCtr = require('../controllers/newsController');
 
   //API lấy tất cả tin tức
@@ -47,6 +57,22 @@ module.exports = function (app) {
   //API phân trang tin tức
   app.route('/newspage/:pagenum')
     .get(newsCtr.get_page);
+
+  //API lấy 8 tin mới nhất
+  app.route('/newestnews')
+    .get(newsCtr.get_top_8_newest_news);
+
+  //API lấy 3 tin nổi bật
+  app.route('/trendnews')
+    .get(newsCtr.get_top_3_trend_news);
+
+  //API lấy tin tức tiếp theo
+  app.route('/nextnews')
+    .get(newsCtr.next_news);
+
+  //API lấy tin phía trước
+  app.route('/prevnews')
+    .get(newsCtr.prev_news);
 
   //API lấy 1 trang tin theo id
   app.route('/news/:newsId')
@@ -61,7 +87,6 @@ module.exports = function (app) {
   //API đăng kí
   app.route('/register')
     .post(authCtr.register);
-
 
   //Các API dưới đây cần token để gọi
   app.use(AuthMiddleWare.isAuth);
@@ -92,5 +117,4 @@ module.exports = function (app) {
   //API đăng xuất
   app.route('/logout')
     .post(authCtr.logout);
-
 };
