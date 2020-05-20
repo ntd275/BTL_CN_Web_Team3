@@ -100,7 +100,7 @@ exports.get_all_by_category = function(req,res){
 }
 
 exports.get_page_by_category = function(req, res){
-  Event.paginate({category: req.params.category}, { page: req.params.pagenum, limit: PageSize }, function (err, data) {
+  Event.paginate({category: req.params.category}, { page: req.params.pagenum, limit: pageSize }, function (err, data) {
     if (err)
       res.send(err);
     else

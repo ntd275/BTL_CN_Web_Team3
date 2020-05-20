@@ -13,6 +13,7 @@ export function getAllEvents({ currentPage }) {
 }
 
 export function getEventsCategory({ category, currentPage }) {
+  console.log(category, currentPage);
   return axios.get(`/eventscat/${category}/${currentPage}`);
 }
 
@@ -22,4 +23,45 @@ export function getEvent({ eventsId }) {
 
 export function searchEvents({ keyword, id }) {
   return axios.get(`/eventscat/${keyword}/${id}`);
+}
+
+export function trendEvents() {
+  return axios.get("/trendevents");
+}
+
+export function newestEvents() {
+  return axios.get("/newestevents");
+}
+
+export function eventsHaNoiToday() {
+  return axios.get("/eventshntoday");
+}
+
+export function eventsHoChiMinhToday() {
+  return axios.get("/eventshcmtoday");
+}
+
+export function nextEvent({ eventsId }) {
+  console.log(eventsId);
+  return axios.get(`/nextevent/${eventsId}`);
+}
+
+export function previousEvent({ eventsId }) {
+  return axios.get(`/prevevent/${eventsId}`);
+}
+
+export function newestNews() {
+  return axios.get("/newestnews");
+}
+
+export function nextNew({ newsId }) {
+  return axios.get(`/nextnews/${newsId}`);
+}
+
+export function previousNew({ newsId }) {
+  return axios.get(`/prenews/${newsId}`);
+}
+
+export function trendNews() {
+  return axios.get("/trendnews");
 }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { eventsHoChiMinhToday } from "../API/api";
+import { eventsHoChiMinhToday, eventsHaNoiToday } from "../API/api";
 import moment from "moment";
 
-class WhatsNewHCM extends Component {
+class WhatsNewAll extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,9 +10,13 @@ class WhatsNewHCM extends Component {
     };
   }
   async componentDidMount() {
-    const events = await eventsHoChiMinhToday();
+    const events1 = await eventsHaNoiToday();
+    const events2 = await eventsHoChiMinhToday();
+
+    const events = events1.data.concat(events2.data);
+    console.log(events);
     this.setState({
-      events: events.data,
+      events: events,
     });
   }
 
@@ -44,4 +48,4 @@ class WhatsNewHCM extends Component {
   }
 }
 
-export default WhatsNewHCM;
+export default WhatsNewAll;

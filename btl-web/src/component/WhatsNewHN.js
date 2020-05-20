@@ -1,24 +1,47 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { eventsHaNoiToday } from "../API/api";
+import moment from "moment";
 
 class WhatsNewHN extends Component {
-    render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [],
+    };
+  }
+  async componentDidMount() {
+    const events = await eventsHaNoiToday();
+    this.setState({
+      events: events.data,
+    });
+  }
+
+  render() {
+    const { events } = this.state;
+    if (events.length !== 0) {
+      console.log(events);
+      var elmEvent = events.map((data) => {
         return (
-            <div className="row-normal">
-                <div className="card3">
-                    <img src="./images/images1.jpg" alt="" />
-                    <div className="about">
-                        <a href>
-                            <h4>Nghệ thuật trong thời kì Corona</h4>
-                        </a>
-                        <p className="place">Flamigo Đại Lải resort</p>
-                        <p>
-                            02/04 - 30/04 - Triển lãm nghệ thuật nhằm nâng cao nhận thức cộng đồng về hội chứng tự kỷ
+          <div className="row-normal">
+            <div
+              className="card3"
+              style={{ borderBottom: "1px solid #9acd32" }}
+            >
+              <img src={data.image} alt="" />
+              <div className="about">
+                <h7>{data.title}</h7>
+                <p>
+                  Thời gian: {moment(data.start_time).format("LL")} -{" "}
+                  {moment(data.finish_time).format("LL")}
                 </p>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         );
-    }
+      });
+      return <>{elmEvent}</>;
+    } else return null;
+  }
 }
 
 export default WhatsNewHN;

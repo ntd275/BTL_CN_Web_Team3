@@ -1,244 +1,34 @@
 import WhatsNew from "./WhatsNew";
 import { Link } from "react-router-dom";
-import { FaComments } from "react-icons/fa";
 import React, { Component } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import '../CSS/slick.css';
+import "../CSS/slick.css";
+import { getEventsCategory } from "../API/api";
+import moment from "moment";
 
-const events = [
-  {
-    _id: {
-      $oid: "5ebe958f59a9762824e769cf",
-    },
-    id: 1,
-    user_create: "1",
-    image:
-      "https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg",
-    title: "Triển lãm nghệ thuật hửng nắng",
-    start_time: {
-      $date: "2020-04-25T17:00:00.000Z",
-    },
-    finish_time: {
-      $date: "2019-07-09T17:00:00.000Z",
-    },
-    address: "Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
-    locate: "Hà Nội",
-    content: [
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        image:
-          "https://hanoigrapevine.com/wp-content/uploads/2019/12/29-e1577248419407.jpg",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-    ],
-    category: "1",
-    created_date: {
-      $date: "2020-03-02T17:00:00.000Z",
-    },
-  },
-  {
-    _id: {
-      $oid: "5ebe958f59a9762824e769cf",
-    },
-    id: 1,
-    user_create: "1",
-    image:
-      "https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg",
-    title: "Triển lãm nghệ thuật hửng nắng",
-    start_time: {
-      $date: "2020-04-25T17:00:00.000Z",
-    },
-    finish_time: {
-      $date: "2019-07-09T17:00:00.000Z",
-    },
-    address: "Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
-    locate: "Hà Nội",
-    content: [
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        image:
-          "https://hanoigrapevine.com/wp-content/uploads/2019/12/29-e1577248419407.jpg",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-    ],
-    category: "1",
-    created_date: {
-      $date: "2020-03-02T17:00:00.000Z",
-    },
-  },
-  {
-    _id: {
-      $oid: "5ebe958f59a9762824e769cf",
-    },
-    id: 1,
-    user_create: "1",
-    image:
-      "https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg",
-    title: "Triển lãm nghệ thuật hửng nắng",
-    start_time: {
-      $date: "2020-04-25T17:00:00.000Z",
-    },
-    finish_time: {
-      $date: "2019-07-09T17:00:00.000Z",
-    },
-    address: "Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
-    locate: "Hà Nội",
-    content: [
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        image:
-          "https://hanoigrapevine.com/wp-content/uploads/2019/12/29-e1577248419407.jpg",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-    ],
-    category: "1",
-    created_date: {
-      $date: "2020-03-02T17:00:00.000Z",
-    },
-  },
-  {
-    _id: {
-      $oid: "5ebe958f59a9762824e769cf",
-    },
-    id: 1,
-    user_create: "1",
-    image:
-      "https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg",
-    title: "Triển lãm nghệ thuật hửng nắng",
-    start_time: {
-      $date: "2020-04-25T17:00:00.000Z",
-    },
-    finish_time: {
-      $date: "2019-07-09T17:00:00.000Z",
-    },
-    address: "Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
-    locate: "Hà Nội",
-    content: [
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        image:
-          "https://hanoigrapevine.com/wp-content/uploads/2019/12/29-e1577248419407.jpg",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-    ],
-    category: "1",
-    created_date: {
-      $date: "2020-03-02T17:00:00.000Z",
-    },
-  },
-  {
-    _id: {
-      $oid: "5ebe958f59a9762824e769cf",
-    },
-    id: 1,
-    user_create: "1",
-    image:
-      "https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg",
-    title: "Triển lãm nghệ thuật hửng nắng",
-    start_time: {
-      $date: "2020-04-25T17:00:00.000Z",
-    },
-    finish_time: {
-      $date: "2019-07-09T17:00:00.000Z",
-    },
-    address: "Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
-    locate: "Hà Nội",
-    content: [
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-      {
-        image:
-          "https://hanoigrapevine.com/wp-content/uploads/2019/12/29-e1577248419407.jpg",
-      },
-      {
-        paragraph:
-          "Từ 20 tháng 12 năm 2019 đến 23 tháng 2 năm 2020, Trung tâm Nghệ thuật đương đại Vincom – VCCA sẽ mở cửa đón khán giả đến với triển lãm nghệ thuật đương đại được trông đợi nhất trong năm – TỎA 3. TỎA 3 giới thiệu tới công chúng hơn 50 tác phẩm phong phú của các nghệ sỹ trong nước và quốc tế đang sinh sống tại Việt Nam. Nghệ sỹ lớn tuổi nhất sinh năm 1979, còn lại đều khá trẻ, sinh từ năm 1986 trở về sau này.",
-      },
-    ],
-    category: "1",
-    created_date: {
-      $date: "2020-03-02T17:00:00.000Z",
-    },
-  },
-];
-
-const Event = () => {
+const Event = (props) => {
+  const event = props.data;
   return (
     <div className="row-normal-add-option">
       <div className="card-normal-add-option">
-        <a href="/12">
-          <img
-            src="https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg"
-            alt="abc"
-            className="new-img"
-          />
+        <a href={`/events/${event.id}`}>
+          <img src={event.image} alt="abc" className="new-img" />
           <div>
-            <h3 style={{ marginBottom: "0" }}>
-              Triển lãm nghệ thuật hửng nắng
-            </h3>
+            <h3 style={{ marginBottom: "0" }}>{event.title}</h3>
           </div>
         </a>
         <div style={{ display: "flex" }}>
           <div className="date" style={{ fontStyle: "italic" }}>
-            <small>Thời gian: 12-12-2020 - 13-12-2020 - &nbsp;</small>
-          </div>
-          <div>
-            <FaComments />
-            <small> (10)</small>
+            <small>
+              Thời gian: {moment(event.start_time).format("LL")} -{" "}
+              {moment(event.finish_time).format("LL")} - &nbsp;
+            </small>
           </div>
         </div>
         <div>
-          <small style={{ fontStyle: "italic" }}>
-            Địa điểm: Số 1, Đại Cồ Việt, Hai Bà Trưng, Hà Nội
-          </small>
+          <small style={{ fontStyle: "italic" }}>{event.address}</small>
         </div>
       </div>
     </div>
@@ -294,15 +84,60 @@ const Events = (props) => {
 };
 
 class Categories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events1: [],
+      events2: [],
+      events3: [],
+      events4: [],
+      events5: [],
+    };
+  }
+
+  async componentDidMount() {
+    var category = 1;
+    var currentPage = 1;
+    const events1 = await getEventsCategory({ category, currentPage });
+    this.setState({
+      events1: events1.data.docs,
+    });
+
+    category = 2;
+    const events2 = await getEventsCategory({ category, currentPage });
+    this.setState({
+      events2: events2.data.docs,
+    });
+
+    category = 3;
+    const events3 = await getEventsCategory({ category, currentPage });
+    this.setState({
+      events3: events3.data.docs,
+    });
+
+    category = 4;
+    const events4 = await getEventsCategory({ category, currentPage });
+    this.setState({
+      events4: events4.data.docs,
+    });
+
+    category = 5;
+    const events5 = await getEventsCategory({ category, currentPage });
+    this.setState({
+      events5: events5.data.docs,
+    });
+  }
+
   render() {
+    const { events1, events2, events3, events4, events5 } = this.state;
     return (
       <div className="content">
         <div className="big add-option-big">
-          <Events name={"Mĩ thuật"} data={events} />
-          <Events name={"Cho trẻ em"} data={events} />
-          <Events name={"Văn học"} data={events} />
-          <Events name={"Âm nhạc"} data={events} />
-          <Events name={"Nhiếp ảnh, phim, video"} data={events} />
+          <Events name={"Mĩ thuật"} data={events1} />
+          <Events name={"Cho trẻ em"} data={events2} />
+          <Events name={"Văn học"} data={events3} />
+          <Events name={"Âm nhạc"} data={events4} />
+          <Events name={"Nhiếp ảnh, phim, video"} data={events5} />
         </div>
         <WhatsNew />
       </div>

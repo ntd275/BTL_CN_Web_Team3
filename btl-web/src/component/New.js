@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import WhatsNew from "./WhatsNew";
-import { getNew } from "../API/api";
+import { getNew, previousNew, nextNew } from "../API/api";
 import moment from "moment";
 
 class New extends Component {
@@ -9,24 +9,45 @@ class New extends Component {
     this.state = {
       newspaper: [],
       content: [],
+      preNew: [],
+      nexNew: [],
     };
   }
 
   async componentDidMount() {
     const newsId = this.props.match.params.id;
+    await this.getNew(newsId);
+    await this.getPreNew(newsId);
+    await this.getNexNew(newsId);
+  }
+
+  async getNew(newsId) {
     const newspaper = await getNew({ newsId });
-    console.log(newspaper.data[0]);
     this.setState({
-      newspaper: newspaper.data[0],
-      content: newspaper.data[0].content,
+      newspaper: newspaper.data,
+      content: newspaper.data.content,
+    });
+  }
+
+  async getPreNew(newsId) {
+    const preNew = await previousNew({ newsId });
+    console.log(123);
+    this.setState({
+      preNew: preNew.data,
+    });
+  }
+
+  async getNexNew(newsId) {
+    const nexNew = await nextNew({ newsId });
+    console.log(nexNew);
+    this.setState({
+      nexNew: nexNew.data,
     });
   }
 
   render() {
-    const { newspaper, content } = this.state;
-
+    const { newspaper, content, preNew, nexNew } = this.state;
     var elmNew = content.map((element) => {
-      console.log(element.paragraph);
       if (typeof element.paragraph === "undefined") {
         return (
           <div style={{ textAlign: "center" }}>
@@ -83,14 +104,22 @@ class New extends Component {
                   <i className="fa fa-chevron-left"></i>
                   TRƯỚC
                 </div>
-                <a href="123">Chiếu phim "The Meeting" của Alan Gilsenan</a>
+                {preNew !== null ? (
+                  <a href={`/news/${preNew.id}`}>{preNew.title}</a>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="next-article">
                 <div>
                   SAU
                   <i className="fa fa-chevron-right"></i>
                 </div>
-                <a href="123">Chiếu phim "The Meeting" của Alan Gilsenan</a>
+                {nexNew !== null ? (
+                  <a href={`/news/${nexNew.id}`}>{nexNew.title}</a>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </article>
