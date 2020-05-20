@@ -22,7 +22,7 @@ export function getEvent({ eventsId }) {
 }
 
 export function searchEvents({ keyword, id }) {
-  return axios.get(`/eventscat/${keyword}/${id}`);
+  return axios.get(`/search/${keyword}/${id}`);
 }
 
 export function trendEvents() {
