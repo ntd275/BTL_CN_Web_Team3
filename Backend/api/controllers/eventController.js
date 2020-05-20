@@ -181,3 +181,15 @@ exports.get_event_hcm_today = function(req,res){
     }
   })
 }
+
+//Tìm event title theo key word
+exports.search_events = function(req,res) {
+  Event.paginate( { title : { '$regex' : req.params.keyword, '$options' : 'i' } },{ page: req.params.pagenum, limit: pageSize },function(err,data){
+    if(err){
+      res.send(err);
+    }
+    else{
+      res.json(data);
+    }
+  })
+}
