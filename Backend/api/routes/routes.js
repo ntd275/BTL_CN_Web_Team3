@@ -12,6 +12,10 @@ module.exports = function (app) {
   app.route('/eventspage/:pagenum')
     .get(eventCtr.get_page);
 
+  //APi tim event
+  app.route('/search/:keyword/:pagenum')
+    .get(eventCtr.search_events);
+
   //API lấy 8 bài mới nhất
   app.route('/newestevents')
     .get(eventCtr.get_top_8_newest_event);
