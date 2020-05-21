@@ -59,7 +59,7 @@ export function nextNew({ newsId }) {
 }
 
 export function previousNew({ newsId }) {
-  return axios.get(`/prenews/${newsId}`);
+  return axios.get(`/prevnews/${newsId}`);
 }
 
 export function trendNews() {
