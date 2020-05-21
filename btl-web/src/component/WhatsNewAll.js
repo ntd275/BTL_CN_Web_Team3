@@ -26,14 +26,17 @@ class WhatsNewAll extends Component {
       console.log(events);
       var elmEvent = events.map((data) => {
         return (
-          <div className="row-normal">
+          <div
+            className="row-normal"
+            style={{ paddingTop: "5px", paddingBottom: "5px" }}
+          >
             <div
               className="card3"
               style={{ borderBottom: "1px solid #9acd32" }}
             >
               <img src={data.image} alt="" />
               <div className="about">
-                <h7>{data.title}</h7>
+                <h6 style={{ fontWeight: "bolder" }}>{data.title}</h6>
                 <p>
                   Thời gian: {moment(data.start_time).format("LL")} -{" "}
                   {moment(data.finish_time).format("LL")}
