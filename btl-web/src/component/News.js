@@ -22,7 +22,7 @@ class News extends Component {
         pages: [],
       },
       pageOfItems: [],
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -51,7 +51,7 @@ class News extends Component {
           currentPage: parseInt(currentPage),
           totalPages: news.data.pages,
         },
-        isLoading: false
+        isLoading: false,
       });
     }
   }
@@ -61,109 +61,104 @@ class News extends Component {
 
   render() {
     const { pager, pageOfItems } = this.state;
-    var elmTasks = pageOfItems.map((doc, index) => {
-      return <NewComponent key={index} new={doc} />;
-    });
+    if (pageOfItems.length !== 0) {
+      var elmTasks = pageOfItems.map((doc, index) => {
+        return <NewComponent key={index} new={doc} />;
+      });
+      return (
+        <div className="content">
+          <div className="big">
+            <div className="slide">
+              <Slide />
+            </div>
 
-    return (
-      <div className="content">
-        <div className="big">
-          <div className="slide">
-            <Slide />
-          </div>
+            <div className="news">{elmTasks}</div>
 
-          <div className="news">{elmTasks}</div>
-
-          <div className="row">
-            {pager.pages && pager.pages.length && (
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                  <li
-                    className={`page-item first-item ${
-                      pager.currentPage === 1
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
-                  >
-                    <Link
-                      to="/newspage/1"
-                      className="page-link"
-                    >
-                      First
-                    </Link>
-                  </li>
-
-                  <li
-                    className={`page-item previous-item ${
-                      pager.currentPage === 1
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
-                  >
-                    <Link
-                      to={`/newspage/${pager.currentPage - 1}`}
-                      className="page-link"
-                    >
-                      Previous
-                    </Link>
-                  </li>
-
-                  {pager.pages.map((page) => (
+            <div className="row">
+              {pager.pages && pager.pages.length && (
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination">
                     <li
-                      key={page}
-                      className={`page-item number-item ${
-                        pager.currentPage === page
-                          ? "active page-link"
+                      className={`page-item first-item ${
+                        pager.currentPage === 1
+                          ? "disabled page-link"
+                          : "page-link"
+                      }`}
+                    >
+                      <Link to="/newspage/1" className="page-link">
+                        First
+                      </Link>
+                    </li>
+
+                    <li
+                      className={`page-item previous-item ${
+                        pager.currentPage === 1
+                          ? "disabled page-link"
                           : "page-link"
                       }`}
                     >
                       <Link
-                        to={`/newspage/${page}`}
+                        to={`/newspage/${pager.currentPage - 1}`}
                         className="page-link"
                       >
-                        {page}
+                        Previous
                       </Link>
                     </li>
-                  ))}
 
-                  <li
-                    className={`page-item next-item ${
-                      pager.currentPage === pager.totalPages
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
-                  >
-                    <Link
-                      to={`/newspage/${pager.currentPage + 1}`}
-                      className="page-link"
-                    >
-                      Next
-                    </Link>
-                  </li>
+                    {pager.pages.map((page) => (
+                      <li
+                        key={page}
+                        className={`page-item number-item ${
+                          pager.currentPage === page
+                            ? "active page-link"
+                            : "page-link"
+                        }`}
+                      >
+                        <Link to={`/newspage/${page}`} className="page-link">
+                          {page}
+                        </Link>
+                      </li>
+                    ))}
 
-                  <li
-                    className={`page-item last-item ${
-                      pager.currentPage === pager.totalPages
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
-                  >
-                    <Link
-                      to={`/newspage/${pager.totalPages}`}
-                      className="page-link"
+                    <li
+                      className={`page-item next-item ${
+                        pager.currentPage === pager.totalPages
+                          ? "disabled page-link"
+                          : "page-link"
+                      }`}
                     >
-                      Last
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-            )}
+                      <Link
+                        to={`/newspage/${pager.currentPage + 1}`}
+                        className="page-link"
+                      >
+                        Next
+                      </Link>
+                    </li>
+
+                    <li
+                      className={`page-item last-item ${
+                        pager.currentPage === pager.totalPages
+                          ? "disabled page-link"
+                          : "page-link"
+                      }`}
+                    >
+                      <Link
+                        to={`/newspage/${pager.totalPages}`}
+                        className="page-link"
+                      >
+                        Last
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              )}
+            </div>
           </div>
-        </div>
 
-        <WhatsNew />
-      </div>
-    );
+          <WhatsNew />
+        </div>
+      );
+    }else return null;
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WhatsNew from "./WhatsNew";
 import { FaComments } from "react-icons/fa";
-import { getEvent } from "../API/api";
+import { getEvent, previousEvent, nextEvent } from "../API/api";
 import moment from "moment";
 
 class Event extends Component {
@@ -10,20 +10,28 @@ class Event extends Component {
     this.state = {
       event: [],
       content: [],
+      preEvent: [],
+      nexEvent: [],
     };
   }
 
   async componentDidMount() {
     const eventsId = this.props.match.params.id;
     const event = await getEvent({ eventsId });
+    const preEvent = await previousEvent({ eventsId });
+    const nexEvent = await nextEvent({ eventsId });
     this.setState({
-      event: event.data[0],
-      content: event.data[0].content,
+      event: event.data,
+      content: event.data.content,
+      preEvent: preEvent.data,
+      nexEvent: nexEvent.data,
     });
   }
 
   render() {
-    const { event, content } = this.state;
+    const { event, content, nexEvent, preEvent } = this.state;
+    console.log(nexEvent, preEvent);
+
     var elmEvent = content.map((element) => {
       console.log(element.paragraph);
       if (typeof element.paragraph === "undefined") {
@@ -95,14 +103,22 @@ class Event extends Component {
                   <i className="fa fa-chevron-left"></i>
                   TRƯỚC
                 </div>
-                <a href="123">Chiếu phim "The Meeting" của Alan Gilsenan</a>
+                {preEvent !== null ? (
+                  <a href={`/events/${preEvent.id}`}>{preEvent.title}</a>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="next-article">
                 <div>
                   SAU
                   <i className="fa fa-chevron-right"></i>
                 </div>
-                <a href="123">Chiếu phim "The Meeting" của Alan Gilsenan</a>
+                {nexEvent !== null ? (
+                  <a href={`/events/${nexEvent.id}`}>{nexEvent.title}</a>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </article>

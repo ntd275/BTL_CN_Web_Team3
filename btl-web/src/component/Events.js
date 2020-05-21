@@ -92,7 +92,6 @@ class Events extends Component {
     var elmTasks = pageOfItems.map((doc, index) => {
       return <EventComponent key={index} event={doc} />;
     });
-    console.log(flagLink)
     return (
       <div className="content">
         <div className="big">

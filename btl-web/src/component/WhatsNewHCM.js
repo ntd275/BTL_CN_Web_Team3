@@ -1,15 +1,50 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { eventsHoChiMinhToday } from "../API/api";
+import moment from "moment";
 
 class WhatsNewHCM extends Component {
-    render() {
-        return (
-            <div>
-                <h2>Nothing here</h2>
-            </div>
-        );
-    }
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [],
+    };
+  }
+  async componentDidMount() {
+    const events = await eventsHoChiMinhToday();
+    this.setState({
+      events: events.data,
+    });
+  }
 
+  render() {
+    const { events } = this.state;
+    if (events.length !== 0) {
+      console.log(events);
+      var elmEvent = events.map((data) => {
+        return (
+          <div
+            className="row-normal"
+            style={{ paddingTop: "5px", paddingBottom: "5px" }}
+          >
+            <div
+              className="card3"
+              style={{ borderBottom: "1px solid #9acd32" }}
+            >
+              <img src={data.image} alt="" />
+              <div className="about">
+                <h6 style={{ fontWeight: "bolder" }}>{data.title}</h6>
+                <p>
+                  Thời gian: {moment(data.start_time).format("LL")} -{" "}
+                  {moment(data.finish_time).format("LL")}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      });
+      return <>{elmEvent}</>;
+    } else return null;
+  }
+}
 
 export default WhatsNewHCM;

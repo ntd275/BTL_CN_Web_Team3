@@ -1,54 +1,89 @@
-import React, { useState } from 'react';
-import Carousel from 'react-bootstrap/Carousel'
-function Slide() {
-    const [index, setIndex] = useState(0);
-  
-    const handleSelect = (selectedIndex, e) => {
-      setIndex(selectedIndex);
-    };
-  
-    return (
-      <Carousel activeIndex={index} onSelect={handleSelect}>
-        <Carousel.Item>
+import React, { useState, Component } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import { trendEvents } from "../API/api";
+
+const SlideChild = (props) => {
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
+  const data = props.data;
+  return (
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel.Item>
+        <a href={`/events/${data[0].id}`}>
           <img
             className="d-block w-100"
-            src="https://hanoigrapevine.com/wp-content/uploads/2020/02/tuan-le-phim-t%C3%ACnh-y%C3%AAu-700x357.jpg"
+            src={data[0].image}
             alt="First slide"
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://hanoigrapevine.com/wp-content/uploads/2020/04/interview-with-World-Press-Photo-700x357.jpg"
-            alt="Second slide"
-          />
-  
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://hanoigrapevine.com/wp-content/uploads/2020/03/02-700x357.jpg"
-            alt="Third slide"
-          />
-  
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
+            <h3>{data[0].title}</h3>
             <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              <p>{data[0].content[0].paragraph.substr(0, 120)}...</p>
             </p>
           </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    );
+        </a>
+      </Carousel.Item>
+      <Carousel.Item>
+        <a href={`/events/${data[1].id}`}>
+          <img
+            className="d-block w-100"
+            src={data[1].image}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>{data[1].title}</h3>
+            <p>
+              <p>{data[1].content[0].paragraph.substr(0, 120)}...</p>
+            </p>
+          </Carousel.Caption>
+        </a>
+      </Carousel.Item>
+      <Carousel.Item>
+        <a href={`/events/${data[1].id}`}>
+          <img
+            className="d-block w-100"
+            src={data[2].image}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>{data[2].title}</h3>
+            <p>
+              <p>{data[2].content[0].paragraph.substr(0, 120)}...</p>
+            </p>
+          </Carousel.Caption>
+        </a>
+      </Carousel.Item>
+    </Carousel>
+  );
+};
+
+class Slide extends Component {
+  constructor(props) {
+    super(props);
+    this._isMounted = false;
+    this.state = {
+      data: [],
+    };
   }
 
+  async componentDidMount() {
+    const res = await trendEvents();
+    this.setState({
+      data: res.data,
+    });
+  }
 
+  render() {
+    const { data } = this.state;
+    if (data.length === 0) return null;
+    else {
+      console.log(data);
+      return <SlideChild data={data} />;
+    }
+  }
+}
 export default Slide;
