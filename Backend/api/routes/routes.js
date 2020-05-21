@@ -71,11 +71,11 @@ module.exports = function (app) {
     .get(newsCtr.get_top_3_trend_news);
 
   //API lấy tin tức tiếp theo
-  app.route('/nextnews')
+  app.route('/nextnews/:newsId')
     .get(newsCtr.next_news);
 
   //API lấy tin phía trước
-  app.route('/prevnews')
+  app.route('/prevnews/:newsId')
     .get(newsCtr.prev_news);
 
   //API lấy 1 trang tin theo id
