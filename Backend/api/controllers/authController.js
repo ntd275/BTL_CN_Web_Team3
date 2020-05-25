@@ -42,6 +42,10 @@ exports.login = async function (req, res) {
 
     //Kiểm tra user đã tồn tại trong DB chưa
     let user = await User.findOne({ username: req.body.username }).exec();
+
+    if(!user){
+      return res.json({ message: 'Username and Password are incorrect' });
+    }
     //Kiểm tra mật khẩu
     const match = await bcrypt.compare(req.body.password, user.password);
 
