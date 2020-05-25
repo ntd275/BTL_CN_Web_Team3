@@ -88,6 +88,10 @@ module.exports = function (app) {
   app.route('/login')
     .post(authCtr.login);
 
+  //API refresh token
+  app.route('/refreshtoken')
+    .post(authCtr.refreshToken);
+
   //API đăng kí
   app.route('/register')
     .post(authCtr.register);
