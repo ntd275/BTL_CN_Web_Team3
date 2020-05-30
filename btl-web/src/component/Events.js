@@ -24,7 +24,7 @@ class Events extends Component {
       pageOfItems: [],
       currentURL: "",
       isLoading: true,
-      flagLink: -1
+      flagLink: -1,
     };
   }
 
@@ -45,7 +45,25 @@ class Events extends Component {
         const events = await getAllEvents({ currentPage });
 
         let rank = [];
-        for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+        if (events.data.pages <= 5) {
+          for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+        } else {
+          if (currentPage < 5) {
+            for (let i = 1; i <= 5; i++) rank.push(i);
+          } else {
+            if (parseInt(currentPage) + 2 <= events.data.pages) {
+              for (let i = 2; i >= -2; i--) {
+                rank.push(currentPage - i);
+              }
+            } else {
+              for (let i = 2; i >= -2; i--) {
+                if (currentPage - i <= events.data.pages) {
+                  rank.push(currentPage - i);
+                }
+              }
+            }
+          }
+        }
 
         this.setState({
           pageOfItems: events.data.docs,
@@ -56,18 +74,36 @@ class Events extends Component {
           },
           currentURL: "eventspage",
           isLoading: false,
-          flagLink : 0  
+          flagLink: 0,
         });
       }
     } else {
       const currentPage = this.props.match.params.id || 1;
       const category = this.props.match.params.category;
+
       if (currentPage !== this.state.pager.currentPage) {
         const events = await getEventsCategory({ category, currentPage });
-        console.log(events);
-        let rank = [];
-        for (let i = 1; i <= events.data.pages; i++) rank.push(i);
 
+        let rank = [];
+        if (events.data.pages <= 5) {
+          for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+        } else {
+          if (currentPage < 5) {
+            for (let i = 1; i <= 5; i++) rank.push(i);
+          } else {
+            if (parseInt(currentPage) + 2 <= events.data.pages) {
+              for (let i = 2; i >= -2; i--) {
+                rank.push(currentPage - i);
+              }
+            } else {
+              for (let i = 2; i >= -2; i--) {
+                if (currentPage - i <= events.data.pages) {
+                  rank.push(currentPage - i);
+                }
+              }
+            }
+          }
+        }
         this.setState({
           pageOfItems: events.data.docs,
           pager: {
@@ -77,7 +113,7 @@ class Events extends Component {
           },
           currentURL: "eventscat/" + category,
           isLoading: false,
-          flagLink: category
+          flagLink: category,
         });
       }
     }
@@ -105,22 +141,52 @@ class Events extends Component {
           <div className="menu" style={{ marginBottom: "-30px" }}>
             <ul>
               <li>
-                <Link to="/eventspage/1" className={flagLink == 0 ? "event-link" : ""}>All</Link>
+                <Link
+                  to="/eventspage/1"
+                  className={flagLink == 0 ? "event-link" : ""}
+                >
+                  All
+                </Link>
               </li>
               <li>
-                <Link to="/eventscat/1/1" className={flagLink == 1 ? "event-link" : ""}>Mĩ thuật</Link>
+                <Link
+                  to="/eventscat/1/1"
+                  className={flagLink == 1 ? "event-link" : ""}
+                >
+                  Mĩ thuật
+                </Link>
               </li>
               <li>
-                <Link to="/eventscat/2/1" className={flagLink == 2 ? "event-link" : ""}>Cho trẻ em</Link>
+                <Link
+                  to="/eventscat/2/1"
+                  className={flagLink == 2 ? "event-link" : ""}
+                >
+                  Cho trẻ em
+                </Link>
               </li>
               <li>
-                <Link to="/eventscat/3/1" className={flagLink == 3 ? "event-link" : ""}>Văn học</Link>
+                <Link
+                  to="/eventscat/3/1"
+                  className={flagLink == 3 ? "event-link" : ""}
+                >
+                  Văn học
+                </Link>
               </li>
               <li>
-                <Link to="/eventscat/4/1" className={flagLink == 4 ? "event-link" : ""}>Âm nhạc</Link>
+                <Link
+                  to="/eventscat/4/1"
+                  className={flagLink == 4 ? "event-link" : ""}
+                >
+                  Âm nhạc
+                </Link>
               </li>
               <li>
-                <Link to="/eventscat/5/1" className={flagLink == 5 ? "event-link" : ""}>Nhiếp ảnh, Phim, Video</Link>
+                <Link
+                  to="/eventscat/5/1"
+                  className={flagLink == 5 ? "event-link" : ""}
+                >
+                  Nhiếp ảnh, Phim, Video
+                </Link>
               </li>
             </ul>
           </div>
@@ -128,87 +194,75 @@ class Events extends Component {
 
           <div className="row">
             {pager.pages && pager.pages.length && (
-              <nav aria-label="Page navigation example">
-                <ul className="pagination">
+              <ul className="pagination">
+                <li
+                  className={`page-item first-item ${
+                    pager.currentPage === 1 ? "disabled page-link" : "page-link"
+                  }`}
+                >
+                  <Link to={`/${currentURL}/1`} className="page-link">
+                    First
+                  </Link>
+                </li>
+
+                <li
+                  className={`page-item previous-item ${
+                    pager.currentPage === 1 ? "disabled page-link" : "page-link"
+                  }`}
+                >
+                  <Link
+                    to={`/${currentURL}/${pager.currentPage - 1}`}
+                    className="page-link"
+                  >
+                    Previous
+                  </Link>
+                </li>
+
+                {pager.pages.map((page) => (
                   <li
-                    className={`page-item first-item ${
-                      pager.currentPage === 1
-                        ? "disabled page-link"
+                    key={page}
+                    className={`page-item number-item ${
+                      pager.currentPage === page
+                        ? "active page-link"
                         : "page-link"
                     }`}
                   >
-                    <Link
-                      to={`/${currentURL}/1`}
-                      className="page-link"
-                    >
-                      First
+                    <Link to={`/${currentURL}/${page}`} className="page-link">
+                      {page}
                     </Link>
                   </li>
+                ))}
 
-                  <li
-                    className={`page-item previous-item ${
-                      pager.currentPage === 1
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
+                <li
+                  className={`page-item next-item ${
+                    pager.currentPage === pager.totalPages
+                      ? "disabled page-link"
+                      : "page-link"
+                  }`}
+                >
+                  <Link
+                    to={`/${currentURL}/${pager.currentPage + 1}`}
+                    className="page-link"
                   >
-                    <Link
-                      to={`/${currentURL}/${pager.currentPage - 1}`}
-                      className="page-link"
-                    >
-                      Previous
-                    </Link>
-                  </li>
+                    Next
+                  </Link>
+                </li>
 
-                  {pager.pages.map((page) => (
-                    <li
-                      key={page}
-                      className={`page-item number-item ${
-                        pager.currentPage === page
-                          ? "active page-link"
-                          : "page-link"
-                      }`}
-                    >
-                      <Link
-                        to={`/${currentURL}/${page}`}
-                        className="page-link"
-                      >
-                        {page}
-                      </Link>
-                    </li>
-                  ))}
-
-                  <li
-                    className={`page-item next-item ${
-                      pager.currentPage === pager.totalPages
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
+                <li
+                  className={`page-item last-item ${
+                    pager.currentPage === pager.totalPages
+                      ? "disabled page-link"
+                      : "page-link"
+                  }`}
+                >
+                  <Link
+                    to={`/${currentURL}/${pager.totalPages}`}
+                    className="page-link"
                   >
-                    <Link
-                      to={`/${currentURL}/${pager.currentPage + 1}`}
-                      className="page-link"
-                    >
-                      Next
-                    </Link>
-                  </li>
-
-                  <li
-                    className={`page-item last-item ${
-                      pager.currentPage === pager.totalPages
-                        ? "disabled page-link"
-                        : "page-link"
-                    }`}
-                  >
-                    <Link
-                      to={`/${currentURL}/${pager.totalPages}`}
-                      className="page-link"
-                    >
-                      Last
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+                    Last
+                  </Link>
+                </li>
+              </ul>
             )}
           </div>
         </div>

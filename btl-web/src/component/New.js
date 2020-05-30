@@ -43,11 +43,9 @@ class New extends Component {
       var elmNew = content.map((element) => {
         if (typeof element.paragraph === "undefined") {
           return (
-            <div style={{ textAlign: "center" }}>
-              <div>
-                <img src={element.image} alt="abc" />
+              <div style={{textAlign: 'center'}}>
+                <img src={element.image} alt="abc" style={{maxWidth: '80%'}}/>
               </div>
-            </div>
           );
         } else {
           return <p className="text-justify">{element.paragraph}</p>;
@@ -63,7 +61,7 @@ class New extends Component {
                 <p style={{ display: "flex" }}>
                   <div className="date" style={{ fontStyle: "italic" }}>
                     <small>
-                      {moment(newspaper.Created_date).format("LL")} &nbsp;
+                      Đăng vào: {moment(newspaper.Created_date).format("LL")} &nbsp;
                     </small>
                   </div>
                 </p>

@@ -32,7 +32,7 @@ class WhatsNewHCM extends Component {
             >
               <img src={data.image} alt="" />
               <div className="about">
-                <h6 style={{ fontWeight: "bolder" }}>{data.title}</h6>
+                <a href={`/events/${data.id}`}><h6 style={{ fontWeight: "bolder" }}>{data.title}</h6></a>
                 <p>
                   Thời gian: {moment(data.start_time).format("LL")} -{" "}
                   {moment(data.finish_time).format("LL")}
@@ -42,7 +42,7 @@ class WhatsNewHCM extends Component {
           </div>
         );
       });
-      return <>{elmEvent}</>;
+      return <div style={{maxHeight: '50vh', overflow: 'auto'}}>{elmEvent}</div>;
     } else return null;
   }
 }
