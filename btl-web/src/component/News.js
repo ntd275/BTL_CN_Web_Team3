@@ -41,8 +41,27 @@ class News extends Component {
 
     if (currentPage !== this.state.pager.currentPage) {
       const news = await getNews({ currentPage });
-      var rank = [];
-      for (let i = 1; i <= news.data.pages; i++) rank.push(i);
+
+      let rank = [];
+      if (news.data.pages <= 5) {
+        for (let i = 1; i <= news.data.pages; i++) rank.push(i);
+      } else {
+        if (currentPage < 5) {
+          for (let i = 1; i <= 5; i++) rank.push(i);
+        } else {
+          if (parseInt(currentPage) + 2 <= news.data.pages) {
+            for (let i = 2; i >= -2; i--) {
+              rank.push(currentPage - i);
+            }
+          } else {
+            for (let i = 2; i >= -2; i--) {
+              if (currentPage - i <= news.data.pages) {
+                rank.push(currentPage - i);
+              }
+            }
+          }
+        }
+      }
 
       this.setState({
         pageOfItems: news.data.docs,
@@ -158,7 +177,7 @@ class News extends Component {
           <WhatsNew />
         </div>
       );
-    }else return null;
+    } else return null;
   }
 }
 

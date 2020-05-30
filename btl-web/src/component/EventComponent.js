@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { FaComments } from "react-icons/fa";
 import moment from "moment";
-import { Link } from "react-router-dom";
 
 class EventComponent extends Component {
   render() {
@@ -12,18 +10,14 @@ class EventComponent extends Component {
         <div className="info-new">
           <div>
             <div>
-              <h3 style={{marginBottom : '0'}}>{event.title}</h3>
+              <h3 style={{ marginBottom: "0" }}>{event.title}</h3>
             </div>
             <div style={{ display: "flex" }}>
               <div className="date" style={{ fontStyle: "italic" }}>
                 <small>
-                  Thời gian: {moment(event.start_time).format("LL")} -{" "}
-                  {moment(event.finish_time).format("LL")} - &nbsp;
+                  Thời gian: {moment(event.start_time).format("LL")}
+                  {moment(event.finish_time).format("LL")}
                 </small>
-              </div>
-              <div>
-                <FaComments />
-                <small> (10)</small>
               </div>
             </div>
             <div>
@@ -36,13 +30,13 @@ class EventComponent extends Component {
           <div>
             <p>{event.content[0].paragraph.substr(0, 120)}...</p>
             <a href={`/events/${event.id}`}>
-            <button
-              type="button"
-              className="btn btn-danger"
-              style={{ backgroundColor: "#9acd32", border: "none" }}
-            >
-              Chi tiết
-            </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                style={{ backgroundColor: "#9acd32", border: "none" }}
+              >
+                Chi tiết
+              </button>
             </a>
           </div>
         </div>

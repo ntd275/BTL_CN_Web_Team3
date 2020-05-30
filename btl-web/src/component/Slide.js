@@ -81,7 +81,6 @@ class Slide extends Component {
     const { data } = this.state;
     if (data.length === 0) return null;
     else {
-      console.log(data);
       return <SlideChild data={data} />;
     }
   }
