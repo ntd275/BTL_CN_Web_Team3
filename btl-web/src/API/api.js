@@ -66,6 +66,11 @@ export function trendNews() {
   return axios.get("/trendnews");
 }
 
+<<<<<<< HEAD
 export function AllEvents() {
   return axios.get("/events");
+=======
+export function checkSignin({ username, password }) {
+  return axios.post("/login", { username: username, password: password });
+>>>>>>> 3b0f1e54787b78081c85c89114c3976db0ac1510
 }

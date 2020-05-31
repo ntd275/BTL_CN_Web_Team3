@@ -37,8 +37,8 @@ class Event extends Component {
       if (typeof element.paragraph === "undefined") {
         return (
           <div style={{ textAlign: "center" }}>
-            <div>
-              <img src={element.image} alt="abc" />
+            <div style={{textAlign: 'center'}}>
+              <img src={element.image} alt="abc" style={{maxWidth: '80%'}}/>
             </div>
           </div>
         );
