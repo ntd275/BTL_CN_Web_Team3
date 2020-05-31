@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from "moment";
 import "../CSS/calenda.css"
+import { AllEvents } from "../API/api";
 class Calendar extends Component {
     weekdayshort = moment.weekdaysShort();
 
@@ -10,7 +11,8 @@ class Calendar extends Component {
         dateObject: moment(),
         allmonths: moment.months(),
         showYearNav: false,
-        selectedDay: null
+        selectedDay: null,
+        events:[]
     };
     daysInMonth = () => {
         return this.state.dateObject.daysInMonth();
@@ -203,6 +205,17 @@ class Calendar extends Component {
             }
         );
     };
+    async componentDidMount(){
+        const event = await AllEvents();
+        this.setState({
+            events: event.data.map((value)=>{
+                return {
+                    start_time:value.start_time,
+                    category:value.category
+                }
+            })
+        })
+    }
     render() {
         let weekdayshortname = this.weekdayshort.map(day => {
             return <th key={day}>{day}</th>;

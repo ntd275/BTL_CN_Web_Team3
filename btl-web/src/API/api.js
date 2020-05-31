@@ -65,3 +65,7 @@ export function previousNew({ newsId }) {
 export function trendNews() {
   return axios.get("/trendnews");
 }
+
+export function AllEvents() {
+  return axios.get("/events");
+}
