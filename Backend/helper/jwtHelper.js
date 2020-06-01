@@ -6,12 +6,7 @@ let jwt = require('jsonwebtoken');
 exports.generateToken = function(user, secretSignature, tokenLife){
     return new Promise((resolve, reject) => {
         //Dữ liệu user lưu vào token
-        const userData = {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            username: user.username,
-        }
+        const userData = user;
 
         //Sinh token
         jwt.sign(

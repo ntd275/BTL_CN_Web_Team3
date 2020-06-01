@@ -53,12 +53,13 @@ exports.login = async function (req, res) {
       return res.json({ message: 'Username and Password are incorrect' });
     }
 
-    let userData = {
-      id: user.id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
+    if(user.status == 'block'){
+      return res.json({message: 'account blocked'});
     }
+
+    user.password = undefined;
+
+    let userData = user;
 
     //Sinh access token
     const accessToken = await jwtHelper.generateToken(userData, accessTokenSecret, accessTokenLife);
@@ -67,7 +68,7 @@ exports.login = async function (req, res) {
     //Lưu lại token
     tokenList[refreshToken] = { accessToken, refreshToken };
     //Trả token cho người dùng
-    return res.status(200).json({ accessToken, refreshToken });
+    return res.status(200).json({ accessToken, refreshToken,userData});
   } catch (error) {
     //Trả về nếu gặp lỗi
     return res.status(500).json(error);
@@ -101,6 +102,8 @@ exports.refreshToken = async function (req, res) {
   }
 };
 
+
+//Đăng xuất
 exports.logout = async function (req, res) {
   //Nhận refresh token
   const refreshTokenFromClient = req.body.refreshToken;

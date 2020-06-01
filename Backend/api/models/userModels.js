@@ -1,6 +1,7 @@
 'use strict';
 let mongoose = require('../db');
 let autoIncrement = require('mongoose-auto-increment');
+let mongoosePaginate = require('mongoose-paginate');
 let Schema = mongoose.Schema;
 
 //Tạo Schema cho user
@@ -25,6 +26,16 @@ let UserSchema = new Schema({
   email: {
     type: String,
   },
+  user_type: { //Loại user
+    type: String,
+    required: true,
+    default: "partner",
+  },
+  status: {
+    type:String,
+    required: true,
+    default: "activate"
+  },
   Created_date: {
     type: Date,
     default: Date.now // Ngày tạo mặc định
@@ -33,5 +44,8 @@ let UserSchema = new Schema({
 
 //Thêm plugin tự động tăng id
 UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'id' });
+
+//Thêm plugin phân trang
+UserSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('User', UserSchema);

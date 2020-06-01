@@ -52,6 +52,30 @@ module.exports = function (app) {
   app.route('/prevevent/:eventId')
     .get(eventCtr.prev_event);
 
+  //API thống kê số bài theo tuần của username
+  app.route('/statisticeventbyweek/:username')
+    .get(eventCtr.count_event_by_week_and_username);
+
+  //API thống kê tất cả số bài theo tuần
+  app.route('/statisticeventbyweek')
+    .get(eventCtr.count_event_by_week);
+
+  //API lấy tất cả bài của user
+  app.route('/geteventbyuser/:username')
+    .get(eventCtr.get_all_by_username);
+
+  //API phân trang event của user
+  app.route('/geteventbyuser/:username/:pagenum')
+    .get(eventCtr.get_page_by_username);
+
+  //API lấy tổng số view
+  app.route('/getview')
+    .get(eventCtr.calc_view);
+
+  //API lấy tổng view của 1 user
+  app.route('/getview/:username')
+    .get(eventCtr.calc_view_user);
+
   let newsCtr = require('../controllers/newsController');
 
   //API lấy tất cả tin tức
@@ -92,12 +116,12 @@ module.exports = function (app) {
   app.route('/refreshtoken')
     .post(authCtr.refreshToken);
 
+  //Các API dưới đây cần token để gọi
+  app.use(AuthMiddleWare.isAuth);
+
   //API đăng kí
   app.route('/register')
     .post(authCtr.register);
-
-  //Các API dưới đây cần token để gọi
-  app.use(AuthMiddleWare.isAuth);
 
   //API đăng 1 bài
   app.route('/events').post(eventCtr.create_a_event);
@@ -125,4 +149,26 @@ module.exports = function (app) {
   //API đăng xuất
   app.route('/logout')
     .post(authCtr.logout);
+  
+  let userCtr = require('../controllers/userController');
+  
+  //API thay đổi thông tin
+  app.route('/changeinfo')
+    .post(userCtr.edit_information);
+  
+  //API thay đổi mật khẩu
+  app.route('/changepassword')
+    .post(userCtr.edit_password);
+  
+  //API thay đổi trạng thái
+  app.route('/changestatus')
+    .post(userCtr.edit_status);
+  
+  //API lấy tất cả user
+  app.route('/users')
+    .post(userCtr.get_all_user);
+
+  //API phân trang user
+  app.route('/users/:pagenum')
+    .post(userCtr.get_page_user);
 };
