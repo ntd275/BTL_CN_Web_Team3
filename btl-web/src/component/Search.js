@@ -30,10 +30,30 @@ class Search extends Component {
 
   async onSearch() {
     const { keyword } = this.state;
-    const events = await searchEvents({ keyword });
-    console.log(events.data.docs);
+    const id = 1;
+    const events = await searchEvents({ keyword, id });
+    const currentPage = parseInt(events.data.page);
     let rank = [];
-    for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+    if (events.data.pages <= 5) {
+      for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+    } else {
+      if (currentPage < 5) {
+        for (let i = 1; i <= 5; i++) rank.push(i);
+      } else {
+        if (parseInt(currentPage) + 2 <= events.data.pages) {
+          for (let i = 2; i >= -2; i--) {
+            rank.push(currentPage - i);
+          }
+        } else {
+          for (let i = 2; i >= -2; i--) {
+            if (currentPage - i <= events.data.pages) {
+              rank.push(currentPage - i);
+            }
+          }
+        }
+      }
+    }
+
     this.setState({
       pageOfItems: events.data.docs,
       pager: {
@@ -49,9 +69,28 @@ class Search extends Component {
     console.log(id);
     const { keyword } = this.state;
     const events = await searchEvents({ keyword, id });
-    console.log(events.data);
+    const currentPage = parseInt(events.data.page);
     let rank = [];
-    for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+    if (events.data.pages <= 5) {
+      for (let i = 1; i <= events.data.pages; i++) rank.push(i);
+    } else {
+      if (currentPage < 5) {
+        for (let i = 1; i <= 5; i++) rank.push(i);
+      } else {
+        if (parseInt(currentPage) + 2 <= events.data.pages) {
+          for (let i = 2; i >= -2; i--) {
+            rank.push(currentPage - i);
+          }
+        } else {
+          for (let i = 2; i >= -2; i--) {
+            if (currentPage - i <= events.data.pages) {
+              rank.push(currentPage - i);
+            }
+          }
+        }
+      }
+    }
+
     this.setState({
       pageOfItems: events.data.docs,
       pager: {

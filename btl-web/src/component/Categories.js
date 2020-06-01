@@ -23,7 +23,7 @@ const Event = (props) => {
           <div className="date" style={{ fontStyle: "italic" }}>
             <small>
               Thời gian: {moment(event.start_time).format("LL")} -{" "}
-              {moment(event.finish_time).format("LL")} - &nbsp;
+              {moment(event.finish_time).format("LL")}
             </small>
           </div>
         </div>

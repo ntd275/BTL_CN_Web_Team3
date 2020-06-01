@@ -477,3 +477,6 @@ hr {
   font-size: 20px;
   color: #333;
 }
+.btn {
+  border-radius: none !important;
+}

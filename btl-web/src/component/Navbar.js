@@ -33,7 +33,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(1);
             }}
-            className={(flagLink == 1) ? "category-link" : ""}
+            className={flagLink == 1 ? "category-link" : ""}
           >
             Trang chủ
           </Link>
@@ -43,7 +43,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(2);
             }}
-            className={(flagLink == 2) ? "category-link" : ""}
+            className={flagLink == 2 ? "category-link" : ""}
           >
             Lịch
           </Link>
@@ -53,7 +53,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(3);
             }}
-            className={(flagLink == 3) ? "category-link" : ""}
+            className={flagLink == 3 ? "category-link" : ""}
           >
             Chuyên mục
           </Link>
@@ -63,7 +63,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(4);
             }}
-            className={(flagLink == 4) ? "category-link" : ""}
+            className={flagLink == 4 ? "category-link" : ""}
           >
             Tin tức
           </Link>
@@ -73,7 +73,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(5);
             }}
-            className={(flagLink == 5) ? "category-link" : ""}
+            className={flagLink == 5 ? "category-link" : ""}
           >
             Đối tác
           </Link>
@@ -84,7 +84,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(6);
             }}
-            className={(flagLink == 6) ? "category-link" : ""}
+            className={flagLink == 6 ? "category-link" : ""}
           >
             Liên hệ
           </Link>
@@ -94,7 +94,7 @@ class Navbar extends Component {
             onClick={() => {
               this.hoverNavbar(7);
             }}
-            className={(flagLink == 7) ? "category-link" : ""}
+            className={flagLink == 7 ? "category-link" : ""}
           >
             Tìm kiếm
           </Link>

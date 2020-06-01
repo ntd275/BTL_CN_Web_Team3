@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import WhatsNewHN from "./WhatsNewHN";
 import WhatsNewHCM from "./WhatsNewHCM";
-import WhatsNewAll from "./WhatsNewAll";
+import { Link } from "react-router-dom";
 
 class WhatsNew extends Component {
   constructor(props) {
@@ -22,14 +22,6 @@ class WhatsNew extends Component {
         option: 2,
       });
   };
-
-  changeAll = () => {
-    if (this.state.option !== 3)
-      this.setState({
-        option: 3,
-      });
-  };
-
   render() {
     if (this.state.option === 1) {
       return (
@@ -53,48 +45,16 @@ class WhatsNew extends Component {
             >
               HCM
             </button>
+            <Link to="/calendar" extrac>
             <button
               type="button"
               className="btn btn-success"
-              onClick={this.changeAll}
             >
               Lịch đầy đủ
             </button>
+            </Link>
           </div>
           <WhatsNewHN />
-        </div>
-      );
-    } else if (this.state.option === 2) {
-      return (
-        <div className="small">
-          <div className="title">
-            <a href>Có gì hôm nay</a>
-          </div>
-          <hr />
-          <div className="btn-group button-group btn-new">
-            <button
-              type="button"
-              onClick={this.changeHN}
-              className="btn btn-success"
-            >
-              Hà Nội
-            </button>
-            <button
-              type="button"
-              onClick={this.changeHCM}
-              className="btn btn-success"
-            >
-              HCM
-            </button>
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={this.changeAll}
-            >
-              Lịch đầy đủ
-            </button>
-          </div>
-          <WhatsNewHCM />
         </div>
       );
     } else {
@@ -122,15 +82,14 @@ class WhatsNew extends Component {
             <button
               type="button"
               className="btn btn-success"
-              onClick={this.changeAll}
             >
               Lịch đầy đủ
             </button>
           </div>
-          <WhatsNewAll />
+          <WhatsNewHCM />
         </div>
       );
-    }
+    } 
   }
 }
 

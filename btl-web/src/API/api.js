@@ -65,3 +65,10 @@ export function previousNew({ newsId }) {
 export function trendNews() {
   return axios.get("/trendnews");
 }
+
+export function AllEvents() {
+  return axios.get("/events");
+}
+export function checkSignin({ username, password }) {
+  return axios.post("/login", { username: username, password: password });
+}

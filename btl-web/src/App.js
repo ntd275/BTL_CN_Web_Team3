@@ -12,11 +12,19 @@ import Partners from "./component/Partners";
 import Search from "./component/Search";
 import Article from "./component/New";
 import Event from "./component/Event";
-import Adminlogin from "./component/Adminlogin";
 import Calendarpage from "./component/Calendarpage";
 import Events from "./component/Events";
+import RouterURL from "./component/RouteURL";
 
 class App extends Component {
+  state = { authenticated: false };
+
+  setSignin = (authenticated) => {
+    this.setState({
+      authenticated: authenticated,
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -40,7 +48,11 @@ class App extends Component {
 
             <Route path="/find" exact component={Search} />
 
-            <Route path="/admin" exact component={Adminlogin} />
+            <RouterURL
+              authenticated={this.state.authenticated}
+              setSignin={this.setSignin}
+            />
+
           </Switch>
           <Footer />
         </div>

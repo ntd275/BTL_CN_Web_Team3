@@ -56,6 +56,11 @@ const ChildNewestNew = (props) => {
             <small>{moment(data[key].Created_date).format("LL")} &nbsp;</small>
           </div>
         </div>
+        <a href={`/news/${data[key + 1].id}`}>
+          <div>
+            <h3 style={{ marginBottom: "0" }}>{data[key].name}</h3>
+          </div>
+        </a>
         <p>{data[key].content[0].paragraph.substr(0, 130)}...</p>
       </div>
       <div className="card-normal card2">
@@ -70,6 +75,11 @@ const ChildNewestNew = (props) => {
             </small>
           </div>
         </div>
+        <a href={`/news/${data[key + 1].id}`}>
+          <div>
+            <h3 style={{ marginBottom: "0" }}>{data[key].name}</h3>
+          </div>
+        </a>
         <p>{data[key + 1].content[0].paragraph.substr(0, 130)}...</p>
       </div>
     </div>

@@ -15,7 +15,7 @@ class NewComponent extends Component {
             <div style={{ display: "flex" }}>
               <div className="date" style={{ fontStyle: "italic" }}>
                 <small>
-                  {moment(newspaper.Created_date).format("LL")} &nbsp;
+                  {moment(newspaper.Created_date).format("LL")};
                 </small>
               </div>
             </div>
