@@ -168,6 +168,10 @@ module.exports = function (app) {
   app.route('/users')
     .post(userCtr.get_all_user);
 
+  //API lấy thông tin của user
+  app.route('/user')
+    .post(userCtr.get_infomation);
+
   //API phân trang user
   app.route('/users/:pagenum')
     .post(userCtr.get_page_user);
