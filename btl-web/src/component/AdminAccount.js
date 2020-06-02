@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "../CSS/adminlogin.css";
-import { checkSignin } from "../API/api";
-import { Redirect } from "react-router-dom";
 
 class AdminAccount extends Component {
   constructor(props) {
@@ -9,18 +7,25 @@ class AdminAccount extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectToReferrer: false,
-      alert: 0,
+      name: "",
+      status: "",
+      renewpassword: "",
+      newpassword: "",
+      email: "",
     };
   }
 
-  render() {
-    var { redirectToReferrer } = this.state;
-    let { from } = this.props.state || { from: { pathname: "/dashboard" } };
-    if (redirectToReferrer) return <Redirect to={from} />;
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
+  onUpdateUser = () => {};
+
+  onUpdatePassword = () => {};
+
+  render() {
     return (
-      <div style={{display: 'flex'}}>
+      <div style={{ display: "flex" }}>
         <div className="admin">
           <div className="container-login">
             <div className="row-login">
@@ -36,91 +41,87 @@ class AdminAccount extends Component {
                   <i className="fa fa-user" />
                 </div>
               </div>
+
               <div className="input-group input-group-icon">
                 <input
                   type="text"
                   placeholder="Tên đối tác"
-                  name="username"
+                  name="name"
                   onChange={this.onChange}
                 />
                 <div className="input-icon">
                   <i className="fa fa-user" />
                 </div>
               </div>
+
               <div className="input-group input-group-icon">
                 <input
-                  type="text"
-                  placeholder="Số điện thoại"
-                  name="username"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
                   onChange={this.onChange}
                 />
                 <div className="input-icon">
                   <i className="fa fa-user" />
                 </div>
               </div>
-              <div className="input-group input-group-icon">
-                <input
-                  type="text"
-                  placeholder="Địa chỉ"
-                  name="username"
-                  onChange={this.onChange}
-                />
-                <div className="input-icon">
-                  <i className="fa fa-user" />
-                </div>
-              </div>
+
               <div className="input-group input-group-icon">
                 <input
                   type="submit"
                   style={{ paddingLeft: "0" }}
-                  onClick={this.signin}
+                  onClick={this.onUpdateUser}
                 />
               </div>
             </div>
           </div>
         </div>
+
         <div className="admin">
           <div className="container-login">
             <div className="row-login">
               <h4>Thay đổi mật khẩu</h4>
               <div className="input-group input-group-icon">
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Mật khẩu cũ"
-                  name="username"
+                  name="password"
                   onChange={this.onChange}
                 />
                 <div className="input-icon">
                   <i className="fa fa-user" />
                 </div>
               </div>
+              
               <div className="input-group input-group-icon">
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Mật khẩu mới"
-                  name="username"
+                  name="newpassword"
                   onChange={this.onChange}
                 />
                 <div className="input-icon">
                   <i className="fa fa-user" />
                 </div>
               </div>
+              
               <div className="input-group input-group-icon">
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Nhập lại mật khẩu mới"
-                  name="username"
+                  name="renewpassword"
                   onChange={this.onChange}
                 />
                 <div className="input-icon">
                   <i className="fa fa-user" />
                 </div>
               </div>
+              
               <div className="input-group input-group-icon">
                 <input
                   type="submit"
                   style={{ paddingLeft: "0" }}
-                  onClick={this.signin}
+                  onClick={this.onUpdatePassword}
                 />
               </div>
             </div>

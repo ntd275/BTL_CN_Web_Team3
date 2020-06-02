@@ -76,6 +76,19 @@ export function checkSignin({ username, password }) {
 
 export function checkSignOut() {
   const refreshToken = localStorage.getItem("refreshToken");
-  const token = localStorage.getItem("accessToken")
+  const token = localStorage.getItem("accessToken");
   return axios.post("/logout", { token: token, refreshToken: refreshToken });
+}
+
+export function createUser({ username, name, password, email }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  return axios.post("/register", {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+    name: name,
+    password: password,
+    email: email,
+  });
 }
