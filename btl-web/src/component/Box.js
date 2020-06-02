@@ -10,35 +10,16 @@ class Box extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      flag: true,
-      imageURL: "",
-      element: {
-        image: "",
-        paragraph: "",
-      },
+      image: "",
+      paragraph: "",
+      flag: "true",
     };
   }
-
-  componentWillMount() {
-    if (this.props.element) {
-      this.setState({
-        element: {
-          image: this.props.element.image,
-          paragraph: this.state.element.paragraph,
-        },
-      });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps) {
-      this.setState({
-        element: {
-          image: this.props.element.image,
-          paragraph: this.state.element.paragraph,
-        },
-      });
-    }
+  componentDidMount() {
+    this.setState({
+      image: this.props.element.image,
+      paragraph: this.props.element.paragraph,
+    });
   }
 
   onDeleteBox = () => {
@@ -57,37 +38,40 @@ class Box extends Component {
     this.props.onAddBox();
   };
 
-  onChangeTypeBox = () => {
+  onChangeTextBox = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onChangeTextBox = () => {
     this.setState({
       flag: !this.state.flag,
     });
   };
 
-  onChangeTextBox = (e) => {
-    this.props.onChangeTextBox(e, this.props.index);
-  };
-
   render() {
-    const { flag } = this.state;
     return (
       <div className="mt-2">
         <div style={{ float: "right" }}>
           <Button variant="secondary" className="mr-2" onClick={this.onAddBox}>
             <i class="fa fa-plus" aria-hidden="true"></i>
           </Button>
+
           <Button variant="secondary" className="mr-2" onClick={this.onUpBox}>
             <i class="fa fa-arrow-up" aria-hidden="true"></i>
           </Button>
+
           <Button variant="secondary" className="mr-2" onClick={this.onDownBox}>
             <i class="fa fa-arrow-down" aria-hidden="true"></i>
           </Button>
+
           <Button
             variant="secondary"
             className="mr-2"
-            onClick={this.onChangeTypeBox}
+            onClick={this.onChangeTextBox}
           >
             <i class="fa fa-refresh" aria-hidden="true"></i>
           </Button>
+
           <Button
             variant="secondary"
             className="mr-2"
@@ -97,7 +81,7 @@ class Box extends Component {
           </Button>
         </div>
 
-        {flag ? (
+        {this.state.flag ? (
           <InputGroup>
             <FormControl
               as="textarea"
@@ -106,18 +90,20 @@ class Box extends Component {
               className="mt-2"
               name="paragraph"
               onChange={this.onChangeTextBox}
+              value={this.state.paragraph}
             />
           </InputGroup>
         ) : (
-          <InputGroup>
+          <InputGroup className="mb-3">
             <FormControl
               className="mt-2"
               ref="uploadImg"
               type="file"
-              name="image"
+              name="selectedFile"
+              onChange={this.onChange}
             />
             <Image
-              src={this.state.imageURL}
+              src={this.state.imageCover}
               fluid
               style={{ maxWidth: "80%", margin: "auto" }}
             />
