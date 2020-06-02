@@ -69,6 +69,13 @@ export function trendNews() {
 export function AllEvents() {
   return axios.get("/events");
 }
+
 export function checkSignin({ username, password }) {
   return axios.post("/login", { username: username, password: password });
+}
+
+export function checkSignOut() {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken")
+  return axios.post("/logout", { token: token, refreshToken: refreshToken });
 }

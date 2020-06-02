@@ -1,32 +1,92 @@
 import React, { Component } from "react";
 import PrivateRoute from "./PrivateRoute";
-import Adminlogin from "./Adminlogin";
 import DashBoard from "./DashBoard";
-import { Route } from "react-router-dom";
-// import PropTypes from "prop-types";
+import { Route, Switch } from "react-router-dom";
+import AdminLogin from "./AdminLogin";
+import TaskBar from "./TaskBar";
+import AdminListEvent from "./AdminListEvent";
+import AdminEvent from "./AdminEvent";
+import AdminAccount from "./AdminAccount";
+import AdminCreateAccount from "./AdminCreateAccount";
+import AdminListAccount from "./AdminListAccount";
 
 class RouterURL extends Component {
-//   static propTypes = {
-//     setLogin: PropTypes.func.isRequired,
-//   };
-
   render() {
     const { authenticated, setSignin } = this.props;
     return (
-      <>
-        <PrivateRoute
-          authenticated={authenticated}
-          exact
-          path="/dashboard"
-          component={DashBoard}
-        />
+      <Route>
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard-main">
+          <TaskBar
+            setSignin={setSignin}
+            authenticated={authenticated}
+          />
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard-main-event">
+            <Switch>
+              <Route
+                exact
+                path="/admin"
+                render={() => <AdminLogin setSignin={setSignin} />}
+              />
 
-        <Route
-          exact
-          path="/admin"
-          render={() => <Adminlogin setSignin={setSignin} />}
-        />
-      </>
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/dashboard"
+                component={DashBoard}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-event/:id"
+                component={AdminEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-create-event"
+                component={AdminEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-account"
+                component={AdminAccount}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-create-account"
+                component={AdminCreateAccount}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-list-account"
+                component={AdminListAccount}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-events-page/:id"
+                component={AdminListEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-events-category/:category/:id"
+                component={AdminListEvent}
+              />
+            </Switch>
+          </div>
+        </div>
+      </Route>
     );
   }
 }

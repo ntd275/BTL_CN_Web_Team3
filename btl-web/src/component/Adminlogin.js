@@ -2,13 +2,8 @@ import React, { Component } from "react";
 import "../CSS/adminlogin.css";
 import { checkSignin } from "../API/api";
 import { Redirect } from "react-router-dom";
-// import propTypes from "prop-types";
 
-class Adminlogin extends Component {
-  //   static propTypes = {
-  //     setLogin: propTypes.func.isRequired,
-  //   };
-
+class AdminLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,8 +20,11 @@ class Adminlogin extends Component {
     if (username && password) {
       checkSignin({ username, password }).then((result) => {
         if (result.data.accessToken) {
-          const token = result.data.accessToken;
-          window.localStorage.setItem("token", token);
+          const accessToken = result.data.accessToken;
+          const refreshToken = result.data.refreshToken;
+
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
 
           this.props.setSignin(true);
           this.setState({
@@ -67,12 +65,12 @@ class Adminlogin extends Component {
   };
 
   render() {
+
     var { redirectToReferrer } = this.state;
     let { from } = this.props.state || { from: { pathname: "/dashboard" } };
     if (redirectToReferrer) return <Redirect to={from} />;
-
     return (
-      <div className="admin">
+      <div className="admin" style={{marginTop: '120px'}}>
         <div className="container-login">
           <div className="row-login">
             <h4>Đăng nhập</h4>
@@ -113,4 +111,4 @@ class Adminlogin extends Component {
   }
 }
 
-export default Adminlogin;
+export default AdminLogin;

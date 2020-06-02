@@ -10,7 +10,7 @@ export default function PrivateRoute({
     <Route
       {...rest}
       render={(props) =>
-        authenticated === true || localStorage.getItem("token") ? (
+        authenticated === true || localStorage.getItem("accessToken") ? (
           <Component {...props} />
         ) : (
           <Redirect
