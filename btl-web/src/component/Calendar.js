@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import moment from "moment";
 import "../CSS/calenda.css"
 import { AllEvents } from "../API/api";
-import { element } from 'prop-types';
 class Calendar extends Component {
     constructor(props) {
         super(props)
@@ -218,24 +217,25 @@ class Calendar extends Component {
             })
         })
     }
-    // check = () => {
-    //     let dayinthismonth = this.state.allevents.filter((element) => {  
-    //          //Những sự kiện xảy ra trong tháng hiện tại
-    //          return ((new Date(element.start_time)).getUTCMonth()===new Date().getMonth())&&
-    //          ((new Date(element.start_time)).getUTCFullYear()===new Date().getFullYear())
-    //         // return element.start_time.getDate() === this.state.dateObject.format("M") &&
-    //         //     element.start_time.getYear() === this.year();
-    //     })
-    //     console.log(dayinthismonth)
-    //     // dayinthismonth.forEach((element)=>{
-    //     //     console.log(moment(element.start_time).format("D"))
-    //     // })
-    //     // for (let i =1;i<=31;i++){
-    //     //     if (parseInt(moment(element.start_time).format("D")) === i) {
-    //     //         console.log("an roi"+i)
-    //     //     }
-    //     // }
-    // }
+    check = () => {
+        // console.log(this.state.allevents)
+        // let dayinthismonth = this.state.allevents.filter((element) => {  
+        //      //Những sự kiện xảy ra trong tháng hiện tại
+        //      return ((new Date(element.start_time)).getUTCMonth()===new Date().getMonth())&&
+        //      ((new Date(element.start_time)).getUTCFullYear()===new Date().getFullYear())
+        //     // return element.start_time.getDate() === this.state.dateObject.format("M") &&
+        //     //     element.start_time.getYear() === this.year();
+        // })
+        // console.log(dayinthismonth)
+        // dayinthismonth.forEach((element)=>{
+        //     console.log(moment(element.start_time).format("D"))
+        // })
+        // for (let i =1;i<=31;i++){
+        //     if (parseInt(moment(element.start_time).format("D")) === i) {
+        //         console.log("an roi"+i)
+        //     }
+        // }
+    }
     render() {
         const weekdayshort = moment.weekdaysShort();
         let { allevents } = this.state;
