@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../CSS/adminlogin.css";
-import { checkSignin } from "../API/api";
+import { checkSignin, getInfoUser } from "../API/api";
 import { Redirect } from "react-router-dom";
 
 class AdminLogin extends Component {
@@ -22,13 +22,23 @@ class AdminLogin extends Component {
         if (result.data.accessToken) {
           const accessToken = result.data.accessToken;
           const refreshToken = result.data.refreshToken;
+          const userType = result.data.userData.user_type;
+          const username = result.data.userData.username;
+          const id = result.data.userData.id;
 
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
+          localStorage.setItem("userType", userType);
+          localStorage.setItem("username", username);
+          localStorage.setItem("id", id);
 
           this.props.setSignin(true);
           this.setState({
             redirectToReferrer: true,
+          });
+        } else if (result.data.message === "account blocked") {
+          this.setState({
+            alert: 3,
           });
         } else {
           this.setState({
@@ -61,16 +71,22 @@ class AdminLogin extends Component {
           Hãy nhập đầy đủ thông tin!
         </div>
       );
-    else return <></>;
+    else if (alert === 3) {
+      return (
+        <div class="alert alert-danger" role="alert">
+          Tài khoản đã bị khoá!
+        </div>
+      );
+    } else return <></>;
   };
 
   render() {
-
     var { redirectToReferrer } = this.state;
+    console.log(localStorage.getItem("userType"));
     let { from } = this.props.state || { from: { pathname: "/dashboard" } };
     if (redirectToReferrer) return <Redirect to={from} />;
     return (
-      <div className="admin" style={{marginTop: '120px'}}>
+      <div className="admin" style={{ marginTop: "120px" }}>
         <div className="container-login">
           <div className="row-login">
             <h4>Đăng nhập</h4>

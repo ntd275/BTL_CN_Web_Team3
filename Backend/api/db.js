@@ -1,7 +1,7 @@
 'use strict';
 let mongoose = require('mongoose');
 let autoIncrement = require('mongoose-auto-increment');
-let user = process.env.USER;
+let user = process.env.USERDB;
 let password = process.env.PASSWORD;
 
 //Kết nối DB

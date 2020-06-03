@@ -1,31 +1,31 @@
 import React, { Component } from "react";
 import PrivateRoute from "./PrivateRoute";
-import DashBoard from "./DashBoard";
+import DashBoard from "./DashBoard/DashBoard";
 import { Route, Switch } from "react-router-dom";
-import AdminLogin from "./Adminlogin";
+import Admin from "./Admin";
 import TaskBar from "./TaskBar";
 import AdminListEvent from "./AdminListEvent";
 import AdminEvent from "./AdminEvent";
 import AdminAccount from "./AdminAccount";
 import AdminCreateAccount from "./AdminCreateAccount";
 import AdminListAccount from "./AdminListAccount";
-
+import AdminActiveEvent from "./AdminActiveEvent";
+import AdminActiveNew from "./AdminActiveNew";
+import AdminListNew from "./AdminListNew";
+//123
 class RouterURL extends Component {
   render() {
     const { authenticated, setSignin } = this.props;
     return (
       <Route>
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard-main">
-          <TaskBar
-            setSignin={setSignin}
-            authenticated={authenticated}
-          />
+          <TaskBar setSignin={setSignin} authenticated={authenticated} />
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard-main-event">
             <Switch>
               <Route
                 exact
                 path="/admin"
-                render={() => <AdminLogin setSignin={setSignin} />}
+                render={() => <Admin setSignin={setSignin} />}
               />
 
               <PrivateRoute
@@ -66,7 +66,7 @@ class RouterURL extends Component {
               <PrivateRoute
                 authenticated={authenticated}
                 exact
-                path="/admin-list-account"
+                path="/admin-list-account/:id"
                 component={AdminListAccount}
               />
 
@@ -83,6 +83,28 @@ class RouterURL extends Component {
                 path="/admin-events-category/:category/:id"
                 component={AdminListEvent}
               />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-active-event/:id"
+                component={AdminActiveEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-active-new/:id"
+                component={AdminActiveNew}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-news-page/:id"
+                component={AdminListNew}
+              />
+              
             </Switch>
           </div>
         </div>

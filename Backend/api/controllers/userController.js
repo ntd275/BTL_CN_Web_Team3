@@ -85,4 +85,3 @@ exports.get_infomation = async function (req, res) {
         res.json(err);
     }
 }
-
