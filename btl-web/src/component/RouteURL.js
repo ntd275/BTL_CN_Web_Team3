@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PrivateRoute from "./PrivateRoute";
 import DashBoard from "./DashBoard";
 import { Route, Switch } from "react-router-dom";
-import AdminLogin from "./AdminLogin";
+import AdminLogin from "./Adminlogin";
 import TaskBar from "./TaskBar";
 import AdminListEvent from "./AdminListEvent";
 import AdminEvent from "./AdminEvent";
