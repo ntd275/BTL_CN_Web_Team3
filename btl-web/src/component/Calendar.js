@@ -212,29 +212,38 @@ class Calendar extends Component {
             allevents: event.data.map((value) => {
                 return {
                     start_time: value.start_time,
-                    category: value.category
+                    category: value.category,
+                    title: value.title
                 }
             })
         })
     }
-    checkType=(event,day)=>{
-        
-    }
     // check = () => {
-    //     let a = moment("2");
-    //     this.state.allevents.forEach(element => {
-    //         console.log(element.start_time+"  "+moment(element.start_time).format("M"))
-    //     });
-    //     console.log(this.state.dateObject.format("M"))
+    //     let dayinthismonth = this.state.allevents.filter((element) => {  
+    //          //Những sự kiện xảy ra trong tháng hiện tại
+    //          return ((new Date(element.start_time)).getUTCMonth()===new Date().getMonth())&&
+    //          ((new Date(element.start_time)).getUTCFullYear()===new Date().getFullYear())
+    //         // return element.start_time.getDate() === this.state.dateObject.format("M") &&
+    //         //     element.start_time.getYear() === this.year();
+    //     })
+    //     console.log(dayinthismonth)
+    //     // dayinthismonth.forEach((element)=>{
+    //     //     console.log(moment(element.start_time).format("D"))
+    //     // })
+    //     // for (let i =1;i<=31;i++){
+    //     //     if (parseInt(moment(element.start_time).format("D")) === i) {
+    //     //         console.log("an roi"+i)
+    //     //     }
+    //     // }
     // }
     render() {
         const weekdayshort = moment.weekdaysShort();
-        let {allevents} = this.state;
+        let { allevents } = this.state;
         let thismonth = this.state.dateObject.format("M");
-        let dayinthismonth = allevents.filter((element)=>{   //Những sự kiện xảy ra trong tháng hiện tại
-            return moment(element.start_time).format("M")===thismonth&&
-            moment(element.start_time).format("Y")===this.year();
-        })
+        let dayinthismonth = this.state.allevents.filter((element) => {  //những sự kiện xảy ra trong tháng này
+            return ((new Date(element.start_time)).getUTCMonth()===new Date().getMonth())&&
+            ((new Date(element.start_time)).getUTCFullYear()===new Date().getFullYear())
+       })   
         let weekdayshortname = weekdayshort.map(day => {
             return <th key={day}>{day}</th>;
         });
@@ -242,21 +251,22 @@ class Calendar extends Component {
         for (let i = 0; i < this.firstDayOfMonth(); i++) {
             blanks.push(<td className="calendar-day empty">{""}</td>);
         }
-        let daysInMonth=[];
+        let daysInMonth = [];
         for (let i = 1; i <= this.daysInMonth(); i++) {
             let currentDay = i == this.currentDay() ? "today" : "";
-            let count =0;
-            let type = 0;
+            let count = 0;
+            let eventType = " ";
             dayinthismonth.forEach(element => {
-                if (moment(element.start_time).format("D")===i){
-                    count ++;
-                    type = element.type;
+                if (new Date(element.start_time).getUTCDate() === i) {
+                    count++;
+                    eventType = "eventType" + element.category;
+                    console.log("an roi"+i)
                 }
             });
-            if (count >1) type = 6;
-            // let selectedClass = (d == this.state.selectedDay ? " selected-day " : "")
+            if (count > 1) eventType = "eventType6"
+            let selectedClass = (i == this.state.selectedDay ? " selected-day " : "")
             daysInMonth.push(
-                <td key={i} className={`calendar-day ${currentDay} `}>
+                <td key={i} className={`calendar-day ${currentDay} ${eventType}`}>
                     <span
                         onClick={e => {
                             this.onDayClick(e, i);
