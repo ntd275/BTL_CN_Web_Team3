@@ -26,6 +26,7 @@ class Search extends Component {
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value, flag: false });
+    this.onSearch();
   };
 
   async onSearch() {
@@ -103,6 +104,7 @@ class Search extends Component {
 
   render() {
     const { keyword, pageOfItems, flag, pager } = this.state;
+
     var elmTasks;
     if (pageOfItems.length === 0 && keyword !== "" && flag) {
       elmTasks = <p>Không tìm thấy sự kiện nào!</p>;

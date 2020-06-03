@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import moment from "moment";
-
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
-import { getAllEvents, changeStatusEvent, getEventsCategory } from "../API/api";
+import Table from "react-bootstrap/Table";
+import { adminActiveEvents, changeStatusEvent } from "../API/api";
 import { Link } from "react-router-dom";
 import Select from "react-select";
+import moment from "moment";
 
-class AdminListEvent extends Component {
+class AdminActiveEvent extends Component {
   constructor(props) {
     super(props);
     this._isMounted = false;
@@ -48,12 +46,17 @@ class AdminListEvent extends Component {
     }
   }
 
+  handleChange(value, id) {
+    const status = value.value;
+    changeStatusEvent({ status, id });
+  }
+
   async loadPage() {
-    if (this.props.match.path === "/admin-events-page/:id") {
+    if (this.props.match.path === "/admin-active-event/:id") {
       const currentPage = this.props.match.params.id || 1;
       if (currentPage !== this.state.pager.currentPage) {
-        const events = await getAllEvents({ currentPage });
-
+        const events = await adminActiveEvents({ currentPage });
+        console.log(events);
         let rank = [];
         if (events.data.pages <= 5) {
           for (let i = 1; i <= events.data.pages; i++) rank.push(i);
@@ -82,48 +85,8 @@ class AdminListEvent extends Component {
             currentPage: parseInt(currentPage),
             totalPages: events.data.pages,
           },
-          currentURL: "admin-events-page",
+          currentURL: "admin-active-event",
           isLoading: false,
-          flagLink: 0,
-        });
-      }
-    } else {
-      const currentPage = this.props.match.params.id || 1;
-      const category = this.props.match.params.category;
-
-      if (currentPage !== this.state.pager.currentPage) {
-        const events = await getEventsCategory({ category, currentPage });
-
-        let rank = [];
-        if (events.data.pages <= 5) {
-          for (let i = 1; i <= events.data.pages; i++) rank.push(i);
-        } else {
-          if (currentPage < 5) {
-            for (let i = 1; i <= 5; i++) rank.push(i);
-          } else {
-            if (parseInt(currentPage) + 2 <= events.data.pages) {
-              for (let i = 2; i >= -2; i--) {
-                rank.push(currentPage - i);
-              }
-            } else {
-              for (let i = 2; i >= -2; i--) {
-                if (currentPage - i <= events.data.pages) {
-                  rank.push(currentPage - i);
-                }
-              }
-            }
-          }
-        }
-        this.setState({
-          pageOfItems: events.data.docs,
-          pager: {
-            pages: rank,
-            currentPage: parseInt(currentPage),
-            totalPages: events.data.pages,
-          },
-          currentURL: "admin-events-category/" + category,
-          isLoading: false,
-          flagLink: category,
         });
       }
     }
@@ -133,15 +96,10 @@ class AdminListEvent extends Component {
     this._isMounted = false;
   }
 
-  handleChange(value, id) {
-    const status = value.value;
-    changeStatusEvent({ status, id });
-  }
   render() {
     const { pager, pageOfItems, currentURL } = this.state;
-    console.log(pageOfItems);
-
     var elmTasks;
+
     if (localStorage.getItem("userType") === "admin") {
       elmTasks = pageOfItems.map((doc, index) => {
         const id = doc.id;
@@ -162,7 +120,7 @@ class AdminListEvent extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+                {doc.title}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -180,7 +138,6 @@ class AdminListEvent extends Component {
       });
     } else {
       elmTasks = pageOfItems.map((doc, index) => {
-   
         var defaultStatus;
 
         if (doc.allow === "pending") {
@@ -199,7 +156,7 @@ class AdminListEvent extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+                {doc.title}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -212,64 +169,21 @@ class AdminListEvent extends Component {
 
     return (
       <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 dashboard-event">
-        <div className="row" style={{ margin: "auto" }}>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-page/1"
-          >
-            Tất cả
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/1/1"
-          >
-            Mĩ thuật
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/2/1"
-          >
-            Cho trẻ em
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/3/1"
-          >
-            Văn học
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/4/1"
-          >
-            Âm nhạc
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/5/1"
-          >
-            Nhiếp ảnh, Phim, Video
-          </Button>
-        </div>
         <hr />
-        <h3>DANH SÁCH SỰ KIỆN</h3>
-
-        <Table bordered>
-          <thead>
-            <tr className="text-center">
-              <th>Tên sự kiện</th>
-              <th>Người đăng</th>
-              <th>Ngày đăng</th>
-              <th>Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">{elmTasks}</tbody>
-        </Table>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h3>CÁC SỰ KIỆN ĐANG CHỜ DUYỆT</h3>
+          <Table bordered>
+            <thead>
+              <tr className="text-center">
+                <th>Tên tin tức</th>
+                <th>Người đăng</th>
+                <th>Ngày đăng</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">{elmTasks}</tbody>
+          </Table>
+        </div>
 
         <div style={{ float: "right" }}>
           {pager.pages && pager.pages.length && (
@@ -349,4 +263,4 @@ class AdminListEvent extends Component {
   }
 }
 
-export default AdminListEvent;
+export default AdminActiveEvent;
