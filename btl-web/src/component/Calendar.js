@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import moment from "moment";
 import "../CSS/calenda.css"
 import { AllEvents } from "../API/api";
+import { element } from 'prop-types';
 class Calendar extends Component {
-    weekdayshort = moment.weekdaysShort();
-
-    state = {
-        showCalendarTable: true,
-        showMonthTable: false,
-        dateObject: moment(),
-        allmonths: moment.months(),
-        showYearNav: false,
-        selectedDay: null,
-        events:[]
-    };
+    constructor(props) {
+        super(props)
+        this.state = ({
+            showCalendarTable: true,
+            showMonthTable: false,
+            dateObject: moment(),
+            allmonths: moment.months(),
+            showYearNav: false,
+            selectedDay: null,
+            allevents: []
+        });
+    }
     daysInMonth = () => {
         return this.state.dateObject.daysInMonth();
     };
@@ -122,7 +124,6 @@ class Calendar extends Component {
         });
     };
     setYear = year => {
-        // alert(year)
         let dateObject = Object.assign({}, this.state.dateObject);
         dateObject = moment(dateObject).set("year", year);
         this.setState({
@@ -205,37 +206,63 @@ class Calendar extends Component {
             }
         );
     };
-    async componentDidMount(){
-        const event = await AllEvents();
+    async componentDidMount() {
+        const event = await AllEvents()
         this.setState({
-            events: event.data.map((value)=>{
+            allevents: event.data.map((value) => {
                 return {
-                    start_time:value.start_time,
-                    category:value.category
+                    start_time: value.start_time,
+                    category: value.category
                 }
             })
         })
     }
+    checkType=(event,day)=>{
+        
+    }
+    // check = () => {
+    //     let a = moment("2");
+    //     this.state.allevents.forEach(element => {
+    //         console.log(element.start_time+"  "+moment(element.start_time).format("M"))
+    //     });
+    //     console.log(this.state.dateObject.format("M"))
+    // }
     render() {
-        let weekdayshortname = this.weekdayshort.map(day => {
+        const weekdayshort = moment.weekdaysShort();
+        let {allevents} = this.state;
+        let thismonth = this.state.dateObject.format("M");
+        let dayinthismonth = allevents.filter((element)=>{   //Những sự kiện xảy ra trong tháng hiện tại
+            return moment(element.start_time).format("M")===thismonth&&
+            moment(element.start_time).format("Y")===this.year();
+        })
+        let weekdayshortname = weekdayshort.map(day => {
             return <th key={day}>{day}</th>;
         });
         let blanks = [];
         for (let i = 0; i < this.firstDayOfMonth(); i++) {
             blanks.push(<td className="calendar-day empty">{""}</td>);
         }
-        let daysInMonth = [];
-        for (let d = 1; d <= this.daysInMonth(); d++) {
-            let currentDay = d == this.currentDay() ? "today" : "";
+        let daysInMonth=[];
+        for (let i = 1; i <= this.daysInMonth(); i++) {
+            let currentDay = i == this.currentDay() ? "today" : "";
+            let count =0;
+            let type = 0;
+            dayinthismonth.forEach(element => {
+                if (moment(element.start_time).format("D")===i){
+                    count ++;
+                    type = element.type;
+                }
+            });
+            if (count >1) type = 6;
             // let selectedClass = (d == this.state.selectedDay ? " selected-day " : "")
             daysInMonth.push(
-                <td key={d} className={`calendar-day ${currentDay}`}>
+                <td key={i} className={`calendar-day ${currentDay} `}>
                     <span
                         onClick={e => {
-                            this.onDayClick(e, d);
+                            this.onDayClick(e, i);
                         }}
                     >
-                        {d}
+                        {i}
                     </span>
                 </td>
             );
