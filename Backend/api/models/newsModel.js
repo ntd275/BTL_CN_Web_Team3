@@ -28,6 +28,11 @@ let NewsSchema = new Schema({
     type: Number,
     default: 0
   },
+  allow: {
+    type: String,
+    default: "pending",
+    required: true,
+  },
   Created_date: {
     type: Date,
     default: Date.now // Ngày tạo mặc định

@@ -3,6 +3,7 @@ let AuthMiddleWare = require("../../middleware/authMiddleware");
 module.exports = function (app) {
 
   let eventCtr = require('../controllers/eventController');
+  let newsCtr = require('../controllers/newsController');
 
   //API lấy tất cả events
   app.route('/events')
@@ -52,31 +53,37 @@ module.exports = function (app) {
   app.route('/prevevent/:eventId')
     .get(eventCtr.prev_event);
 
-  //API thống kê số bài theo tuần của username
-  app.route('/statisticeventbyweek/:username')
-    .get(eventCtr.count_event_by_week_and_username);
-
-  //API thống kê tất cả số bài theo tuần
-  app.route('/statisticeventbyweek')
-    .get(eventCtr.count_event_by_week);
-
-  //API lấy tất cả bài của user
+  //API lấy tất cả sự kiện của user
   app.route('/geteventbyuser/:username')
     .get(eventCtr.get_all_by_username);
 
-  //API phân trang event của user
+  //API phân trang sự kiện của user
   app.route('/geteventbyuser/:username/:pagenum')
     .get(eventCtr.get_page_by_username);
 
-  //API lấy tổng số view
+  //API lấy tổng số view sự kiện
   app.route('/getview')
     .get(eventCtr.calc_view);
 
-  //API lấy tổng view của 1 user
+  //API lấy tổng view sự kiện của 1 user
   app.route('/getview/:username')
     .get(eventCtr.calc_view_user);
 
-  let newsCtr = require('../controllers/newsController');
+  //API lấy tất cả tin tức của user
+  app.route('/getnewsbyuser/:username')
+    .get(newsCtr.get_all_by_username);
+
+  //API phân trang tin tức của user
+  app.route('/getnewsbyuser/:username/:pagenum')
+    .get(newsCtr.get_page_by_username);
+
+  //API lấy tổng số view của tin tức
+  app.route('/getviewnews')
+    .get(newsCtr.calc_view);
+
+  //API lấy tổng view tin tức của 1 user
+  app.route('/getview/:username')
+    .get(newsCtr.calc_view_user);
 
   //API lấy tất cả tin tức
   app.route('/news')
@@ -175,4 +182,61 @@ module.exports = function (app) {
   //API phân trang user
   app.route('/users/:pagenum')
     .post(userCtr.get_page_user);
+
+  //API thống kê số tin tức theo tuần của username
+  app.route('/statisticnewsbyweek/:username')
+    .post(newsCtr.count_news_by_week_and_username);
+
+  //API thống kế số tin tức theo tháng của username
+  app.route('/statisticnewsbymonth/:username')
+    .post(newsCtr.count_news_by_month_and_username);
+  
+  //API thống kế số tin tức theo năm của username
+  app.route('/statisticnewsbyyear/:username')
+    .post(newsCtr.count_news_by_year_and_username);
+
+  //API lấy tất cả các bài tin tức đang chờ duyệt
+  app.route('/newsspending')
+    .post(newsCtr.get_all_news_pending);
+  
+  //API phân trang bài tin tức đang chờ duyệt
+  app.route('/newsspending/:pagenum')
+    .post(newsCtr.get_page_news_pending);
+  
+  //API lấy 1 bài đang chờ duyệt
+  app.route('/newspending')
+    .post(newsCtr.get_news_pending_by_id);
+
+  //API thay đổi trạng thái duyệt của 1 bài tin tức
+  app.route('/changenewsallow')
+    .post(newsCtr.change_allow_news_pending_by_id);
+
+  //API thống kê số sự kiện theo tuần của username
+  app.route('/statisticeventbyweek/:username')
+    .post(eventCtr.count_event_by_week_and_username);
+
+  //API thống kế số sự kiện theo tháng của username
+  app.route('/statisticeventbymonth/:username')
+    .post(eventCtr.count_event_by_month_and_username);
+  
+  //API thống kế số sự kiện theo năm của username
+  app.route('/statisticeventbyyear/:username')
+    .post(eventCtr.count_event_by_year_and_username);
+
+  //API lấy tất cả các bài đang chờ duyệt
+  app.route('/eventspending')
+    .post(eventCtr.get_all_event_pending);
+  
+  //API phân trang bài đang chờ duyệt
+  app.route('/eventspending/:pagenum')
+    .post(eventCtr.get_page_event_pending);
+  
+  //API lấy 1 bài đang chờ duyệt
+  app.route('/eventpending')
+    .post(eventCtr.get_event_pending_by_id);
+
+  //API thay đổi trạng thái duyệt của 1 bài
+  app.route('/changeeventallow')
+    .post(eventCtr.change_allow_event_pending_by_id);
+
 };
