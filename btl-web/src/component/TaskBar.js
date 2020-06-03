@@ -38,6 +38,9 @@ class TaskBar extends Component {
                 Sự kiện
               </Dropdown.Toggle>
               <Dropdown.Menu>
+                <Dropdown.Item href="/admin-events-page/1">
+                  Danh sách sự kiện
+                </Dropdown.Item>
                 <Dropdown.Item href="/admin-active-event/1">
                   Danh sách sự kiện đang chờ duyệt
                 </Dropdown.Item>
@@ -53,7 +56,10 @@ class TaskBar extends Component {
                 Tin tức
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="/admin-active-event/1">
+              <Dropdown.Item href="/admin-news-page/1">
+                  Danh sách tin tức
+                </Dropdown.Item>
+                <Dropdown.Item href="/admin-active-new/1">
                   Danh sách tin tức đang chờ duyệt
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -111,7 +117,7 @@ class TaskBar extends Component {
                 <Dropdown.Item href="/admin-events-page/1">
                   Danh sách sự kiện của tôi
                 </Dropdown.Item>
-                <Dropdown.Item href="/admin-events-page/1">
+                <Dropdown.Item href="/admin-active-event/1">
                   Sự kiên đang chờ duyệt
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -127,10 +133,10 @@ class TaskBar extends Component {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">Tạo tin tức</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">
+                <Dropdown.Item href="/admin-news-page/1">
                   Danh sách tin tức của tôi
                 </Dropdown.Item>
-                <Dropdown.Item href="/admin-events-page/1">
+                <Dropdown.Item href="/admin-active-new/1">
                   Tin tức đang chờ duyệt
                 </Dropdown.Item>
               </Dropdown.Menu>

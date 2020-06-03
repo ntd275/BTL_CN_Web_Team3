@@ -11,6 +11,7 @@ import AdminCreateAccount from "./AdminCreateAccount";
 import AdminListAccount from "./AdminListAccount";
 import AdminActiveEvent from "./AdminActiveEvent";
 import AdminActiveNew from "./AdminActiveNew";
+import AdminListNew from "./AdminListNew";
 
 class RouterURL extends Component {
   render() {
@@ -96,6 +97,14 @@ class RouterURL extends Component {
                 path="/admin-active-new/:id"
                 component={AdminActiveNew}
               />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-news-page/:id"
+                component={AdminListNew}
+              />
+              
             </Switch>
           </div>
         </div>

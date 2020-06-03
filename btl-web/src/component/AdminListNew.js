@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import "../CSS/calendarpage.css";
-import "../CSS/dashboard.css";
+import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import { adminActiveEvents, changeStatusEvent } from "../API/api";
-import { Link } from "react-router-dom";
-import Select from "react-select";
 import moment from "moment";
 
-class AdminActiveEvent extends Component {
+import "../CSS/calendarpage.css";
+import "../CSS/dashboard.css";
+import { getAllEvents, changeStatusEvent, getEventsCategory, getNews } from "../API/api";
+import { Link } from "react-router-dom";
+import Select from "react-select";
+
+class AdminListNew extends Component {
   constructor(props) {
     super(props);
     this._isMounted = false;
@@ -46,17 +48,12 @@ class AdminActiveEvent extends Component {
     }
   }
 
-  handleChange(value, id) {
-    const status = value.value;
-    changeStatusEvent({ status, id });
-  }
-
   async loadPage() {
-    if (this.props.match.path === "/admin-active-event/:id") {
+    if (this.props.match.path === "/admin-news-page/:id") {
       const currentPage = this.props.match.params.id || 1;
       if (currentPage !== this.state.pager.currentPage) {
-        const events = await adminActiveEvents({ currentPage });
-        console.log(events);
+        const events = await getNews({ currentPage });
+
         let rank = [];
         if (events.data.pages <= 5) {
           for (let i = 1; i <= events.data.pages; i++) rank.push(i);
@@ -85,8 +82,9 @@ class AdminActiveEvent extends Component {
             currentPage: parseInt(currentPage),
             totalPages: events.data.pages,
           },
-          currentURL: "admin-active-event",
+          currentURL: "admin-news-page",
           isLoading: false,
+          flagLink: 0,
         });
       }
     }
@@ -96,10 +94,15 @@ class AdminActiveEvent extends Component {
     this._isMounted = false;
   }
 
+  handleChange(value, id) {
+    const status = value.value;
+    changeStatusEvent({ status, id });
+  }
   render() {
     const { pager, pageOfItems, currentURL } = this.state;
-    var elmTasks;
+    console.log(pageOfItems);
 
+    var elmTasks;
     if (localStorage.getItem("userType") === "admin") {
       elmTasks = pageOfItems.map((doc, index) => {
         const id = doc.id;
@@ -120,10 +123,15 @@ class AdminActiveEvent extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                {doc.title}
+                Triển lãm nghệ thuật hửng nắng
               </a>
             </td>
-            <td>Đối tác (bổ sung)</td>
+            <td>
+              {" "}
+              {moment(doc.start_time).format("LL")} {" - "}
+              {moment(doc.finish_time).format("LL")}
+            </td>
+            <td>{moment(doc.created_at).format("LL")}</td>
             <td>
               <Select
                 class="form-control"
@@ -155,10 +163,15 @@ class AdminActiveEvent extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                {doc.title}
+                Triển lãm nghệ thuật hửng nắng
               </a>
             </td>
-            <td>Đối tác (bổ sung)</td>
+            <td>
+              {" "}
+              {moment(doc.start_time).format("LL")} {" - "}
+              {moment(doc.finish_time).format("LL")}
+            </td>
+            <td>{moment(doc.created_at).format("LL")}</td>
             <td>{defaultStatus.label}</td>
           </tr>
         );
@@ -166,21 +179,20 @@ class AdminActiveEvent extends Component {
     }
 
     return (
-      <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 dashboard-event">
-        <hr />
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <h3>CÁC SỰ KIỆN ĐANG CHỜ DUYỆT</h3>
-          <Table bordered>
-            <thead>
-              <tr className="text-center">
-                <th>Tên tin tức</th>
-                <th>Người đăng</th>
-                <th>Trạng thái</th>
-              </tr>
-            </thead>
-            <tbody className="text-center">{elmTasks}</tbody>
-          </Table>
-        </div>
+      <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 dashboard-event">
+        <h3>DANH SÁCH SỰ KIỆN</h3>
+
+        <Table bordered>
+          <thead>
+            <tr className="text-center">
+              <th>Tên sự kiện</th>
+              <th>Thời gian</th>
+              <th>Ngày đăng</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">{elmTasks}</tbody>
+        </Table>
 
         <div style={{ float: "right" }}>
           {pager.pages && pager.pages.length && (
@@ -260,4 +272,4 @@ class AdminActiveEvent extends Component {
   }
 }
 
-export default AdminActiveEvent;
+export default AdminListNew;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../CSS/adminlogin.css";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import { getAllUser, changeStatus } from "../API/api";
+import { getAllUser, changeStatusUser } from "../API/api";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 
@@ -110,7 +110,7 @@ class AdminListAccount extends Component {
 
   handleChange(value, id) {
     const status = value.value;
-    changeStatus({ status, id });
+    changeStatusUser({ status, id });
   }
 
   render() {

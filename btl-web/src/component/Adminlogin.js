@@ -31,10 +31,14 @@ class AdminLogin extends Component {
           localStorage.setItem("userType", userType);
           localStorage.setItem("username", username);
           localStorage.setItem("id", id);
-          
+
           this.props.setSignin(true);
           this.setState({
             redirectToReferrer: true,
+          });
+        } else if (result.data.message === "account blocked") {
+          this.setState({
+            alert: 3,
           });
         } else {
           this.setState({
@@ -67,7 +71,13 @@ class AdminLogin extends Component {
           Hãy nhập đầy đủ thông tin!
         </div>
       );
-    else return <></>;
+    else if (alert === 3) {
+      return (
+        <div class="alert alert-danger" role="alert">
+          Tài khoản đã bị khoá!
+        </div>
+      );
+    } else return <></>;
   };
 
   render() {

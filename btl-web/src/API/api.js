@@ -160,7 +160,7 @@ export function statisticEventByWeek() {
   });
 }
 
-export function changeStatus({ status, id }) {
+export function changeStatusUser({ status, id }) {
   console.log(status);
   const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
@@ -171,6 +171,52 @@ export function changeStatus({ status, id }) {
     refreshToken: refreshToken,
     username: username,
     status: status,
+    id: id,
+  });
+}
+
+export function adminActiveEvents({ currentPage }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  return axios.post(`/eventspending/${currentPage}`, {
+    token: token,
+    refreshToken: refreshToken,
+  });
+}
+
+export function adminActiveNews({ currentPage }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  return axios.post(`/newsspending/${currentPage}`, {
+    token: token,
+    refreshToken: refreshToken,
+  });
+}
+
+export function changeStatusEvent({ status, id }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  return axios.post(`/changeeventallow`, {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+    allow: status,
+    id: id,
+  });
+}
+
+export function changeStatusNew({ status, id }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  return axios.post(`/changenewallow`, {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+    allow: status,
     id: id,
   });
 }
