@@ -103,6 +103,7 @@ class Search extends Component {
 
   render() {
     const { keyword, pageOfItems, flag, pager } = this.state;
+    
     var elmTasks;
     if (pageOfItems.length === 0 && keyword !== "" && flag) {
       elmTasks = <p>Không tìm thấy sự kiện nào!</p>;

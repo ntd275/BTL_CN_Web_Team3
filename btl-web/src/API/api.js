@@ -92,3 +92,85 @@ export function createUser({ username, name, password, email }) {
     email: email,
   });
 }
+
+export function getInfoUser() {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  console.log(refreshToken, token, username);
+
+  return axios.post("/user", {
+    token: token,
+    username: username,
+  });
+}
+
+export function updatePassword({ newpassword }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const id = localStorage.getItem("id");
+
+  return axios.post("/changepassword", {
+    token: token,
+    refreshToken: refreshToken,
+    password: newpassword,
+    id: id,
+  });
+}
+
+export function updateInfoUser({ username, name, email }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const id = localStorage.getItem("id");
+
+  return axios.post("/changeinfo", {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+    name: name,
+    email: email,
+    id: id,
+  });
+}
+
+export function getAllUser({ currentPage }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+  const id = localStorage.getItem("id");
+
+  return axios.post(`/users/${currentPage}`, {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+    id: id,
+  });
+}
+
+export function statisticEventByWeek() {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  return axios.post(`/statisticeventbyweek/${username}`, {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+  });
+}
+
+export function changeStatus({ status, id }) {
+  console.log(status);
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  return axios.post(`/changestatus`, {
+    token: token,
+    refreshToken: refreshToken,
+    username: username,
+    status: status,
+    id: id,
+  });
+}

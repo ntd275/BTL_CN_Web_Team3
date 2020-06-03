@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PrivateRoute from "./PrivateRoute";
-import DashBoard from "./DashBoard";
+import DashBoard from "./DashBoard/DashBoard";
 import { Route, Switch } from "react-router-dom";
 import AdminLogin from "./AdminLogin";
 import TaskBar from "./TaskBar";
@@ -9,6 +9,8 @@ import AdminEvent from "./AdminEvent";
 import AdminAccount from "./AdminAccount";
 import AdminCreateAccount from "./AdminCreateAccount";
 import AdminListAccount from "./AdminListAccount";
+import AdminActiveEvent from "./AdminActiveEvent";
+import AdminActiveNew from "./AdminActiveNew";
 
 class RouterURL extends Component {
   render() {
@@ -16,10 +18,7 @@ class RouterURL extends Component {
     return (
       <Route>
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard-main">
-          <TaskBar
-            setSignin={setSignin}
-            authenticated={authenticated}
-          />
+          <TaskBar setSignin={setSignin} authenticated={authenticated} />
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboard-main-event">
             <Switch>
               <Route
@@ -66,7 +65,7 @@ class RouterURL extends Component {
               <PrivateRoute
                 authenticated={authenticated}
                 exact
-                path="/admin-list-account"
+                path="/admin-list-account/:id"
                 component={AdminListAccount}
               />
 
@@ -82,6 +81,20 @@ class RouterURL extends Component {
                 exact
                 path="/admin-events-category/:category/:id"
                 component={AdminListEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-active-event/:id"
+                component={AdminActiveEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-active-new/:id"
+                component={AdminActiveNew}
               />
             </Switch>
           </div>
