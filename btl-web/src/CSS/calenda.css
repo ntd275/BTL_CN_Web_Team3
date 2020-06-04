@@ -262,6 +262,27 @@
   font-size: 12px;
   line-height: 12px;
 }
-.tail-datetime-calendar .calendar-date table tbody  .eventtype1{
-  
+.tail-datetime-calendar .calendar-date table tbody  .eventType1{
+  background-color: #007bff;
+  color: white;
+}
+.tail-datetime-calendar .calendar-date table tbody  .eventType2{
+  background-color: #6c757d;
+  color: white;
+}
+.tail-datetime-calendar .calendar-date table tbody  .eventType3{
+  background-color: #28a745;
+  color: white;
+}
+.tail-datetime-calendar .calendar-date table tbody  .eventType4{
+  background-color: #dc3545;
+  color: white;
+}
+.tail-datetime-calendar .calendar-date table tbody  .eventType5{
+  background-color: #ffc107;
+  color: white;
+}
+.tail-datetime-calendar .calendar-date table tbody  .eventType6{
+  background-color: #17a2b8;
+  color: white;
 }
