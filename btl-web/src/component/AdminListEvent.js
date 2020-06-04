@@ -165,11 +165,7 @@ class AdminListEvent extends Component {
                 Triển lãm nghệ thuật hửng nắng
               </a>
             </td>
-            <td>
-              {" "}
-              {moment(doc.start_time).format("LL")} {" - "}
-              {moment(doc.finish_time).format("LL")}
-            </td>
+            <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>
             <td>
               <Select
@@ -184,7 +180,7 @@ class AdminListEvent extends Component {
       });
     } else {
       elmTasks = pageOfItems.map((doc, index) => {
-        const id = doc.id;
+   
         var defaultStatus;
 
         if (doc.allow === "pending") {
@@ -206,11 +202,7 @@ class AdminListEvent extends Component {
                 Triển lãm nghệ thuật hửng nắng
               </a>
             </td>
-            <td>
-              {" "}
-              {moment(doc.start_time).format("LL")} {" - "}
-              {moment(doc.finish_time).format("LL")}
-            </td>
+            <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>
             <td>{defaultStatus.label}</td>
           </tr>
@@ -271,7 +263,7 @@ class AdminListEvent extends Component {
           <thead>
             <tr className="text-center">
               <th>Tên sự kiện</th>
-              <th>Thời gian</th>
+              <th>Người đăng</th>
               <th>Ngày đăng</th>
               <th>Trạng thái</th>
             </tr>

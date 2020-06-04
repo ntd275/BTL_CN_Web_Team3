@@ -14,6 +14,7 @@ import {
 } from "recharts";
 
 import Table from "react-bootstrap/Table";
+import { allViewEvents, allViewNews } from "../../API/api";
 
 class ViewCharts extends Component {
   constructor(props) {
@@ -28,17 +29,20 @@ class ViewCharts extends Component {
         { name: "Tháng 6", Event: 2390, New: 3800 },
         { name: "Tháng 7", Event: 3490, New: 4300 },
       ],
-      numberEvents: "",
-      numberNews: "",
+      numberViewEvents: "",
+      numberViewNews: "",
     };
   }
 
-  componentDidMount() {
-    // statisticEventByWeek().then((result) => {
-    //   this.setState({
-    //     data: result.data,
-    //   });
-    // });
+  async componentDidMount() {
+    const numberViewEvents = await (await allViewEvents()).data.length;
+    this.setState({
+      numberViewEvents: numberViewEvents,
+    });
+    const numberViewNews = await (await allViewNews()).data.length;
+    this.setState({
+      numberViewNews: numberViewNews,
+    });
   }
 
   render() {
@@ -46,38 +50,6 @@ class ViewCharts extends Component {
 
     return (
       <>
-        <div
-          class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <div class="card" style={{ width: "40%" }}>
-            <div class="card-body text-center">
-              <h5 class="card-title text-center">Sự kiện đã đăng: 2134</h5>
-              <Button
-                variant="secondary"
-                className="mr-2"
-                href="/admin-events-page/1"
-              >
-                Danh sách sự kiện
-              </Button>
-            </div>
-          </div>
-
-          <div style={{ margin: "2%" }}></div>
-
-          <div class="card" style={{ width: "40%" }}>
-            <div class="card-body text-center">
-              <h5 class="card-title text-center">Tin tức đã đăng: 2134</h5>
-              <Button
-                variant="secondary"
-                className="mr-2 text-center"
-                href="/admin-events-page/1"
-              >
-                Danh sách tin tức
-              </Button>
-            </div>
-          </div>
-        </div>
         <br />
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <div className="row" style={{ margin: "auto" }}>
@@ -135,7 +107,9 @@ class ViewCharts extends Component {
         >
           <div class="card" style={{ width: "40%" }}>
             <div class="card-body text-center">
-              <h5 class="card-title text-center">Lượt xem sự kiện: 2134</h5>
+              <h5 class="card-title text-center">
+                Lượt xem sự kiện: {this.state.numberViewEvents}
+              </h5>
               <Button
                 variant="secondary"
                 className="mr-2"
@@ -150,7 +124,9 @@ class ViewCharts extends Component {
 
           <div class="card" style={{ width: "40%" }}>
             <div class="card-body text-center">
-              <h5 class="card-title text-center">Lượt xem tin tức: 2134</h5>
+              <h5 class="card-title text-center">
+                Lượt xem tin tức: {this.state.numberViewNews}
+              </h5>
               <Button
                 variant="secondary"
                 className="mr-2 text-center"

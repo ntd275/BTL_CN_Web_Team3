@@ -67,7 +67,23 @@ export function trendNews() {
 }
 
 export function AllEvents() {
-  return axios.get("/events");
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("accessToken");
+  if (username === "admin") {
+    return axios.get("/events");
+  } else {
+    return axios.get(`/geteventsbyuser/${username}`, { token: token });
+  }
+}
+
+export function AllNews() {
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("accessToken");
+  if (username === "admin") {
+    return axios.get("/news");
+  } else {
+    return axios.get(`/getnewsbyuser/${username}`, { token: token });
+  }
 }
 
 export function checkSignin({ username, password }) {
@@ -148,18 +164,6 @@ export function getAllUser({ currentPage }) {
   });
 }
 
-export function statisticEventByWeek() {
-  const refreshToken = localStorage.getItem("refreshToken");
-  const token = localStorage.getItem("accessToken");
-  const username = localStorage.getItem("username");
-
-  return axios.post(`/statisticeventbyweek/${username}`, {
-    token: token,
-    refreshToken: refreshToken,
-    username: username,
-  });
-}
-
 export function changeStatusUser({ status, id }) {
   console.log(status);
   const refreshToken = localStorage.getItem("refreshToken");
@@ -187,6 +191,7 @@ export function adminActiveEvents({ currentPage }) {
 export function adminActiveNews({ currentPage }) {
   const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
+
   return axios.post(`/newsspending/${currentPage}`, {
     token: token,
     refreshToken: refreshToken,
@@ -220,3 +225,133 @@ export function changeStatusNew({ status, id }) {
     id: id,
   });
 }
+
+export function getNewsByUser({ currentPage }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+  if (username === "admin") {
+    return axios.get(`/newspage/${currentPage}`);
+  } else {
+    return axios.get(`/getnewsbyuser/${username}/${currentPage}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  }
+}
+
+export function getEventsByUser({ currentPage }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+  if (username === "admin") {
+    return axios.get(`/eventspage/${currentPage}`);
+  } else {
+    return axios.get(`/geteventsbyuser/${username}/${currentPage}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  }
+}
+
+export function allViewEvents() {
+  const username = localStorage.getItem("username");
+  if (username === "admin") {
+    return axios.get("/getview");
+  } else {
+    return axios.get(`/getview/${username}`);
+  }
+}
+
+export function allViewNews() {
+  const username = localStorage.getItem("username");
+  if (username === "admin") {
+    return axios.get("/getviewnews");
+  } else {
+    return axios.get(`/getnew/${username}`);
+  }
+}
+
+export function statisticNews({ flag }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  if (flag === 1) {
+    return axios.post(`/statisticnewsbyweek/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  } else if (flag === 2) {
+    return axios.post(`/statisticnewsbymonth/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  } else {
+    return axios.post(`/statisticnewsbyyear/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  }
+}
+
+export function statisticEvents({ flag }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+  console.log(11);
+  if (flag === 1) {
+    return axios.post(`/statisticeventsbyweek/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  } else if (flag === 2) {
+    return axios.post(`/statisticeventsbymonth/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  } else {
+    return axios.post(`/statisticeventsbyyear/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  }
+}
+
+//chua co
+export function statisticViewNews({ flag }) {
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
+
+  if (flag === 1) {
+    return axios.post(`/statisticnewsbyweek/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  } else if (flag === 2) {
+    return axios.post(`/statisticnewsbymonth/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  } else {
+    return axios.post(`/statisticnewsbyyear/${username}`, {
+      token: token,
+      refreshToken: refreshToken,
+      username: username,
+    });
+  }
+}
+
+//chua co
+export function statisticViewEvents({ flag }) {}

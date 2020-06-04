@@ -16,7 +16,7 @@ class DashBoard extends Component {
 
   render() {
     return (
-      <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 dashboard-event">
+      <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 dashboard-event">
         <PostCharts />
         <ViewCharts />
         <NewUpdateEvents />

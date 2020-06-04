@@ -124,6 +124,7 @@ class AdminActiveEvent extends Component {
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
+            <td>{moment(doc.created_at).format("LL")}</td>
             <td>
               <Select
                 class="form-control"
@@ -159,6 +160,7 @@ class AdminActiveEvent extends Component {
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
+            <td>{moment(doc.created_at).format("LL")}</td>
             <td>{defaultStatus.label}</td>
           </tr>
         );
@@ -166,7 +168,7 @@ class AdminActiveEvent extends Component {
     }
 
     return (
-      <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8 dashboard-event">
+      <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 dashboard-event">
         <hr />
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>CÁC SỰ KIỆN ĐANG CHỜ DUYỆT</h3>
@@ -175,6 +177,7 @@ class AdminActiveEvent extends Component {
               <tr className="text-center">
                 <th>Tên tin tức</th>
                 <th>Người đăng</th>
+                <th>Ngày đăng</th>
                 <th>Trạng thái</th>
               </tr>
             </thead>

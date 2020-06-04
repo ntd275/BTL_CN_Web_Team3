@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import moment from "moment";
 
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
-import { getAllEvents, changeStatusEvent, getEventsCategory, getNews } from "../API/api";
+import { changeStatusEvent, getNewsByUser } from "../API/api";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 
@@ -52,8 +51,7 @@ class AdminListNew extends Component {
     if (this.props.match.path === "/admin-news-page/:id") {
       const currentPage = this.props.match.params.id || 1;
       if (currentPage !== this.state.pager.currentPage) {
-        const events = await getNews({ currentPage });
-
+        const events = await getNewsByUser({ currentPage });
         let rank = [];
         if (events.data.pages <= 5) {
           for (let i = 1; i <= events.data.pages; i++) rank.push(i);
@@ -123,14 +121,10 @@ class AdminListNew extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+                {doc.name}
               </a>
             </td>
-            <td>
-              {" "}
-              {moment(doc.start_time).format("LL")} {" - "}
-              {moment(doc.finish_time).format("LL")}
-            </td>
+            <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>
             <td>
               <Select
@@ -163,14 +157,10 @@ class AdminListNew extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+                {doc.name}
               </a>
             </td>
-            <td>
-              {" "}
-              {moment(doc.start_time).format("LL")} {" - "}
-              {moment(doc.finish_time).format("LL")}
-            </td>
+            <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>
             <td>{defaultStatus.label}</td>
           </tr>
@@ -186,7 +176,7 @@ class AdminListNew extends Component {
           <thead>
             <tr className="text-center">
               <th>Tên sự kiện</th>
-              <th>Thời gian</th>
+              <th>Người đăng</th>
               <th>Ngày đăng</th>
               <th>Trạng thái</th>
             </tr>

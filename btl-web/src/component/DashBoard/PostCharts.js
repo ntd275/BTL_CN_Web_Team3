@@ -12,64 +12,100 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { statisticEventByWeek } from "../../API/api";
+import {
+  getAllEvents,
+  AllEvents,
+  AllNews,
+  statisticEvents,
+  statisticNews,
+} from "../../API/api";
 
 class PostCharts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        { name: "Tháng 1", Event: 4000, New: 2400 },
-        { name: "Tháng 2", Event: 3000, New: 1398 },
-        { name: "Tháng 3", Event: 2000, New: 9800 },
-        { name: "Tháng 4", Event: 2780, New: 3908 },
-        { name: "Tháng 5", Event: 1890, New: 4800 },
-        { name: "Tháng 6", Event: 2390, New: 3800 },
-        { name: "Tháng 7", Event: 3490, New: 4300 },
-      ],
+      // data: [
+      //   { name: "Tháng 1", Event: 4000, New: 2400 },
+      //   { name: "Tháng 2", Event: 3000, New: 1398 },
+      //   { name: "Tháng 3", Event: 2000, New: 9800 },
+      //   { name: "Tháng 4", Event: 2780, New: 3908 },
+      //   { name: "Tháng 5", Event: 1890, New: 4800 },
+      //   { name: "Tháng 6", Event: 2390, New: 3800 },
+      //   { name: "Tháng 7", Event: 3490, New: 4300 },
+      // ],
       numberEvents: "",
       numberNews: "",
+      flag: 1,
+      data: [],
     };
   }
 
-  componentDidMount() {
-    statisticEventByWeek().then((result) => {
-      this.setState({
-        data: result.data,
-      });
+  async componentDidMount() {
+    // const numberEvents = await (await AllEvents()).data.length;
+    // this.setState({
+    //   numberEvents: numberEvents,
+    // });
+
+    // const numberNews = await (await AllNews()).data.length;
+    // this.setState({ numberNews: numberNews });
+
+    this.statisticPost();
+  }
+
+  async statisticPost() {
+    const { flag } = this.state;
+    const dataEvents = await (await statisticEvents({ flag })).data;
+    const dataNews = await (await statisticNews({ flag })).data;
+    var data = [];
+    //...//
+    this.state({
+      data: data,
     });
   }
 
+  onClick = (flag) => {
+    this.setState({
+      flag: flag,
+    });
+    this.statisticPost();
+  };
+
   render() {
     const { data } = this.state;
-
     return (
       <>
         <div className="row" style={{ margin: "auto" }}>
           <Button
             variant="secondary"
             className="mr-2"
-            href="/admin-events-page/1"
+            onClick={() => {
+              this.onClick(1);
+            }}
           >
             Tuần
           </Button>
           <Button
             variant="secondary"
             className="mr-2"
-            href="/admin-events-category/1/1"
+            onClick={() => {
+              this.onClick(2);
+            }}
           >
             Tháng
           </Button>
           <Button
             variant="secondary"
             className="mr-2"
-            href="/admin-events-category/2/1"
+            onClick={() => {
+              this.onClick(3);
+            }}
           >
             Năm
           </Button>
         </div>
         <hr />
         <h3>TỔNG QUAN</h3>
+
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <ResponsiveContainer className="chart" height={400}>
             <LineChart
@@ -92,6 +128,42 @@ class PostCharts extends Component {
               <Line type="monotone" dataKey="New" stroke="#82ca9d" />
             </LineChart>
           </ResponsiveContainer>
+        </div>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <div class="card" style={{ width: "40%" }}>
+            <div class="card-body text-center">
+              <h5 class="card-title text-center">
+                Sự kiện đã đăng: {this.state.numberEvents}
+              </h5>
+              <Button
+                variant="secondary"
+                className="mr-2"
+                href="/admin-events-page/1"
+              >
+                Danh sách sự kiện
+              </Button>
+            </div>
+          </div>
+
+          <div style={{ margin: "2%" }}></div>
+
+          <div class="card" style={{ width: "40%" }}>
+            <div class="card-body text-center">
+              <h5 class="card-title text-center">
+                Tin tức đã đăng: {this.state.numberNews}
+              </h5>
+              <Button
+                variant="secondary"
+                className="mr-2 text-center"
+                href="/admin-news-page/1"
+              >
+                Danh sách tin tức
+              </Button>
+            </div>
+          </div>
         </div>
       </>
     );
