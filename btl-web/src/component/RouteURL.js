@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PrivateRoute from "./PrivateRoute";
 import DashBoard from "./DashBoard/DashBoard";
 import { Route, Switch } from "react-router-dom";
-import AdminLogin from "./AdminLogin";
+import Admin from "./Admin";
 import TaskBar from "./TaskBar";
 import AdminListEvent from "./AdminListEvent";
 import AdminEvent from "./AdminEvent";
@@ -25,7 +25,7 @@ class RouterURL extends Component {
               <Route
                 exact
                 path="/admin"
-                render={() => <AdminLogin setSignin={setSignin} />}
+                render={() => <Admin setSignin={setSignin} />}
               />
 
               <PrivateRoute
