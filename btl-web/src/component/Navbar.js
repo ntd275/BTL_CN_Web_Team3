@@ -22,7 +22,7 @@ class Navbar extends Component {
     return (
       <div className="header">
         <h2 className="logo">Group 3</h2>
-        <input type="checkbox" name id="chk" />
+        <input type="checkbox" id="chk" />
         <label htmlFor="chk" className="show-menu-btn">
           <FaEllipsisH />
         </label>

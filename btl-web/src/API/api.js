@@ -79,7 +79,7 @@ export function AllEvents() {
 export function AllNews() {
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("accessToken");
-  if (username === "admin") {
+  if (username === "admin" || username === null) {
     return axios.get("/news");
   } else {
     return axios.get(`/getnewsbyuser/${username}`, { token: token });
