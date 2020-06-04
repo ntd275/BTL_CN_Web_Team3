@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import moment from "moment";
 
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
-import { getAllEvents, changeStatusEvent, getEventsCategory } from "../API/api";
+import { changeStatusEvent, getNewsByUser } from "../API/api";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 
-class AdminListEvent extends Component {
+class AdminListNew extends Component {
   constructor(props) {
     super(props);
     this._isMounted = false;
@@ -49,11 +48,10 @@ class AdminListEvent extends Component {
   }
 
   async loadPage() {
-    if (this.props.match.path === "/admin-events-page/:id") {
+    if (this.props.match.path === "/admin-news-page/:id") {
       const currentPage = this.props.match.params.id || 1;
       if (currentPage !== this.state.pager.currentPage) {
-        const events = await getAllEvents({ currentPage });
-
+        const events = await getNewsByUser({ currentPage });
         let rank = [];
         if (events.data.pages <= 5) {
           for (let i = 1; i <= events.data.pages; i++) rank.push(i);
@@ -82,48 +80,9 @@ class AdminListEvent extends Component {
             currentPage: parseInt(currentPage),
             totalPages: events.data.pages,
           },
-          currentURL: "admin-events-page",
+          currentURL: "admin-news-page",
           isLoading: false,
           flagLink: 0,
-        });
-      }
-    } else {
-      const currentPage = this.props.match.params.id || 1;
-      const category = this.props.match.params.category;
-
-      if (currentPage !== this.state.pager.currentPage) {
-        const events = await getEventsCategory({ category, currentPage });
-
-        let rank = [];
-        if (events.data.pages <= 5) {
-          for (let i = 1; i <= events.data.pages; i++) rank.push(i);
-        } else {
-          if (currentPage < 5) {
-            for (let i = 1; i <= 5; i++) rank.push(i);
-          } else {
-            if (parseInt(currentPage) + 2 <= events.data.pages) {
-              for (let i = 2; i >= -2; i--) {
-                rank.push(currentPage - i);
-              }
-            } else {
-              for (let i = 2; i >= -2; i--) {
-                if (currentPage - i <= events.data.pages) {
-                  rank.push(currentPage - i);
-                }
-              }
-            }
-          }
-        }
-        this.setState({
-          pageOfItems: events.data.docs,
-          pager: {
-            pages: rank,
-            currentPage: parseInt(currentPage),
-            totalPages: events.data.pages,
-          },
-          currentURL: "admin-events-category/" + category,
-          isLoading: false,
-          flagLink: category,
         });
       }
     }
@@ -162,7 +121,7 @@ class AdminListEvent extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+                {doc.name}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -180,7 +139,6 @@ class AdminListEvent extends Component {
       });
     } else {
       elmTasks = pageOfItems.map((doc, index) => {
-   
         var defaultStatus;
 
         if (doc.allow === "pending") {
@@ -199,7 +157,7 @@ class AdminListEvent extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+                {doc.name}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -212,51 +170,6 @@ class AdminListEvent extends Component {
 
     return (
       <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 dashboard-event">
-        <div className="row" style={{ margin: "auto" }}>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-page/1"
-          >
-            Tất cả
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/1/1"
-          >
-            Mĩ thuật
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/2/1"
-          >
-            Cho trẻ em
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/3/1"
-          >
-            Văn học
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/4/1"
-          >
-            Âm nhạc
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/5/1"
-          >
-            Nhiếp ảnh, Phim, Video
-          </Button>
-        </div>
-        <hr />
         <h3>DANH SÁCH SỰ KIỆN</h3>
 
         <Table bordered>
@@ -349,4 +262,4 @@ class AdminListEvent extends Component {
   }
 }
 
-export default AdminListEvent;
+export default AdminListNew;
