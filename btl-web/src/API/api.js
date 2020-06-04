@@ -69,7 +69,7 @@ export function trendNews() {
 export function AllEvents() {
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("accessToken");
-  if (username === "admin" || username === null) {
+  if (username === "admin"||username===null) {
     return axios.get("/events");
   } else {
     return axios.get(`/geteventsbyuser/${username}`, { token: token });

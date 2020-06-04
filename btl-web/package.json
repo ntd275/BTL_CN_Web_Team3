@@ -23,6 +23,7 @@
     "react-slick": "^0.26.1",
     "react-slideshow-image": "^1.4.0",
     "recharts": "^1.8.5",
+    "route-parser": "0.0.5",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {
