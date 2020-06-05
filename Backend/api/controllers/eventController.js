@@ -64,6 +64,7 @@ exports.get_a_event = function (req, res) {
 //Tìm bản ghi và cập nhật bằng id dữ liệu mới lấy từ req.body
 exports.update_a_event = function (req, res) {
   req.body.allow = 'pending';
+  req.body.user_create = req.jwtDecoded.data.username;
   Event.findOneAndUpdate({
     id: req.params.eventId,
     user_create: req.jwtDecoded.data.username

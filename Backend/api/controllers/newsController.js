@@ -32,6 +32,7 @@ exports.get_page = function (req, res) {
 //Tạo 1 bài tin tức
 exports.create_a_news = function (req, res) {
   req.body.allow = "pending";
+  req.body.user_create = req.jwtDecoded.data.username;
   let new_news = new News(req.body);
   new_news.save(function (err, data) {
     if (err)
@@ -69,6 +70,7 @@ exports.get_a_news = function (req, res) {
 //API cập nhật 1 bài tin tức
 exports.update_a_news = function (req, res) {
   req.body.allow = "pending";
+  req.body.user_create = req.jwtDecoded.data.username;
   News.findOneAndUpdate({
     id: req.params.newsId,
     user_create: req.jwtDecoded.data.username
