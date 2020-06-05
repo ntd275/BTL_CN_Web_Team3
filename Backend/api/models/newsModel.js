@@ -42,6 +42,9 @@ let NewsSchema = new Schema({
 //Thêm plugin phân trang
 NewsSchema.plugin(mongoosePaginate);
 //Thêm plugin tự động tăng id
-NewsSchema.plugin(autoIncrement.plugin, { model: 'News', field: 'id' });
+NewsSchema.plugin(autoIncrement.plugin, {
+  model: 'News',
+  field: 'id'
+});
 
 module.exports = mongoose.model('News', NewsSchema);

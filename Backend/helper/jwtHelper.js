@@ -3,16 +3,16 @@
 let jwt = require('jsonwebtoken');
 
 //Tạo token
-exports.generateToken = function(user, secretSignature, tokenLife){
+exports.generateToken = function (user, secretSignature, tokenLife) {
     return new Promise((resolve, reject) => {
         //Dữ liệu user lưu vào token
         const userData = user;
 
         //Sinh token
-        jwt.sign(
-            { data: userData },
-            secretSignature,
-            {
+        jwt.sign({
+                data: userData
+            },
+            secretSignature, {
                 //Thuật toán mã hóa
                 algorithm: "HS256",
 
@@ -29,7 +29,7 @@ exports.generateToken = function(user, secretSignature, tokenLife){
 }
 
 // Kiểm tra token
-exports.verifyToken = function(token, secretKey){
+exports.verifyToken = function (token, secretKey) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, secretKey, (error, decoded) => {
             if (error) {
@@ -39,4 +39,3 @@ exports.verifyToken = function(token, secretKey){
         });
     });
 }
-

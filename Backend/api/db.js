@@ -5,11 +5,11 @@ let user = process.env.USERDB;
 let password = process.env.PASSWORD;
 
 //Kết nối DB
-let mongoDB = "mongodb://"+user+":"+password+"@20.44.200.142:27017/WEB"
+let mongoDB = "mongodb://" + user + ":" + password + "@20.44.200.142:27017/WEB"
 
-console.log(mongoDB);
+//console.log(mongoDB);
 
-mongoose.connect(mongoDB); 
+mongoose.connect(mongoDB);
 //Kiểm tra kết nối
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

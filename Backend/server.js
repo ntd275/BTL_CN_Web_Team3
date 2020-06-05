@@ -16,19 +16,23 @@ let express = require('express'),
 app.use(cors());
 
 //Prase body của request thành object
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 
 //Cho phép truy cập các ảnh đã upload lên bằng link
-app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Route
 let routes = require('./api/routes/routes');
 routes(app);
- 
+
 //trả về 404 nếu đường dẫn không tồn tại
 app.use(function (req, res) {
-    res.status(404).send({ url: req.originalUrl + ' not found' })
+    res.status(404).send({
+        url: req.originalUrl + ' not found'
+    })
 });
 
 //Start
@@ -36,4 +40,3 @@ app.listen(port);
 
 
 console.log('RESTful API server started on: ' + port);
-
