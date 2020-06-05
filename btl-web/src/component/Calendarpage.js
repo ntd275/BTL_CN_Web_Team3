@@ -17,8 +17,8 @@ class Calendarpage extends Component {
                 <div className="content">
                     <div className="big">
                         <h4>Lịch</h4>
-                        <Calendar />
-                        <div className="calendar-infor">
+                        <Calendar style={{padding:10000}}/>
+                        <div className="calendar-infor" >
                             <Table >
                                 <tr>
                                     <td><div className="bg-primary">&nbsp;</div></td>

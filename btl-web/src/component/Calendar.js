@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from "moment";
 import "../CSS/calenda.css"
 import { AllEvents } from "../API/api";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 class Calendar extends Component {
     constructor(props) {
         super(props)
@@ -12,7 +13,8 @@ class Calendar extends Component {
             allmonths: moment.months(),
             showYearNav: false,
             selectedDay: null,
-            allevents: []
+            allevents: [],
+            contentEvent:[]
         });
     }
     daysInMonth = () => {
@@ -195,16 +197,6 @@ class Calendar extends Component {
             </table>
         );
     };
-    onDayClick = (e, d) => {
-        this.setState(
-            {
-                selectedDay: d
-            },
-            () => {
-                console.log("SELECTED DAY: ", this.state.selectedDay);
-            }
-        );
-    };
     async componentDidMount() {
         const event = await AllEvents()
         this.setState({
@@ -217,33 +209,51 @@ class Calendar extends Component {
             })
         })
     }
-    check = () => {
-        // console.log(this.state.allevents)
-        // let dayinthismonth = this.state.allevents.filter((element) => {  
-        //      //Những sự kiện xảy ra trong tháng hiện tại
-        //      return ((new Date(element.start_time)).getUTCMonth()===new Date().getMonth())&&
-        //      ((new Date(element.start_time)).getUTCFullYear()===new Date().getFullYear())
-        //     // return element.start_time.getDate() === this.state.dateObject.format("M") &&
-        //     //     element.start_time.getYear() === this.year();
-        // })
-        // console.log(dayinthismonth)
-        // dayinthismonth.forEach((element)=>{
-        //     console.log(moment(element.start_time).format("D"))
-        // })
-        // for (let i =1;i<=31;i++){
-        //     if (parseInt(moment(element.start_time).format("D")) === i) {
-        //         console.log("an roi"+i)
-        //     }
-        // }
+    setEventType = (datequery) => {    //Truyền vào giá trị của ngày đang xét, trả về một object bao gồm các sự kiện diễn ra trong ngày 
+        //và loại sự kiện diễn ra trong ngày đó
+        let { allevents, dateObject } = this.state;
+        let dayinthismonth = allevents.filter((element) => {  //những sự kiện xảy ra trong tháng này
+            // console.log(element.start_time + "  " + (new Date(element.start_time)).getUTCMonth() + "  " + (new Date(element.start_time)).getUTCFullYear())
+            return ((new Date(element.start_time)).getUTCMonth() + 1 === parseInt(dateObject.format("M"))) &&
+                ((new Date(element.start_time)).getUTCFullYear() === parseInt(dateObject.format("Y")))
+        })
+        let eventType = "";
+        let dayEvent = dayinthismonth.filter((value) => {
+            return (new Date(value.start_time)).getUTCDate() === datequery
+        });
+        if (dayEvent.length === 1) eventType = "eventType" + dayEvent[0].category;
+        else if (dayEvent.length > 1) eventType = "eventType6";
+        return {
+            dayEvent: dayEvent,
+            eventType: eventType
+        }
+    }
+    onEvent = (allcontent) => {
+        this.setState((state)=>{
+            return {
+                contentEvent: allcontent
+            }
+        })
+    }
+    outEvent=()=>{
+        this.setState((state)=>{
+            return {
+                contentEvent: []
+            }
+        })
+    }
+    elementInfor=()=>{
+        if (this.state.contentEvent.length===0){
+            return <div></div>
+        }
+        else {
+            return this.state.contentEvent.map((value,index)=>{
+                return <div>{index+1},{value.title}</div>
+            })
+        }
     }
     render() {
         const weekdayshort = moment.weekdaysShort();
-        let { allevents } = this.state;
-        let thismonth = this.state.dateObject.format("M");
-        let dayinthismonth = this.state.allevents.filter((element) => {  //những sự kiện xảy ra trong tháng này
-            return ((new Date(element.start_time)).getUTCMonth()===new Date().getMonth())&&
-            ((new Date(element.start_time)).getUTCFullYear()===new Date().getFullYear())
-       })   
         let weekdayshortname = weekdayshort.map(day => {
             return <th key={day}>{day}</th>;
         });
@@ -254,29 +264,39 @@ class Calendar extends Component {
         let daysInMonth = [];
         for (let i = 1; i <= this.daysInMonth(); i++) {
             let currentDay = i == this.currentDay() ? "today" : "";
-            let count = 0;
-            let eventType = " ";
-            dayinthismonth.forEach(element => {
-                if (new Date(element.start_time).getUTCDate() === i) {
-                    count++;
-                    eventType = "eventType" + element.category;
-                    console.log("an roi"+i)
-                }
-            });
-            if (count > 1) eventType = "eventType6"
-            let selectedClass = (i == this.state.selectedDay ? " selected-day " : "")
-            daysInMonth.push(
-                <td key={i} className={`calendar-day ${currentDay} ${eventType}`}>
-                    <span
-                        onClick={e => {
-                            this.onDayClick(e, i);
-                        }}
+            let eventToday = this.setEventType(i); //lấy về các sự kiện ngày i của tháng
+
+            let eventType = "";
+            let listEvent = [];
+
+            if (eventToday.dayEvent.length !== 0) {
+                eventType = eventToday.eventType;
+                listEvent = eventToday.dayEvent;
+                daysInMonth.push(
+                    <td key={i}
+                        className={`calendar-day ${currentDay} ${eventType}`}
+                        onMouseOver={()=> this.onEvent(listEvent)}
+                        onMouseOut={() => this.outEvent()}
                     >
-                        {i}
-                    </span>
-                </td>
-            );
+                        <span>
+                            {i}
+                        </span>
+                    </td>
+                );
+            }
+            else {
+                daysInMonth.push(
+                    <td key={i}
+                        className={`calendar-day ${currentDay} ${eventType}`}
+                    >
+                        <span>
+                            {i}
+                        </span>
+                    </td>
+                );
+            }
         }
+
         var totalSlots = [...blanks, ...daysInMonth];
         let rows = [];
         let cells = [];
@@ -298,58 +318,60 @@ class Calendar extends Component {
         let daysinmonth = rows.map((d, i) => {
             return <tr>{d}</tr>;
         });
-
         return (
-            <div className="tail-datetime-calendar">
-                <div className="calendar-navi">
-                    <span
-                        onClick={e => {
-                            this.onPrev();
-                        }}
-                        class="calendar-button button-prev"
-                    >&lt;</span>
-                    {!this.state.showMonthTable && !this.state.showYearEditor && (
+            <div>
+                <div className="tail-datetime-calendar">
+                    <div className="calendar-navi">
                         <span
                             onClick={e => {
-                                this.showMonth();
+                                this.onPrev();
                             }}
+                            class="calendar-button button-prev"
+                        ><FaAngleLeft /></span>
+                        {!this.state.showMonthTable && !this.state.showYearEditor && (
+                            <span
+                                onClick={e => {
+                                    this.showMonth();
+                                }}
+                                className="calendar-label"
+                            >
+                                {this.month()},
+                            </span>
+                        )}
+                        <span
                             className="calendar-label"
+                            onClick={e => {
+                                this.showYearEditor();
+                            }}
                         >
-                            {this.month()},
+                            {this.year()}
                         </span>
-                    )}
-                    <span
-                        className="calendar-label"
-                        onClick={e => {
-                            this.showYearEditor();
-                        }}
-                    >
-                        {this.year()}
-                    </span>
-                    <span
-                        onClick={e => {
-                            this.onNext();
-                        }}
-                        className="calendar-button button-next"
-                    >&gt;</span>
-                </div>
-                <div className="calendar-date">
-                    {this.state.showYearNav && <this.YearTable props={this.year()} />}
-                    {this.state.showMonthTable && (
-                        <this.MonthList data={moment.months()} />
-                    )}
-                </div>
-
-                {this.state.showCalendarTable && (
-                    <div className="calendar-date">
-                        <table className="calendar-day">
-                            <thead>
-                                <tr>{weekdayshortname}</tr>
-                            </thead>
-                            <tbody>{daysinmonth}</tbody>
-                        </table>
+                        <span
+                            onClick={e => {
+                                this.onNext();
+                            }}
+                            className="calendar-button button-next"
+                        ><FaAngleRight /></span>
                     </div>
-                )}
+                    <div className="calendar-date">
+                        {this.state.showYearNav && <this.YearTable props={this.year()} />}
+                        {this.state.showMonthTable && (
+                            <this.MonthList data={moment.months()} />
+                        )}
+                    </div>
+
+                    {this.state.showCalendarTable && (
+                        <div className="calendar-date">
+                            <table className="calendar-day">
+                                <thead>
+                                    <tr>{weekdayshortname}</tr>
+                                </thead>
+                                <tbody>{daysinmonth}</tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+                {this.elementInfor()}
             </div>
         );
     }
