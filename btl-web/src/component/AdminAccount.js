@@ -61,7 +61,7 @@ class AdminAccount extends Component {
           alertPassword: 1,
         });
       } else {
-        updatePassword({ newpassword }).then((result) => {
+        updatePassword({ password, newpassword }).then((result) => {
           if (result.data.message === "Success") {
             this.setState({
               alertPassword: 2,

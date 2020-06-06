@@ -13,24 +13,15 @@ import {
   Legend,
 } from "recharts";
 
-import Table from "react-bootstrap/Table";
-import { allViewEvents, allViewNews } from "../../API/api";
+import { allViewEvents, allViewNews, statisticViewEvents, statisticViewNews } from "../../API/api";
 
 class ViewCharts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        { name: "Tháng 1", Event: 4000, New: 2400 },
-        { name: "Tháng 2", Event: 3000, New: 1398 },
-        { name: "Tháng 3", Event: 2000, New: 9800 },
-        { name: "Tháng 4", Event: 2780, New: 3908 },
-        { name: "Tháng 5", Event: 1890, New: 4800 },
-        { name: "Tháng 6", Event: 2390, New: 3800 },
-        { name: "Tháng 7", Event: 3490, New: 4300 },
-      ],
-      numberViewEvents: "",
-      numberViewNews: "",
+      data: [],
+      numberViewEvents: 0,
+      numberEvents: 0,
     };
   }
 
@@ -43,7 +34,130 @@ class ViewCharts extends Component {
     this.setState({
       numberViewNews: numberViewNews,
     });
+
+    await this.statisticView();
   }
+
+  async statisticPost(flag = 1) {
+    var dataEvents = await (await statisticViewEvents({ flag })).data;
+    var dataNews = await (await statisticViewNews({ flag })).data;
+    console.log(dataEvents, dataNews);
+    var mode = "";
+    switch (flag) {
+      case 1:
+        mode = "Tuần ";
+        break;
+      case 2:
+        mode = "Tháng ";
+        break;
+      case 3:
+        mode = "Năm ";
+        break;
+      default:
+        mode = "Tuần ";
+        break;
+    }
+
+    var data = [];
+
+    for (let i = 0; i < dataEvents.length; i++) {
+      let temp = {
+        id: true,
+        _id: dataEvents[i]._id,
+        count: dataEvents[i].count,
+      };
+      data.push(temp);
+    }
+
+    for (let i = 0; i < dataNews.length; i++) {
+      let temp = {
+        id: false,
+        _id: dataNews[i]._id,
+        count: dataNews[i].count,
+      };
+      data.push(temp);
+    }
+
+    function compare(a, b) {
+      const weekA = a._id;
+      const weekB = b._id;
+      let comparison = 0;
+      if (weekA > weekB) {
+        comparison = 1;
+      } else if (weekA < weekB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
+    data.sort(compare);
+
+    for (let i = 1; i < data.length; i++) {
+      if (data[i - 1]._id === data[i]._id) {
+        if (data[i - 1].id !== data[i].id) {
+          if (data[i - 1].id === true) {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: data[i - 1].count,
+              New: data[i].count,
+            };
+            data.splice(1, data[i - 1]);
+          } else {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: data[i].count,
+              New: data[i - 1].count,
+            };
+            data.splice(1, data[i - 1]);
+          }
+        } else {
+          if (data[i - 1].id === true) {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: data[i - 1].count + data[i].count,
+              New: 0,
+            };
+
+            data.splice(1, data[i - 1]);
+          } else {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: 0,
+              New: data[i - 1].count + data[i].count,
+            };
+
+            data.splice(1, data[i - 1]);
+          }
+        }
+      } else {
+        if (data[i - 1].id === true) {
+          data[i - 1] = {
+            name: mode + data[i - 1]._id,
+            Event: data[i - 1].count,
+            New: 0,
+          };
+
+          data.splice(1, data[i - 1]);
+        } else {
+          data[i - 1] = {
+            name: mode + data[i - 1]._id,
+            Event: 0,
+            New: data[i - 1].count,
+          };
+        }
+      }
+    }
+
+    console.log(data);
+
+    this.setState({
+      data: data,
+    });
+  }
+
+  onClick = (flag) => {
+    this.statisticView(flag);
+  };
 
   render() {
     const { data } = this.state;
@@ -56,21 +170,27 @@ class ViewCharts extends Component {
             <Button
               variant="secondary"
               className="mr-2"
-              href="/admin-events-page/1"
+              onClick={() => {
+                this.onClick(1);
+              }}
             >
               Tuần
             </Button>
             <Button
               variant="secondary"
               className="mr-2"
-              href="/admin-events-category/1/1"
+              onClick={() => {
+                this.onClick(2);
+              }}
             >
               Tháng
             </Button>
             <Button
               variant="secondary"
               className="mr-2"
-              href="/admin-events-category/2/1"
+              onClick={() => {
+                this.onClick(3);
+              }}
             >
               Năm
             </Button>
