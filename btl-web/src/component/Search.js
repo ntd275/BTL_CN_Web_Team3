@@ -26,7 +26,6 @@ class Search extends Component {
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value, flag: false });
-    console.log(e.target.value);
     if (e.target.value !== "") {
       this.onSearch(e.target.value);
     }
