@@ -61,13 +61,9 @@ module.exports = function (app) {
   app.route('/geteventbyuser/:username/:pagenum')
     .get(eventCtr.get_page_by_username);
 
-  //API lấy tổng số view sự kiện
-  app.route('/getview')
-    .get(eventCtr.calc_view);
-
   //API lấy tổng view sự kiện của 1 user
-  app.route('/getview/:username')
-    .get(eventCtr.calc_view_user);
+  app.route('/getviewevent/:username')
+    .post(eventCtr.calc_view_user);
 
   //API lấy tất cả tin tức của user
   app.route('/getnewsbyuser/:username')
@@ -77,13 +73,9 @@ module.exports = function (app) {
   app.route('/getnewsbyuser/:username/:pagenum')
     .get(newsCtr.get_page_by_username);
 
-  //API lấy tổng số view của tin tức
-  app.route('/getviewnews')
-    .get(newsCtr.calc_view);
-
   //API lấy tổng view tin tức của 1 user
-  app.route('/getview/:username')
-    .get(newsCtr.calc_view_user);
+  app.route('/getviewnews/:username')
+    .post(newsCtr.calc_view_user);
 
   //API lấy tất cả tin tức
   app.route('/news')
