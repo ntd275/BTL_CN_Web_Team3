@@ -74,7 +74,7 @@ module.exports = function (app) {
     .get(newsCtr.get_page_by_username);
 
   //API lấy tổng view tin tức của 1 user
-  app.route('/getviewnews/:username')
+  app.route('/getviewevent/:username')
     .post(newsCtr.calc_view_user);
 
   //API lấy tất cả tin tức

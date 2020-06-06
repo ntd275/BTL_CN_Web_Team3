@@ -257,20 +257,12 @@ export function getEventsByUser({ currentPage }) {
 
 export function allViewEvents() {
   const username = localStorage.getItem("username");
-  if (username === "admin") {
-    return axios.get("/getview");
-  } else {
-    return axios.get(`/getview/${username}`);
-  }
+  return axios.get(`/getviewevent/${username}`);
 }
 
 export function allViewNews() {
   const username = localStorage.getItem("username");
-  if (username === "admin") {
-    return axios.get("/getviewnews");
-  } else {
-    return axios.get(`/getnew/${username}`);
-  }
+  return axios.get(`/getviewevent/${username}`);
 }
 
 export function statisticNews({ flag }) {
