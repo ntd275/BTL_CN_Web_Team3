@@ -61,10 +61,6 @@ module.exports = function (app) {
   app.route('/geteventbyuser/:username/:pagenum')
     .get(eventCtr.get_page_by_username);
 
-  //API lấy tổng view sự kiện của 1 user
-  app.route('/getviewevent/:username')
-    .post(eventCtr.calc_view_user);
-
   //API lấy tất cả tin tức của user
   app.route('/getnewsbyuser/:username')
     .get(newsCtr.get_all_by_username);
@@ -72,10 +68,6 @@ module.exports = function (app) {
   //API phân trang tin tức của user
   app.route('/getnewsbyuser/:username/:pagenum')
     .get(newsCtr.get_page_by_username);
-
-  //API lấy tổng view tin tức của 1 user
-  app.route('/getviewnews/:username')
-    .post(newsCtr.calc_view_user);
 
   //API lấy tất cả tin tức
   app.route('/news')
@@ -230,5 +222,13 @@ module.exports = function (app) {
   //API thay đổi trạng thái duyệt của 1 bài
   app.route('/changeeventallow')
     .post(eventCtr.change_allow_event_pending_by_id);
+
+  //API lấy tổng view sự kiện của 1 user
+  app.route('/getviewevent/:username')
+    .post(eventCtr.calc_view_user);
+
+  //API lấy tổng view tin tức của 1 user
+  app.route('/getviewnews/:username')
+    .post(newsCtr.calc_view_user);
 
 };
