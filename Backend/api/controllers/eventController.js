@@ -507,24 +507,6 @@ exports.count_event_by_year_and_username = function (req, res) {
   })
 }
 
-//Tính tổng view của tất cả
-exports.calc_view = function (req, res) {
-  let pipeline = [{
-    $group: {
-      _id: null,
-      count: {
-        $sum: '$view',
-      },
-    }
-  }]
-  Event.aggregate(pipeline, function (err, data) {
-    if (err)
-      res.send(err);
-    else
-      res.json(data);
-  });
-}
-
 //Tính tổng view của một user
 exports.calc_view_user = function (req, res) {
   let pipeline = [{
@@ -541,6 +523,19 @@ exports.calc_view_user = function (req, res) {
       }
     }
   ]
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [
+      {
+        $group: {
+          _id: null,
+          count: {
+            $sum: '$view',
+          },
+        }
+      }
+    ]
+  }
+
   Event.aggregate(pipeline, function (err, data) {
     if (err)
       res.send(err);
