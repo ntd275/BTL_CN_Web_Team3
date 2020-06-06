@@ -40,7 +40,7 @@ module.exports = function (app) {
   //API lấy tất cả theo category
   app.route('/eventscat/:category')
     .get(eventCtr.get_all_by_category);
-  
+
   //APi lấy một trang trong category
   app.route('/eventscat/:category/:pagenum')
     .get(eventCtr.get_page_by_category);
@@ -48,7 +48,7 @@ module.exports = function (app) {
   //API lấy bài tiếp theo
   app.route('/nextevent/:eventId')
     .get(eventCtr.next_event);
-  
+
   //API lấy bài trước
   app.route('/prevevent/:eventId')
     .get(eventCtr.prev_event);
@@ -156,21 +156,21 @@ module.exports = function (app) {
   //API đăng xuất
   app.route('/logout')
     .post(authCtr.logout);
-  
+
   let userCtr = require('../controllers/userController');
-  
+
   //API thay đổi thông tin
   app.route('/changeinfo')
     .post(userCtr.edit_information);
-  
+
   //API thay đổi mật khẩu
   app.route('/changepassword')
     .post(userCtr.edit_password);
-  
+
   //API thay đổi trạng thái
   app.route('/changestatus')
     .post(userCtr.edit_status);
-  
+
   //API lấy tất cả user
   app.route('/users')
     .post(userCtr.get_all_user);
@@ -190,7 +190,7 @@ module.exports = function (app) {
   //API thống kế số tin tức theo tháng của username
   app.route('/statisticnewsbymonth/:username')
     .post(newsCtr.count_news_by_month_and_username);
-  
+
   //API thống kế số tin tức theo năm của username
   app.route('/statisticnewsbyyear/:username')
     .post(newsCtr.count_news_by_year_and_username);
@@ -198,11 +198,11 @@ module.exports = function (app) {
   //API lấy tất cả các bài tin tức đang chờ duyệt
   app.route('/newsspending')
     .post(newsCtr.get_all_news_pending);
-  
+
   //API phân trang bài tin tức đang chờ duyệt
   app.route('/newsspending/:pagenum')
     .post(newsCtr.get_page_news_pending);
-  
+
   //API lấy 1 bài đang chờ duyệt
   app.route('/newspending')
     .post(newsCtr.get_news_pending_by_id);
@@ -218,7 +218,7 @@ module.exports = function (app) {
   //API thống kế số sự kiện theo tháng của username
   app.route('/statisticeventbymonth/:username')
     .post(eventCtr.count_event_by_month_and_username);
-  
+
   //API thống kế số sự kiện theo năm của username
   app.route('/statisticeventbyyear/:username')
     .post(eventCtr.count_event_by_year_and_username);
@@ -226,11 +226,11 @@ module.exports = function (app) {
   //API lấy tất cả các bài đang chờ duyệt
   app.route('/eventspending')
     .post(eventCtr.get_all_event_pending);
-  
+
   //API phân trang bài đang chờ duyệt
   app.route('/eventspending/:pagenum')
     .post(eventCtr.get_page_event_pending);
-  
+
   //API lấy 1 bài đang chờ duyệt
   app.route('/eventpending')
     .post(eventCtr.get_event_pending_by_id);

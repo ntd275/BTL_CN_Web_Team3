@@ -38,10 +38,10 @@ let EventSchema = new Schema({
   finish_time: {
     type: Date,
   },
-  locate:{
+  locate: {
     type: String,
   },
-  address:{
+  address: {
     type: String,
   },
   content: {
@@ -65,6 +65,9 @@ let EventSchema = new Schema({
 //Thêm plugin phân trang
 EventSchema.plugin(mongoosePaginate);
 //Thêm plugin tự động tăng id
-EventSchema.plugin(autoIncrement.plugin, { model: 'Event', field: 'id' });
+EventSchema.plugin(autoIncrement.plugin, {
+  model: 'Event',
+  field: 'id'
+});
 
 module.exports = mongoose.model("Event", EventSchema);

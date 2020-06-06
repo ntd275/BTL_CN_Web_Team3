@@ -286,3 +286,20 @@
   background-color: #17a2b8;
   color: white;
 }
+/* .tail-datetime-calendar .calendar-date table tbody .calendar-day{
+  position: relative;
+}
+.tail-datetime-calendar .calendar-date table tbody .displayInfor{
+  position: absolute;
+  display: none;
+  z-index: 10;
+  background-color: #808080;
+  color: #4bf759;
+  padding: 10px;
+  left: 110px;
+  width: 200px;
+  line-height: normal;
+}
+.tail-datetime-calendar .calendar-date table tbody td:hover .displayInfor{
+  display: inline;
+} */
