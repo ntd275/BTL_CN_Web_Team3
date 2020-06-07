@@ -1,7 +1,8 @@
 'use strict';
 
 let mongoose = require('../db'),
-  News = require('../models/newsModel');
+  News = require('../models/newsModel'),
+  View = require('../models/viewModel');
 
 let pageSize = 8;
 //Lấy tất cả tin tức
@@ -57,6 +58,12 @@ exports.get_a_news = function (req, res) {
       res.send(err);
     else {
       if (data) {
+        let view = new View({
+          id: data.id,
+          type: "news",
+          user_create: data.user_create,
+        })
+        view.save();
         res.json(data);
       } else {
         res.json({
@@ -510,4 +517,203 @@ exports.change_allow_news_pending_by_id = async function (req, res) {
   } catch (err) {
     res.send(err);
   }
+}
+
+//Thống kê số view tin tức theo week của user
+exports.count_view_news_by_week_and_username = function (req, res) {
+  let now = new Date();
+  let year = now.getFullYear();
+  let pipeline = [{
+      $project: {
+        week: {
+          $week: '$created_date'
+        },
+        year: {
+          $year: '$created_date'
+        },
+        user_create: 1,
+        type: 1,
+      }
+    },
+    {
+      $match: {
+        user_create: req.params.username,
+        year: year,
+        type: "news"
+      }
+    },
+    {
+      $group: {
+        _id: '$week',
+        count: {
+          $sum: 1,
+        },
+      }
+    }
+  ]
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [{
+        $project: {
+          week: {
+            $week: '$created_date'
+          },
+          year: {
+            $year: '$created_date'
+          },
+          user_create: 1,
+          type: 1,
+        }
+      },
+      {
+        $match: {
+          year: year,
+          type: "news"
+        }
+      },
+      {
+        $group: {
+          _id: '$week',
+          count: {
+            $sum: 1,
+          },
+        }
+      }
+    ]
+  }
+  View.aggregate(pipeline, function (err, data) {
+    if (err)
+      res.send(err);
+    else
+      res.json(data);
+  })
+}
+
+//Thống kê số view tin tức theo tháng của user
+exports.count_view_news_by_month_and_username = function (req, res) {
+  let now = new Date();
+  let year = now.getFullYear();
+  let pipeline = [{
+      $project: {
+        month: {
+          $month: '$created_date'
+        },
+        year: {
+          $year: '$created_date'
+        },
+        user_create: 1,
+        type: 1,
+      }
+    },
+    {
+      $match: {
+        user_create: req.params.username,
+        year: year,
+        type: "news"
+      }
+    },
+    {
+      $group: {
+        _id: '$month',
+        count: {
+          $sum: 1,
+        },
+      }
+    }
+  ]
+
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [{
+        $project: {
+          month: {
+            $month: '$created_date'
+          },
+          year: {
+            $year: '$created_date'
+          },
+          user_create: 1,
+          type: 1,
+        }
+      },
+      {
+        $match: {
+          year: year,
+          type: "news"
+        }
+      },
+      {
+        $group: {
+          _id: '$month',
+          count: {
+            $sum: 1,
+          },
+        }
+      }
+    ]
+  }
+  View.aggregate(pipeline, function (err, data) {
+    if (err)
+      res.send(err);
+    else
+      res.json(data);
+  })
+}
+
+//Thống kê số view tin tức theo năm của user
+exports.count_view_news_by_year_and_username = function (req, res) {
+  let pipeline = [{
+      $project: {
+        year: {
+          $year: '$created_date'
+        },
+        user_create: 1,
+        type: 1,
+      }
+    },
+    {
+      $match: {
+        user_create: req.params.username,
+        type: "news"
+      }
+    },
+    {
+      $group: {
+        _id: '$year',
+        count: {
+          $sum: 1,
+        },
+      }
+    }
+  ]
+
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [{
+        $project: {
+          year: {
+            $year: '$created_date'
+          },
+          user_create: 1,
+          type: 1,
+        }
+      }, 
+      {
+        $match: {
+          type: "news"
+        }
+      },
+      {
+        $group: {
+          _id: '$year',
+          count: {
+            $sum: 1,
+          },
+        }
+      }
+    ]
+  }
+  Event.aggregate(pipeline, function (err, data) {
+    if (err)
+      res.send(err);
+    else
+      res.json(data);
+  })
 }
