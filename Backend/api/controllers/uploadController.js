@@ -27,7 +27,7 @@ exports.upload_a_photo = function (req, res) {
         } else
             res.json({
                 message: "Success",
-                link: req.headers.host + '/uploads/' + req.file.filename, // Trả về link của ảnh
+                link: req.headers.host + '/uploads/' + req.file.name, // Trả về link của ảnh
             })
     });
 }
