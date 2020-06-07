@@ -10,15 +10,16 @@ class Box extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: "",
-      paragraph: "",
-      flag: "true",
+      image: this.props.data.image,
+      paragraph: this.props.data.paragraph,
+      flag: true,
     };
   }
+
   componentDidMount() {
     this.setState({
-      image: this.props.element.image,
-      paragraph: this.props.element.paragraph,
+      image: this.props.data.image,
+      paragraph: this.props.data.paragraph,
     });
   }
 
@@ -39,14 +40,22 @@ class Box extends Component {
   };
 
   onChangeTextBox = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.props.onChangeTextBox(
+      e.target.value,
+      this.props.index
+    );
   };
 
-  onChangeTextBox = () => {
+  onChangeTypeBox = () => {
     this.setState({
       flag: !this.state.flag,
     });
   };
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+}
+
 
   render() {
     return (
@@ -67,7 +76,7 @@ class Box extends Component {
           <Button
             variant="secondary"
             className="mr-2"
-            onClick={this.onChangeTextBox}
+            onClick={this.onChangeTypeBox}
           >
             <i class="fa fa-refresh" aria-hidden="true"></i>
           </Button>
@@ -90,7 +99,7 @@ class Box extends Component {
               className="mt-2"
               name="paragraph"
               onChange={this.onChangeTextBox}
-              value={this.state.paragraph}
+              // value={this.state.paragraph}
             />
           </InputGroup>
         ) : (
