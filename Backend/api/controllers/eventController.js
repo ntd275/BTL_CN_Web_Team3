@@ -682,7 +682,6 @@ exports.count_view_event_by_week_and_username = function (req, res) {
       }
     ]
   }
-  console.log(pipeline);
   View.aggregate(pipeline, function (err, data) {
     if (err)
       res.send(err);
@@ -813,7 +812,7 @@ exports.count_view_event_by_year_and_username = function (req, res) {
       }
     ]
   }
-  Event.aggregate(pipeline, function (err, data) {
+  View.aggregate(pipeline, function (err, data) {
     if (err)
       res.send(err);
     else
