@@ -446,7 +446,7 @@ exports.get_all_news_pending = async function (req, res) {
     allow: "pending"
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
-    condition[user_create] = req.jwtDecoded.data.username;
+    condition["user_create"] = req.jwtDecoded.data.username;
   }
   try {
     let data = await News.find(condition);
@@ -462,7 +462,7 @@ exports.get_page_news_pending = async function (req, res) {
     allow: "pending"
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
-    condition[user_create] = req.jwtDecoded.data.username;
+    condition["user_create"] = req.jwtDecoded.data.username;
   }
   try {
     let data = await News.paginate(condition, {
@@ -482,7 +482,7 @@ exports.get_news_pending_by_id = async function (req, res) {
     id: req.params.eventId
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
-    condition[user_create] = req.jwtDecoded.data.username;
+    condition["user_create"] = req.jwtDecoded.data.username;
   }
   try {
     let data = await News.find(condition);
