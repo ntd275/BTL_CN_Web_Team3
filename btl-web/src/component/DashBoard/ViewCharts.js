@@ -13,7 +13,12 @@ import {
   Legend,
 } from "recharts";
 
-import { allViewEvents, allViewNews, statisticViewEvents, statisticViewNews } from "../../API/api";
+import {
+  allViewEvents,
+  allViewNews,
+  statisticViewEvents,
+  statisticViewNews,
+} from "../../API/api";
 
 class ViewCharts extends Component {
   constructor(props) {
@@ -26,95 +31,124 @@ class ViewCharts extends Component {
   }
 
   async componentDidMount() {
-    const numberViewEvents = await (await allViewEvents()).data.length;
-    this.setState({
-      numberViewEvents: numberViewEvents,
-    });
-    const numberViewNews = await (await allViewNews()).data.length;
-    this.setState({
-      numberViewNews: numberViewNews,
-    });
+    const numberViewEvents = await allViewEvents();
+    console.log(numberViewEvents.l);
+    if (numberViewEvents.data.length !== 0) {
+      this.setState({
+        numberViewEvents: numberViewEvents.data[0].count,
+      });
+    }
+
+    const numberViewNews = await allViewNews();
+    if (numberViewNews.data.length !== 0) {
+      this.setState({
+        numberViewNews: numberViewNews.data[0].count,
+      });
+    }
 
     await this.statisticView();
   }
 
-  async statisticPost(flag = 1) {
-    var dataEvents = await (await statisticViewEvents({ flag })).data;
-    var dataNews = await (await statisticViewNews({ flag })).data;
+  async statisticView(flag = 1) {
+    var dataEvents = await statisticViewEvents({ flag });
+    var dataNews = await statisticViewNews({ flag });
     console.log(dataEvents, dataNews);
-    var mode = "";
-    switch (flag) {
-      case 1:
-        mode = "Tuần ";
-        break;
-      case 2:
-        mode = "Tháng ";
-        break;
-      case 3:
-        mode = "Năm ";
-        break;
-      default:
-        mode = "Tuần ";
-        break;
-    }
+    if (dataEvents !== undefined && dataNews !== undefined) {
+      dataEvents = dataEvents.data;
+      dataNews = dataNews.data;
 
-    var data = [];
-
-    for (let i = 0; i < dataEvents.length; i++) {
-      let temp = {
-        id: true,
-        _id: dataEvents[i]._id,
-        count: dataEvents[i].count,
-      };
-      data.push(temp);
-    }
-
-    for (let i = 0; i < dataNews.length; i++) {
-      let temp = {
-        id: false,
-        _id: dataNews[i]._id,
-        count: dataNews[i].count,
-      };
-      data.push(temp);
-    }
-
-    function compare(a, b) {
-      const weekA = a._id;
-      const weekB = b._id;
-      let comparison = 0;
-      if (weekA > weekB) {
-        comparison = 1;
-      } else if (weekA < weekB) {
-        comparison = -1;
+      var mode = "";
+      switch (flag) {
+        case 1:
+          mode = "Tuần ";
+          break;
+        case 2:
+          mode = "Tháng ";
+          break;
+        case 3:
+          mode = "Năm ";
+          break;
+        default:
+          mode = "Tuần ";
+          break;
       }
-      return comparison;
-    }
 
-    data.sort(compare);
+      var data = [];
 
-    for (let i = 1; i < data.length; i++) {
-      if (data[i - 1]._id === data[i]._id) {
-        if (data[i - 1].id !== data[i].id) {
-          if (data[i - 1].id === true) {
-            data[i - 1] = {
-              name: mode + data[i - 1]._id,
-              Event: data[i - 1].count,
-              New: data[i].count,
-            };
-            data.splice(1, data[i - 1]);
+      for (let i = 0; i < dataEvents.length; i++) {
+        let temp = {
+          id: true,
+          _id: dataEvents[i]._id,
+          count: dataEvents[i].count,
+        };
+        data.push(temp);
+      }
+
+      for (let i = 0; i < dataNews.length; i++) {
+        let temp = {
+          id: false,
+          _id: dataNews[i]._id,
+          count: dataNews[i].count,
+        };
+        data.push(temp);
+      }
+
+      function compare(a, b) {
+        const weekA = a._id;
+        const weekB = b._id;
+        let comparison = 0;
+        if (weekA > weekB) {
+          comparison = 1;
+        } else if (weekA < weekB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+
+      data.sort(compare);
+
+      for (let i = 1; i < data.length; i++) {
+        if (data[i - 1]._id === data[i]._id) {
+          if (data[i - 1].id !== data[i].id) {
+            if (data[i - 1].id === true) {
+              data[i - 1] = {
+                name: mode + data[i - 1]._id,
+                Event: data[i - 1].count,
+                New: data[i].count,
+              };
+              data.splice(1, data[i - 1]);
+            } else {
+              data[i - 1] = {
+                name: mode + data[i - 1]._id,
+                Event: data[i].count,
+                New: data[i - 1].count,
+              };
+              data.splice(1, data[i - 1]);
+            }
           } else {
-            data[i - 1] = {
-              name: mode + data[i - 1]._id,
-              Event: data[i].count,
-              New: data[i - 1].count,
-            };
-            data.splice(1, data[i - 1]);
+            if (data[i - 1].id === true) {
+              data[i - 1] = {
+                name: mode + data[i - 1]._id,
+                Event: data[i - 1].count + data[i].count,
+                New: 0,
+              };
+
+              data.splice(1, data[i - 1]);
+            } else {
+              data[i - 1] = {
+                name: mode + data[i - 1]._id,
+                Event: 0,
+                New: data[i - 1].count + data[i].count,
+              };
+
+              data.splice(1, data[i - 1]);
+            }
           }
         } else {
           if (data[i - 1].id === true) {
             data[i - 1] = {
               name: mode + data[i - 1]._id,
-              Event: data[i - 1].count + data[i].count,
+              Event: data[i - 1].count,
               New: 0,
             };
 
@@ -123,32 +157,12 @@ class ViewCharts extends Component {
             data[i - 1] = {
               name: mode + data[i - 1]._id,
               Event: 0,
-              New: data[i - 1].count + data[i].count,
+              New: data[i - 1].count,
             };
-
-            data.splice(1, data[i - 1]);
           }
-        }
-      } else {
-        if (data[i - 1].id === true) {
-          data[i - 1] = {
-            name: mode + data[i - 1]._id,
-            Event: data[i - 1].count,
-            New: 0,
-          };
-
-          data.splice(1, data[i - 1]);
-        } else {
-          data[i - 1] = {
-            name: mode + data[i - 1]._id,
-            Event: 0,
-            New: data[i - 1].count,
-          };
         }
       }
     }
-
-    console.log(data);
 
     this.setState({
       data: data,
@@ -235,7 +249,7 @@ class ViewCharts extends Component {
                 className="mr-2"
                 href="/admin-events-page/1"
               >
-                Thống kê chi tiết
+                Thống kê chi tiết (bổ sung)
               </Button>
             </div>
           </div>
@@ -252,7 +266,7 @@ class ViewCharts extends Component {
                 className="mr-2 text-center"
                 href="/admin-events-page/1"
               >
-                Thống kê chi tiết
+                Thống kê chi tiết (bổ sung)
               </Button>
             </div>
           </div>

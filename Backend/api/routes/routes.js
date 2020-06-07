@@ -69,13 +69,6 @@ module.exports = function (app) {
   app.route('/getnewsbyuser/:username/:pagenum')
     .get(newsCtr.get_page_by_username);
 
-<<<<<<< HEAD
-  //API lấy tổng view tin tức của 1 user
-  app.route('/getviewevent/:username')
-    .post(newsCtr.calc_view_user);
-
-=======
->>>>>>> master
   //API lấy tất cả tin tức
   app.route('/news')
     .get(newsCtr.get_all_news);

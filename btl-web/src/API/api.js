@@ -181,19 +181,22 @@ export function changeStatusUser({ status, id }) {
 export function adminActiveEvents({ currentPage }) {
   const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
   return axios.post(`/eventspending/${currentPage}`, {
     token: token,
     refreshToken: refreshToken,
+    username: username,
   });
 }
 
 export function adminActiveNews({ currentPage }) {
   const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
-
+  const username = localStorage.getItem("username");
   return axios.post(`/newsspending/${currentPage}`, {
     token: token,
     refreshToken: refreshToken,
+    username: username,
   });
 }
 
@@ -257,12 +260,14 @@ export function getEventsByUser({ currentPage }) {
 
 export function allViewEvents() {
   const username = localStorage.getItem("username");
-  return axios.get(`/getviewevent/${username}`);
+  const token = localStorage.getItem("accessToken");
+  return axios.post(`/getviewevent/${username}`, { token: token });
 }
 
 export function allViewNews() {
   const username = localStorage.getItem("username");
-  return axios.get(`/getviewevent/${username}`);
+  const token = localStorage.getItem("accessToken");
+  return axios.post(`/getviewnews/${username}`, { token: token });
 }
 
 export function statisticNews({ flag }) {
@@ -302,7 +307,6 @@ export function statisticEvents({ flag }) {
   }
 }
 
-//chua co
 export function statisticViewNews({ flag }) {
   // const username = localStorage.getItem("username");
   // if (flag === 1) {
@@ -326,5 +330,4 @@ export function statisticViewNews({ flag }) {
   // }
 }
 
-//chua co
 export function statisticViewEvents({ flag }) {}
