@@ -8,7 +8,6 @@ import moment from "moment";
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
 import Box from "./Box";
-import { getEvent } from "../API/api";
 
 class AdminEvent extends Component {
   constructor(props) {
@@ -24,8 +23,6 @@ class AdminEvent extends Component {
         content: [],
       },
 
-      optionsState: this.props.optionsState,
-      value: [],
       boxes: [],
     };
   }
@@ -36,26 +33,6 @@ class AdminEvent extends Component {
       this.onAddBox();
     }
   }
-
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  // onChangeTextBox = (e, index) => {
-  //   const element = {
-  //     image: "",
-  //     paragraph: e.target.value,
-  //   };
-
-  //   const content = this.state.event.content;
-  //   content[index] = element;
-
-  //   this.setState({
-  //     event: {
-  //       content: content,
-  //     },
-  //   });
-  // };
 
   swapUpBoxes(boxes, index) {
     console.log(index);
@@ -147,10 +124,27 @@ class AdminEvent extends Component {
     }
   };
 
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onChangeTextBox = (paragraph, index) => {
+    const { event } = this.state;
+
+    event.content[index] = {
+      image: "",
+      paragraph: paragraph,
+    };
+
+    this.setState({
+      event: {
+        content: event.content,
+      },
+    });
+  };
+
   render() {
     const { boxes } = this.state;
-    console.log(this.state);
-
     return (
       <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 dashboard-event">
         <h3>TẠO SỰ KIỆN</h3>
@@ -262,11 +256,12 @@ class AdminEvent extends Component {
               <Box
                 key={index}
                 index={index}
-                element={this.state.event.content[index]}
+                data={this.state.event.content[index]}
                 onDeleteBox={this.onDeleteBox}
                 onUpBox={this.onUpBox}
                 onDownBox={this.onDownBox}
                 onAddBox={this.onAddBox}
+                onChangeTextBox={this.onChangeTextBox}
               />
             ))}
         </div>
