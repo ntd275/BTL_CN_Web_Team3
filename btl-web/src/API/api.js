@@ -307,27 +307,40 @@ export function statisticEvents({ flag }) {
   }
 }
 
-export function statisticViewNews({ flag }) {
-  // const username = localStorage.getItem("username");
-  // if (flag === 1) {
-  //   return axios.(`/statisticnewsbyweek/${username}`, {
-  //     token: token,
-  //     refreshToken: refreshToken,
-  //     username: username,
-  //   });
-  // } else if (flag === 2) {
-  //   return axios.post(`/statisticnewsbymonth/${username}`, {
-  //     token: token,
-  //     refreshToken: refreshToken,
-  //     username: username,
-  //   });
-  // } else {
-  //   return axios.post(`/statisticnewsbyyear/${username}`, {
-  //     token: token,
-  //     refreshToken: refreshToken,
-  //     username: username,
-  //   });
-  // }
+export function statisticViewEvents({ flag }) {
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("accessToken");
+
+  if (flag === 1) {
+    return axios.post(`/statisticvieweventbyweek/${username}`, {
+      token: token,
+    });
+  } else if (flag === 2) {
+    return axios.post(`/statisticvieweventbymonth/${username}`, {
+      token: token,
+    });
+  } else {
+    return axios.post(`/statisticvieweventbyyear/${username}`, {
+      token: token,
+    });
+  }
 }
 
-export function statisticViewEvents({ flag }) {}
+export function statisticViewNews({ flag }) {
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("accessToken");
+
+  if (flag === 1) {
+    return axios.post(`/statisticviewnewsbyweek/${username}`, {
+      token: token,
+    });
+  } else if (flag === 2) {
+    return axios.post(`/statisticviewnewsbymonth/${username}`, {
+      token: token,
+    });
+  } else {
+    return axios.post(`/statisticviewnewsbyyear/${username}`, {
+      token: token,
+    });
+  }
+}

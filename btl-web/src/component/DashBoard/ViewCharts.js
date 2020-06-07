@@ -26,7 +26,7 @@ class ViewCharts extends Component {
     this.state = {
       data: [],
       numberViewEvents: 0,
-      numberEvents: 0,
+      numberViewNews: 0,
     };
   }
 
@@ -52,7 +52,9 @@ class ViewCharts extends Component {
   async statisticView(flag = 1) {
     var dataEvents = await statisticViewEvents({ flag });
     var dataNews = await statisticViewNews({ flag });
-    console.log(dataEvents, dataNews);
+
+    console.log(dataEvents.data, dataNews.data);
+
     if (dataEvents !== undefined && dataNews !== undefined) {
       dataEvents = dataEvents.data;
       dataNews = dataNews.data;
@@ -163,6 +165,8 @@ class ViewCharts extends Component {
         }
       }
     }
+
+    console.log(data);
 
     this.setState({
       data: data,
