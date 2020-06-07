@@ -1,7 +1,8 @@
 'use strict';
 
 let mongoose = require('../db'),
-  Event = require('../models/eventModel');
+  Event = require('../models/eventModel'),
+  View = require('../models/viewModel');
 
 let pageSize = 8;
 
@@ -51,6 +52,12 @@ exports.get_a_event = function (req, res) {
       res.send(err);
     else {
       if (data) {
+        let view = new View({
+          id: data.id,
+          type: "event",
+          user_create: data.user_create,
+        })
+        view.save();
         res.json(data);
       } else {
         res.json({
@@ -524,16 +531,14 @@ exports.calc_view_user = function (req, res) {
     }
   ]
   if (req.jwtDecoded.data.user_type == "admin") {
-    pipeline = [
-      {
-        $group: {
-          _id: null,
-          count: {
-            $sum: '$view',
-          },
-        }
+    pipeline = [{
+      $group: {
+        _id: null,
+        count: {
+          $sum: '$view',
+        },
       }
-    ]
+    }]
   }
 
   Event.aggregate(pipeline, function (err, data) {
@@ -550,7 +555,7 @@ exports.get_all_event_pending = async function (req, res) {
     allow: "pending"
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
-    condition[user_create] = req.jwtDecoded.data.username;
+    condition["user_create"] = req.jwtDecoded.data.username;
   }
   try {
     let data = await Event.find(condition);
@@ -566,7 +571,7 @@ exports.get_page_event_pending = async function (req, res) {
     allow: "pending"
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
-    condition[user_create] = req.jwtDecoded.data.username;
+    condition["user_create"] = req.jwtDecoded.data.username;
   }
   try {
     let data = await Event.paginate(condition, {
@@ -586,7 +591,7 @@ exports.get_event_pending_by_id = async function (req, res) {
     id: req.body.id
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
-    condition[user_create] = req.jwtDecoded.data.username;
+    condition["user_create"] = req.jwtDecoded.data.username;
   }
   try {
     let data = await Event.find(condition);
@@ -614,4 +619,204 @@ exports.change_allow_event_pending_by_id = async function (req, res) {
   } catch (err) {
     res.send(err);
   }
+}
+
+//Thống kê số view event theo week của user
+exports.count_view_event_by_week_and_username = function (req, res) {
+  let now = new Date();
+  let year = now.getFullYear();
+  let pipeline = [{
+      $project: {
+        week: {
+          $week: '$created_date'
+        },
+        year: {
+          $year: '$created_date'
+        },
+        user_create: 1,
+        type: 1,
+      }
+    },
+    {
+      $match: {
+        user_create: req.params.username,
+        year: year,
+        category: "event"
+      }
+    },
+    {
+      $group: {
+        _id: '$week',
+        count: {
+          $sum: 1,
+        },
+      }
+    }
+  ]
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [{
+        $project: {
+          week: {
+            $week: '$created_date'
+          },
+          year: {
+            $year: '$created_date'
+          },
+          user_create: 1,
+          type: 1,
+        }
+      },
+      {
+        $match: {
+          year: year,
+          type: 'event',
+        }
+      },
+      {
+        $group: {
+          _id: '$week',
+          count: {
+            $sum: 1,
+          },
+        }
+      }
+    ]
+  }
+  console.log(pipeline);
+  View.aggregate(pipeline, function (err, data) {
+    if (err)
+      res.send(err);
+    else
+      res.json(data);
+  })
+}
+
+//Thống kê số view sự kiện theo tháng của user
+exports.count_view_event_by_month_and_username = function (req, res) {
+  let now = new Date();
+  let year = now.getFullYear();
+  let pipeline = [{
+      $project: {
+        month: {
+          $month: '$created_date'
+        },
+        year: {
+          $year: '$created_date'
+        },
+        user_create: 1,
+        type: 1,
+      }
+    },
+    {
+      $match: {
+        user_create: req.params.username,
+        year: year,
+        type: "event"
+      }
+    },
+    {
+      $group: {
+        _id: '$month',
+        count: {
+          $sum: 1,
+        },
+      }
+    }
+  ]
+
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [{
+        $project: {
+          month: {
+            $month: '$created_date'
+          },
+          year: {
+            $year: '$created_date'
+          },
+          user_create: 1,
+          type: 1,
+        }
+      },
+      {
+        $match: {
+          year: year,
+          type: "event"
+        }
+      },
+      {
+        $group: {
+          _id: '$month',
+          count: {
+            $sum: 1,
+          },
+        }
+      }
+    ]
+  }
+  View.aggregate(pipeline, function (err, data) {
+    if (err)
+      res.send(err);
+    else
+      res.json(data);
+  })
+}
+
+//Thống kê số view event theo năm của user
+exports.count_view_event_by_year_and_username = function (req, res) {
+  let pipeline = [{
+      $project: {
+        year: {
+          $year: '$created_date'
+        },
+        user_create: 1,
+        type: 1,
+      }
+    },
+    {
+      $match: {
+        user_create: req.params.username,
+        type: "event"
+      }
+    },
+    {
+      $group: {
+        _id: '$year',
+        count: {
+          $sum: 1,
+        },
+      }
+    }
+  ]
+
+  if (req.jwtDecoded.data.user_type == "admin") {
+    pipeline = [{
+        $project: {
+          year: {
+            $year: '$created_date'
+          },
+          user_create: 1,
+          type: 1,
+        }
+      }, 
+      {
+        $match: {
+          type: "event"
+        }
+      },
+      {
+        $group: {
+          _id: '$year',
+          count: {
+            $sum: 1,
+          },
+        }
+      }
+    ]
+  }
+  Event.aggregate(pipeline, function (err, data) {
+    if (err)
+      res.send(err);
+    else
+      res.json(data);
+  })
 }

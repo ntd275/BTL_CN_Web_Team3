@@ -231,4 +231,28 @@ module.exports = function (app) {
   app.route('/getviewnews/:username')
     .post(newsCtr.calc_view_user);
 
+  //API thống kê view sự kiện theo tuần
+  app.route('/statisticvieweventbyweek/:username')
+    .post(eventCtr.count_view_event_by_week_and_username)
+
+  //API thống kê view sự kiện theo tháng
+  app.route('/statisticvieweventbymonth/:username')
+    .post(eventCtr.count_view_event_by_month_and_username)
+
+  //API thống kê view sự kiện theo năm
+  app.route('/statisticvieweventbyyear/:username')
+    .post(eventCtr.count_view_event_by_year_and_username)
+
+  //API thống kê view tin tức theo tuần
+  app.route('/statisticviewnewsbyweek/:username')
+    .post(newsCtr.count_view_news_by_week_and_username);
+  
+  //API thống kê view tin tức theo tháng
+  app.route('/statisticviewnewsbymonth/:username')
+    .post(newsCtr.count_view_news_by_month_and_username);
+  
+  //API thống kê view tin tức theo năm
+  app.route('/statisticviewnewsbyyear/:username')
+    .post(newsCtr.count_view_news_by_year_and_username);
+
 };
