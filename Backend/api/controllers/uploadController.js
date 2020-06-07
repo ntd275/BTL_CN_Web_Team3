@@ -14,19 +14,20 @@ let storage = multer.diskStorage({
 });
 
 //Chỉ up một ảnh một lần
-let upload = multer({ storage : storage}).single('photo');
+let upload = multer({
+    storage: storage
+}).single('photo');
 
-exports.upload_a_photo = function(req,res){
-    upload(req,res,function(err) {
-        if(err) {
+exports.upload_a_photo = function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
             return res.json({
                 message: "Fail",
             });
-        } 
-        else
-        res.json({
-            message: "Success",
-            link:req.headers.host + '/uploads/' + req.file.filename, // Trả về link của ảnh
-        })
+        } else
+            res.json({
+                message: "Success",
+                link: req.headers.host + '/uploads/' + req.file.filename, // Trả về link của ảnh
+            })
     });
 }

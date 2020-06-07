@@ -26,11 +26,12 @@ class Search extends Component {
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value, flag: false });
-    this.onSearch();
+    if (e.target.value !== "") {
+      this.onSearch(e.target.value);
+    }
   };
 
-  async onSearch() {
-    const { keyword } = this.state;
+  async onSearch(keyword) {
     const id = 1;
     const events = await searchEvents({ keyword, id });
     const currentPage = parseInt(events.data.page);

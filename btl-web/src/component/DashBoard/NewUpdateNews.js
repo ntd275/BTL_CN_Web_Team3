@@ -65,7 +65,7 @@ class NewUpdateNews extends Component {
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
-            <td>{moment(doc.created_at).format("LL")}</td>
+            <td>{moment(doc.created_at).format("LL")} </td>
             <td>
               <Select
                 class="form-control"
@@ -114,8 +114,8 @@ class NewUpdateNews extends Component {
           <Table bordered>
             <thead>
               <tr className="text-center">
-                <th>Tên bài báo</th>
-                <th>Người đăng</th>
+                <th className="w-50 p-3">Tên bài báo</th>
+                <th className="w-25 p-3">Người đăng</th>
                 <th>Ngày đăng</th>
                 <th>Trạng thái</th>
               </tr>

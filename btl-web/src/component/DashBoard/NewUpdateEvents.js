@@ -115,8 +115,8 @@ class NewUpdateEvents extends Component {
           <Table bordered>
             <thead>
               <tr className="text-center">
-                <th>Tên sự kiện</th>
-                <th>Người đăng</th>
+                <th className="w-50 p-3">Tên sự kiện</th>
+                <th className="w-25 p-3">Người đăng</th>
                 <th>Ngày đăng</th>
                 <th>Trạng thái</th>
               </tr>

@@ -15,9 +15,11 @@ let UserSchema = new Schema({
     required: true,
   },
   username: {
-    type: String, 
-    required: true, 
-    index: { unique: true } // các user name phải phân biệt
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    } // các user name phải phân biệt
   },
   password: {
     type: String,
@@ -32,7 +34,7 @@ let UserSchema = new Schema({
     default: "partner",
   },
   status: {
-    type:String,
+    type: String,
     required: true,
     default: "activate"
   },
@@ -43,7 +45,10 @@ let UserSchema = new Schema({
 });
 
 //Thêm plugin tự động tăng id
-UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'id' });
+UserSchema.plugin(autoIncrement.plugin, {
+  model: 'User',
+  field: 'id'
+});
 
 //Thêm plugin phân trang
 UserSchema.plugin(mongoosePaginate);

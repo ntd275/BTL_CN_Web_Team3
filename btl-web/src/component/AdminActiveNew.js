@@ -118,7 +118,7 @@ class AdminActiveNew extends Component {
           <tr>
             <td>
               <a target="blank" href="xem thử">
-                {doc.title}
+                {doc.name}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
