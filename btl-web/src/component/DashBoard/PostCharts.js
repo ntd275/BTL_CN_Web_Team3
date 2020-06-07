@@ -13,7 +13,6 @@ import {
   Legend,
 } from "recharts";
 import {
-  getAllEvents,
   AllEvents,
   AllNews,
   statisticEvents,
@@ -24,50 +23,138 @@ class PostCharts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // data: [
-      //   { name: "Tháng 1", Event: 4000, New: 2400 },
-      //   { name: "Tháng 2", Event: 3000, New: 1398 },
-      //   { name: "Tháng 3", Event: 2000, New: 9800 },
-      //   { name: "Tháng 4", Event: 2780, New: 3908 },
-      //   { name: "Tháng 5", Event: 1890, New: 4800 },
-      //   { name: "Tháng 6", Event: 2390, New: 3800 },
-      //   { name: "Tháng 7", Event: 3490, New: 4300 },
-      // ],
-      numberEvents: "",
-      numberNews: "",
-      flag: 1,
       data: [],
     };
   }
 
   async componentDidMount() {
-    // const numberEvents = await (await AllEvents()).data.length;
-    // this.setState({
-    //   numberEvents: numberEvents,
-    // });
+    const numberEvents = await (await AllEvents()).data.length;
+    this.setState({
+      numberEvents: numberEvents,
+    });
 
-    // const numberNews = await (await AllNews()).data.length;
-    // this.setState({ numberNews: numberNews });
+    const numberNews = await (await AllNews()).data.length;
+    this.setState({ numberNews: numberNews });
 
-    this.statisticPost();
+    await this.statisticPost();
   }
 
-  async statisticPost() {
-    const { flag } = this.state;
-    const dataEvents = await (await statisticEvents({ flag })).data;
-    const dataNews = await (await statisticNews({ flag })).data;
+  async statisticPost(flag = 1) {
+    var dataEvents = await (await statisticEvents({ flag })).data;
+    var dataNews = await (await statisticNews({ flag })).data;
+    var mode = "";
+    switch (flag) {
+      case 1:
+        mode = "Tuần ";
+        break;
+      case 2:
+        mode = "Tháng ";
+        break;
+      case 3:
+        mode = "Năm ";
+        break;
+      default:
+        mode = "Tuần ";
+        break;
+    }
+
     var data = [];
-    //...//
-    this.state({
+
+    for (let i = 0; i < dataEvents.length; i++) {
+      let temp = {
+        id: true,
+        _id: dataEvents[i]._id,
+        count: dataEvents[i].count,
+      };
+      data.push(temp);
+    }
+
+    for (let i = 0; i < dataNews.length; i++) {
+      let temp = {
+        id: false,
+        _id: dataNews[i]._id,
+        count: dataNews[i].count,
+      };
+      data.push(temp);
+    }
+
+    function compare(a, b) {
+      const weekA = a._id;
+      const weekB = b._id;
+      let comparison = 0;
+      if (weekA > weekB) {
+        comparison = 1;
+      } else if (weekA < weekB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
+    data.sort(compare);
+
+    for (let i = 1; i < data.length; i++) {
+      if (data[i - 1]._id === data[i]._id) {
+        if (data[i - 1].id !== data[i].id) {
+          if (data[i - 1].id === true) {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: data[i - 1].count,
+              New: data[i].count,
+            };
+            data.splice(1, data[i - 1]);
+          } else {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: data[i].count,
+              New: data[i - 1].count,
+            };
+            data.splice(1, data[i - 1]);
+          }
+        } else {
+          if (data[i - 1].id === true) {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: data[i - 1].count + data[i].count,
+              New: 0,
+            };
+
+            data.splice(1, data[i - 1]);
+          } else {
+            data[i - 1] = {
+              name: mode + data[i - 1]._id,
+              Event: 0,
+              New: data[i - 1].count + data[i].count,
+            };
+
+            data.splice(1, data[i - 1]);
+          }
+        }
+      } else {
+        if (data[i - 1].id === true) {
+          data[i - 1] = {
+            name: mode + data[i - 1]._id,
+            Event: data[i - 1].count,
+            New: 0,
+          };
+
+          data.splice(1, data[i - 1]);
+        } else {
+          data[i - 1] = {
+            name: mode + data[i - 1]._id,
+            Event: 0,
+            New: data[i - 1].count,
+          };
+        }
+      }
+    }
+
+    this.setState({
       data: data,
     });
   }
 
   onClick = (flag) => {
-    this.setState({
-      flag: flag,
-    });
-    this.statisticPost();
+    this.statisticPost(flag);
   };
 
   render() {

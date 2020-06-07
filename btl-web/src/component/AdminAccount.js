@@ -61,10 +61,14 @@ class AdminAccount extends Component {
           alertPassword: 1,
         });
       } else {
-        updatePassword({ newpassword }).then((result) => {
+        updatePassword({ password, newpassword }).then((result) => {
           if (result.data.message === "Success") {
             this.setState({
               alertPassword: 2,
+            });
+          } else {
+            this.setState({
+              alertPassword: 4,
             });
           }
         });
@@ -94,6 +98,12 @@ class AdminAccount extends Component {
       return (
         <div class="alert alert-danger" role="alert">
           Hãy nhập đầy đủ thông tin!
+        </div>
+      );
+    } else if (alertPassword === 4) {
+      return (
+        <div class="alert alert-danger" role="alert">
+          Sai mật khẩu!
         </div>
       );
     } else return <></>;
