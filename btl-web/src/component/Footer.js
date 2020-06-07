@@ -21,7 +21,7 @@ class Footer extends Component {
                         <h1>Our Newsletter</h1>
                         <div className="border" />
                         <p className="p-padding">Enter Your Email to get our news and updates.</p>
-                        <form action className="newsletter-form">
+                        <form  className="newsletter-form">
                             <input type="text" className="txtb" placeholder="Enter Your Email" />
                             <input type="submit" className="btn-normal" defaultValue="submit" />
                         </form>

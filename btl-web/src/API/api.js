@@ -344,3 +344,67 @@ export function statisticViewNews({ flag }) {
     });
   }
 }
+
+export function uploadPhoto({ file }) {
+  const token = localStorage.getItem("accessToken");
+  console.log(file.name);
+  return axios.post("/upload", {
+    token: token,
+    file: file,
+  });
+}
+
+export function createEvent({
+  image,
+  title,
+  start_time,
+  finish_time,
+  address,
+  locate,
+  content,
+  category,
+}) {
+  const token = localStorage.getItem("accessToken");
+  return axios.post("/events", {
+    token: token,
+    image: image,
+    title: title,
+    start_time: start_time,
+    finish_time: finish_time,
+    address: address,
+    locate: locate,
+    content: content,
+    category: category,
+  });
+}
+
+export function deleteEvent({ id }) {
+  const token = localStorage.getItem("accessToken");
+  return axios.delete(`/events/${id}`, { token: token });
+}
+
+export function editEvent({
+  id,
+  image,
+  title,
+  start_time,
+  finish_time,
+  address,
+  locate,
+  content,
+  category,
+}) {
+  const token = localStorage.getItem("accessToken");
+  return axios.put(`/events/${id}`, {
+    id: id,
+    token: token,
+    image: image,
+    title: title,
+    start_time: start_time,
+    finish_time: finish_time,
+    address: address,
+    locate: locate,
+    content: content,
+    category: category,
+  });
+}

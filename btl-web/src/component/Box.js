@@ -12,20 +12,22 @@ class Box extends Component {
     this.state = {
       image: this.props.data.image,
       paragraph: this.props.data.paragraph,
-      flag: true,
+      flag: this.props.data.image === undefined ? true : false, //tat ca cac bai viet giai doan sau thay undefined = ""
     };
+    this.onDeleteBox = this.onDeleteBox.bind(this);
   }
 
   componentDidMount() {
     this.setState({
       image: this.props.data.image,
       paragraph: this.props.data.paragraph,
+      flag: this.props.data.image === undefined ? true : false,
     });
   }
 
-  onDeleteBox = () => {
+  onDeleteBox() {
     this.props.onDeleteBox(this.props.index);
-  };
+  }
 
   onUpBox = () => {
     this.props.onUpBox(this.props.index);
@@ -36,14 +38,11 @@ class Box extends Component {
   };
 
   onAddBox = () => {
-    this.props.onAddBox();
+    this.props.onAddBox(this.props.index);
   };
 
   onChangeTextBox = (e) => {
-    this.props.onChangeTextBox(
-      e.target.value,
-      this.props.index
-    );
+    this.props.onChangeTextBox(e.target.value, this.props.index);
   };
 
   onChangeTypeBox = () => {
@@ -53,24 +52,30 @@ class Box extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
-}
-
+    if (nextProps.data.paragraph !== this.state.paragraph) {
+      this.setState({
+        image: nextProps.data.image,
+        paragraph: nextProps.data.paragraph,
+        flag: this.props.data.image === undefined ? true : false,
+      });
+    }
+  }
 
   render() {
+
     return (
       <div className="mt-2">
         <div style={{ float: "right" }}>
           <Button variant="secondary" className="mr-2" onClick={this.onAddBox}>
-            <i class="fa fa-plus" aria-hidden="true"></i>
+            <i className="fa fa-plus" aria-hidden="true"></i>
           </Button>
 
           <Button variant="secondary" className="mr-2" onClick={this.onUpBox}>
-            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+            <i className="fa fa-arrow-up" aria-hidden="true"></i>
           </Button>
 
           <Button variant="secondary" className="mr-2" onClick={this.onDownBox}>
-            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            <i className="fa fa-arrow-down" aria-hidden="true"></i>
           </Button>
 
           <Button
@@ -78,7 +83,7 @@ class Box extends Component {
             className="mr-2"
             onClick={this.onChangeTypeBox}
           >
-            <i class="fa fa-refresh" aria-hidden="true"></i>
+            <i className="fa fa-refresh" aria-hidden="true"></i>
           </Button>
 
           <Button
@@ -86,7 +91,7 @@ class Box extends Component {
             className="mr-2"
             onClick={this.onDeleteBox}
           >
-            <i class="fa fa-trash" aria-hidden="true"></i>
+            <i className="fa fa-trash" aria-hidden="true"></i>
           </Button>
         </div>
 
@@ -99,7 +104,7 @@ class Box extends Component {
               className="mt-2"
               name="paragraph"
               onChange={this.onChangeTextBox}
-              // value={this.state.paragraph}
+              value={this.state.paragraph}
             />
           </InputGroup>
         ) : (
@@ -112,7 +117,7 @@ class Box extends Component {
               onChange={this.onChange}
             />
             <Image
-              src={this.state.imageCover}
+              src={this.state.image}
               fluid
               style={{ maxWidth: "80%", margin: "auto" }}
             />
