@@ -119,8 +119,8 @@ class AdminActiveEvent extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
-                {doc.title}
+              <a target="blank" href="chua_thuc_hien_cho_admin_chi_xem">
+                {doc.title}(demo bổ sung)
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -155,9 +155,7 @@ class AdminActiveEvent extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
-                {doc.title}
-              </a>
+              <a href={`/admin-event/${doc.id}`}>{doc.title}</a>
             </td>
             <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>

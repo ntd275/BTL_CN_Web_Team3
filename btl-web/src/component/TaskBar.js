@@ -96,7 +96,7 @@ class TaskBar extends Component {
       localStorage.getItem("userType") === "partner"
     ) {
       return (
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <div className="row">
             <Button variant="secondary" className="mr-2" href="/dashboard">
               Tổng quan
