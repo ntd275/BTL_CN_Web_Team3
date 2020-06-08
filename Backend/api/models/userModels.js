@@ -38,6 +38,15 @@ let UserSchema = new Schema({
     required: true,
     default: "activate"
   },
+  logo : {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
   Created_date: {
     type: Date,
     default: Date.now // Ngày tạo mặc định
