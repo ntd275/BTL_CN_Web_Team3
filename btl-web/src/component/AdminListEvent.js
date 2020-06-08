@@ -161,8 +161,8 @@ class AdminListEvent extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
-                Triển lãm nghệ thuật hửng nắng
+              <a target="blank" href={`/events/${doc.id}`}>
+                {doc.title}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -198,7 +198,7 @@ class AdminListEvent extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
+              <a href={`/admin-event/${doc.id}`}>
                 Triển lãm nghệ thuật hửng nắng
               </a>
             </td>

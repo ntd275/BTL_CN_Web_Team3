@@ -8,7 +8,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "KEY";
 
 exports.isAuth = async function (req, res, next) {
   //Lấy token từ body
-  const tokenFromClient = req.body.token;
+  const tokenFromClient = req.body.token||req.headers["x-access-token"];
   if (tokenFromClient) {
     try {
       // Kiểm tra token

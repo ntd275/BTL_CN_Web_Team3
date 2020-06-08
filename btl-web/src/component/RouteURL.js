@@ -12,7 +12,7 @@ import AdminListAccount from "./AdminListAccount";
 import AdminActiveEvent from "./AdminActiveEvent";
 import AdminActiveNew from "./AdminActiveNew";
 import AdminListNew from "./AdminListNew";
-//123
+
 class RouterURL extends Component {
   render() {
     const { authenticated, setSignin } = this.props;

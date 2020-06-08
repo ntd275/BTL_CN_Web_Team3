@@ -107,6 +107,12 @@ module.exports = function (app) {
   app.route('/refreshtoken')
     .post(authCtr.refreshToken);
 
+  let uploadCtr = require('../controllers/uploadController');
+
+  //API để upload ảnh
+  app.route('/upload')
+    .post(uploadCtr.upload_a_photo);
+
   //Các API dưới đây cần token để gọi
   app.use(AuthMiddleWare.isAuth);
 
@@ -130,12 +136,6 @@ module.exports = function (app) {
   app.route('/news/:newsId')
     .put(newsCtr.update_a_news)
     .delete(newsCtr.delete_a_news);
-
-  let uploadCtr = require('../controllers/uploadController');
-
-  //API để upload ảnh
-  app.route('/upload')
-    .post(uploadCtr.upload_a_photo);
 
   //API đăng xuất
   app.route('/logout')
@@ -246,11 +246,11 @@ module.exports = function (app) {
   //API thống kê view tin tức theo tuần
   app.route('/statisticviewnewsbyweek/:username')
     .post(newsCtr.count_view_news_by_week_and_username);
-  
+
   //API thống kê view tin tức theo tháng
   app.route('/statisticviewnewsbymonth/:username')
     .post(newsCtr.count_view_news_by_month_and_username);
-  
+
   //API thống kê view tin tức theo năm
   app.route('/statisticviewnewsbyyear/:username')
     .post(newsCtr.count_view_news_by_year_and_username);

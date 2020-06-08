@@ -117,8 +117,8 @@ class AdminActiveNew extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
-                {doc.name}
+              <a href="#123">
+                {doc.name}(demo bổ sung)
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
