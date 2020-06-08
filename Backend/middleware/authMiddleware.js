@@ -7,6 +7,7 @@ let jwtHelper = require("../helper/jwtHelper");
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "KEY";
 
 exports.isAuth = async function (req, res, next) {
+  console.log(req.body);
   //Lấy token từ body
   const tokenFromClient = req.body.token;
   if (tokenFromClient) {
