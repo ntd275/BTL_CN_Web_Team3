@@ -15,6 +15,7 @@ import {
   getEvent,
   editNew,
   editEvent,
+  uploadPhoto,
 } from "../API/api";
 
 class AdminEvent extends Component {
@@ -118,7 +119,7 @@ class AdminEvent extends Component {
     return content;
   }
 
-  onAddBox = (index=0) => {
+  onAddBox = (index = 0) => {
     const element = {
       image: undefined,
       paragraph: "",
@@ -180,25 +181,25 @@ class AdminEvent extends Component {
   };
 
   onChange = (e) => {
-    var file = this.refs.file.files[0];
-    if (file !== undefined) {
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onloadend = function () {
-        this.setState({
-          image: [reader.result],
-        });
-      }.bind(this);
-    }
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onChangeImage = (e) => {
+    var file = this.refs.file.files[0];
+
+    if (file !== undefined) {
+      var photo = e.target.files[0];
+      uploadPhoto({ photo }).then((result) => {
+        console.log(result);
+      });
+    }
   };
 
   onChangeTextBox = (paragraph, index) => {
     const { content } = this.state;
 
     content[index] = {
-      image: "",
+      image: undefined,
       paragraph: paragraph,
     };
 
@@ -260,7 +261,7 @@ class AdminEvent extends Component {
         content,
         category,
       }).then((result) => {
-        console.log(result.data.id);
+        console.log(result.data);
         this.setState({
           flagSave: 1,
           id: result.data.id,
@@ -271,6 +272,7 @@ class AdminEvent extends Component {
 
   onDelete = () => {
     const { id } = this.state;
+    console.log(id);
     if (id !== null) {
       deleteEvent({ id }).then((result) => {
         if (result.data.message === "Event successfully deleted")
@@ -278,6 +280,7 @@ class AdminEvent extends Component {
             setoff: 1,
           });
         else {
+          console.log("ad");
           this.setState({
             flagDelete: 2,
           });
@@ -344,7 +347,7 @@ class AdminEvent extends Component {
 
   render() {
     const { boxes } = this.state;
-
+    console.log(this.state);
     if (this.state.setoff !== 1) {
       return (
         <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 dashboard-event">
@@ -356,8 +359,9 @@ class AdminEvent extends Component {
               className="mt-2"
               ref="file"
               type="file"
-              name="coverImage"
-              onChange={this.onChange}
+              name="image"
+              multiple
+              onChange={this.onChangeImage}
             />
             <Image
               src={this.state.image}

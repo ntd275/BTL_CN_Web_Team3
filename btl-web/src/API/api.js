@@ -345,12 +345,10 @@ export function statisticViewNews({ flag }) {
   }
 }
 
-export function uploadPhoto({ file }) {
-  const token = localStorage.getItem("accessToken");
-  console.log(file.name);
+export function uploadPhoto({ photo }) {
+  console.log(photo);
   return axios.post("/upload", {
-    token: token,
-    file: file,
+    photo: photo,
   });
 }
 
