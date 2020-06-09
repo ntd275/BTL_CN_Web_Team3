@@ -22,7 +22,7 @@ exports.upload_a_photo = function (req, res) {
     upload(req, res, function (err) {
         if (err) {
             return res.json({
-                message: "Fail",
+                message: err,
             });
         } else
             res.json({

@@ -119,8 +119,8 @@ class AdminActiveEvent extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="chua_thuc_hien_cho_admin_chi_xem">
-                {doc.title}(demo bổ sung)
+              <a target="blank" href={`/demo-event/${doc.id}`}>
+                {doc.title}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -155,7 +155,7 @@ class AdminActiveEvent extends Component {
         return (
           <tr>
             <td>
-              <a href={`/admin-event/${doc.id}`}>{doc.title}</a>
+              <a target="blank" href={`/admin-event/${doc.id}`}>{doc.title}</a>
             </td>
             <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>
@@ -173,7 +173,7 @@ class AdminActiveEvent extends Component {
           <Table bordered>
             <thead>
               <tr className="text-center">
-                <th>Tên tin tức</th>
+                <th className="w-50 p-3">Tên tin tức</th>
                 <th>Người đăng</th>
                 <th>Ngày đăng</th>
                 <th>Trạng thái</th>

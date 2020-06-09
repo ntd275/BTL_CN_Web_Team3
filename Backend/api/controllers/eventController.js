@@ -23,7 +23,7 @@ exports.get_all_event = function (req, res) {
 //Tạo 1 sự kiện mới
 exports.create_a_event = function (req, res) {
   req.body.user_create = req.jwtDecoded.data.username;
-  req.body.allow = undefined;
+  req.body.allow = "pending";
   let new_event = new Event(req.body);
   //Lưu vào DB
   new_event.save(function (err, data) {

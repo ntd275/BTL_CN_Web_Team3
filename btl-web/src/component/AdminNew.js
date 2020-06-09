@@ -3,48 +3,30 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Image from "react-bootstrap/Image";
+import FormData from "form-data";
 
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
 import Box from "./Box";
-import Select from "react-select";
+
 import {
-  createEvent,
-  deleteEvent,
-  editEvent,
+  editNew,
   uploadPhoto,
-  getEventAdmin,
-  getEvent,
+  deleteNew,
+  createNew,
+  getNew,
+  getNewAdmin,
 } from "../API/api";
 
-class AdminEvent extends Component {
+class AdminNew extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: null,
       image: "",
-      title: "",
-      start_time: "",
-      finish_time: "",
-      address: "",
-      locate: "",
+      name: "",
       content: [],
-      category: 1,
-
       boxes: [],
-
-      optionsCategory: [
-        { value: 1, label: "Mĩ thuật" },
-        { value: 2, label: "Cho trẻ em" },
-        { value: 3, label: "Văn học" },
-        { value: 4, label: "Âm nhạc" },
-        { value: 5, label: "Nhiếp ảnh, Phim, Video" },
-      ],
-      optionsLocate: [
-        { value: "Hà Nội", label: "Hà Nội" },
-        { value: "Hồ Chí Minh", label: "Hồ Chí Minh" },
-      ],
-      value: [],
 
       flagDelete: 0,
       flagSave: 0,
@@ -53,62 +35,46 @@ class AdminEvent extends Component {
   }
 
   componentDidMount() {
-    if (this.props.match.path === "/admin-create-event") {
+    if (this.props.match.path === "/admin-create-new") {
       const { boxes } = this.state;
       if (boxes.length === 0) {
         this.onAddBox();
       }
     } else {
-      const eventsId = this.props.match.params.id;
+      const newsId = this.props.match.params.id;
 
-      getEventAdmin({ eventsId }).then((result) => {
-        console.log(result.data[0]);
-        if (result.data[0] !== undefined) {
+      getNewAdmin({ newsId }).then((result) => {
+        if (result.data.length === 0) {
+          getNew({ newsId }).then((res) => {
+            const event = res.data;
+            this.setState({
+              id: event.id,
+              image: event.image,
+              name: event.name,
+              content: event.content,
+            });
+            var boxes = this.state.boxes;
+            for (let i = 0; i < this.state.content.length; i++) {
+              boxes = [...boxes, Box];
+            }
+            this.setState({
+              boxes: boxes,
+            });
+          });
+        } else {
           const event = result.data[0];
           this.setState({
             id: event.id,
             image: event.image,
-            title: event.title,
-            start_time: event.start_time,
-            finish_time: event.finish_time,
-            address: event.address,
-            locate: event.locate,
+            name: event.name,
             content: event.content,
-            category: event.category,
           });
-
           var boxes = this.state.boxes;
-          console.log(this.state.content);
           for (let i = 0; i < this.state.content.length; i++) {
             boxes = [...boxes, Box];
           }
           this.setState({
             boxes: boxes,
-          });
-        } else {
-          getEvent({ eventsId }).then((result) => {
-            if (result !== []) {
-              const event = result.data;
-              this.setState({
-                id: event.id,
-                image: event.image,
-                title: event.title,
-                start_time: event.start_time,
-                finish_time: event.finish_time,
-                address: event.address,
-                locate: event.locate,
-                content: event.content,
-                category: event.category,
-              });
-              var boxes = this.state.boxes;
-              console.log(this.state);
-              for (let i = 0; i < this.state.content.length; i++) {
-                boxes = [...boxes, Box];
-              }
-              this.setState({
-                boxes: boxes,
-              });
-            }
           });
         }
       });
@@ -146,7 +112,7 @@ class AdminEvent extends Component {
   onAddBox = (index = 0) => {
     const element = {
       image: undefined,
-      paragraph: undefined,
+      paragraph: "",
     };
     var content = this.state.content;
     var boxes = this.state.boxes;
@@ -207,15 +173,6 @@ class AdminEvent extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onChangeImage = (e) => {
-    var file = this.refs.file.files[0];
-
-    if (file !== undefined) {
-      var photo = e.target.files[0];
-      uploadPhoto({ photo }).then((result) => {});
-    }
-  };
-
   onChangeTextBox = (paragraph, index) => {
     const { content } = this.state;
 
@@ -242,28 +199,14 @@ class AdminEvent extends Component {
   }
 
   onSubmit = () => {
-    const {
-      id,
-      image,
-      title,
-      start_time,
-      finish_time,
-      address,
-      locate,
-      content,
-      category,
-    } = this.state;
+    const { id, image, name, content } = this.state;
+    console.log(this.state);
     if (id !== null) {
-      editEvent({
+      editNew({
         id,
         image,
-        title,
-        start_time,
-        finish_time,
-        address,
-        locate,
+        name,
         content,
-        category,
       }).then((result) => {
         this.setState({
           flagSave: 1,
@@ -271,15 +214,12 @@ class AdminEvent extends Component {
         });
       });
     } else {
-      createEvent({
+      const { image, name, content } = this.state;
+      console.log(image, name, content);
+      createNew({
         image,
-        title,
-        start_time,
-        finish_time,
-        address,
-        locate,
+        name,
         content,
-        category,
       }).then((result) => {
         this.setState({
           flagSave: 1,
@@ -292,8 +232,8 @@ class AdminEvent extends Component {
   onDelete = () => {
     const { id } = this.state;
     if (id !== null) {
-      deleteEvent({ id }).then((result) => {
-        if (result.data.message === "Event successfully deleted")
+      deleteNew({ id }).then((result) => {
+        if (result.data.message === "News successfully deleted")
           this.setState({
             setoff: 1,
           });
@@ -344,22 +284,17 @@ class AdminEvent extends Component {
     } else return <></>;
   };
 
-  searchCategory = () => {
-    const { optionsCategory } = this.state;
-    for (let i = 0; i < optionsCategory.length; i++) {
-      if (optionsCategory[i].value === this.state.category) {
-        return optionsCategory[i];
-      }
-    }
-  };
+  onChangeImage = (e) => {
+    var image = e.target.files[0];
+    const photo = new FormData();
+    photo.append("photo", image, image.name);
 
-  searchLocate = () => {
-    const { optionsLocate } = this.state;
-    for (let i = 0; i < optionsLocate.length; i++) {
-      if (optionsLocate[i].value === this.state.locate) {
-        return optionsLocate[i];
-      }
-    }
+    uploadPhoto({ photo }).then((result) => {
+      let link = "http://" + result.data.link;
+      this.setState({
+        image: link,
+      });
+    });
   };
 
   onChangeImageBox = (image, index) => {
@@ -377,21 +312,21 @@ class AdminEvent extends Component {
 
   render() {
     const { boxes } = this.state;
+    console.log(this.state.image);
     if (this.state.setoff !== 1) {
       return (
         <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 dashboard-event">
-          <h3>TẠO SỰ KIỆN</h3>
+          <h3>TẠO TIN TỨC</h3>
           {this.elmAlertDelete()}
           {this.elmAlertSave()}
           <InputGroup className="mb-3">
             <FormControl
               className="mt-2"
-              ref="file"
               type="file"
               name="image"
-              multiple
               onChange={this.onChangeImage}
             />
+
             <Image
               src={this.state.image}
               fluid
@@ -402,7 +337,7 @@ class AdminEvent extends Component {
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                Tên sự kiện
+                Tên bài báo
               </InputGroup.Text>
             </InputGroup.Prepend>
 
@@ -410,72 +345,9 @@ class AdminEvent extends Component {
               aria-label="Username"
               aria-describedby="basic-addon1"
               type="text"
-              name="title"
+              name="name"
               onChange={this.onChange}
-              value={this.state.title}
-            />
-          </InputGroup>
-
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                Loại sự kiện
-              </InputGroup.Text>
-            </InputGroup.Prepend>
-
-            <Select
-              id="ducpb"
-              onChange={(value) => this.handleChangeCategory(value)}
-              options={this.state.optionsCategory}
-              defaultValue={this.searchCategory()}
-            />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                Thời gian
-              </InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              type="date"
-              name="start_time"
-              onChange={this.onChange}
-            />
-            <FormControl
-              type="date"
-              name="finish_time"
-              onChange={this.onChange}
-            />
-          </InputGroup>
-
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                Địa điểm
-              </InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              type="text"
-              name="address"
-              onChange={this.onChange}
-              value={this.state.address}
-            />
-          </InputGroup>
-
-          <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                Khu vực
-              </InputGroup.Text>
-            </InputGroup.Prepend>
-
-            <Select
-              id="ducpb"
-              onChange={(value) => this.handleChangeLocate(value)}
-              options={this.state.optionsLocate}
-              defaultValue={this.searchLocate()}
+              value={this.state.name}
             />
           </InputGroup>
 
@@ -520,8 +392,8 @@ class AdminEvent extends Component {
       return (
         <div style={{ height: "60vh" }}>
           <p>
-            Bài viết đã được xoá. Tạo sự kiện mới{" "}
-            <a href="/admin-create-event">tại đây</a>!
+            Bài viết đã được xoá. Tạo bài viết mới{" "}
+            <a href="/admin-create-new">tại đây</a>!
           </p>
         </div>
       );
@@ -529,4 +401,4 @@ class AdminEvent extends Component {
   }
 }
 
-export default AdminEvent;
+export default AdminNew;

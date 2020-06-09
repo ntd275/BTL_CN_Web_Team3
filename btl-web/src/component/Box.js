@@ -5,6 +5,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Image from "react-bootstrap/Image";
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
+import { uploadPhoto } from "../API/api";
 
 class Box extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Box extends Component {
     this.state = {
       image: this.props.data.image,
       paragraph: this.props.data.paragraph,
-      flag: this.props.data.image === undefined ? true : false, //tat ca cac bai viet giai doan sau thay undefined = ""
+      flag: this.props.data.image === undefined ? true : false,
     };
     this.onDeleteBox = this.onDeleteBox.bind(this);
   }
@@ -52,17 +53,38 @@ class Box extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data.paragraph !== this.state.paragraph) {
+    if (
+      nextProps.data.paragraph !== this.state.paragraph ||
+      nextProps.data.image !== this.state.image
+    ) {
+      console.log(
+        nextProps.data.paragraph !== this.state.paragraph,
+        nextProps.data.image !== this.state.image,
+        nextProps.data.image
+      );
       this.setState({
         image: nextProps.data.image,
         paragraph: nextProps.data.paragraph,
-        flag: this.props.data.image === undefined ? true : false,
+        flag: nextProps.data.image === undefined ? true : false,
       });
     }
   }
 
-  render() {
+  onChangeImageBox = (e) => {
+    var image = e.target.files[0];
+    const photo = new FormData();
+    photo.append("photo", image, image.name);
 
+    uploadPhoto({ photo }).then((result) => {
+      let link = "http://" + result.data.link;
+      this.props.onChangeImageBox(link, this.props.index);
+      this.setState({
+        image: link,
+      });
+    });
+  };
+
+  render() {
     return (
       <div className="mt-2">
         <div style={{ float: "right" }}>
@@ -111,10 +133,8 @@ class Box extends Component {
           <InputGroup className="mb-3">
             <FormControl
               className="mt-2"
-              ref="uploadImg"
               type="file"
-              name="selectedFile"
-              onChange={this.onChange}
+              onChange={this.onChangeImageBox}
             />
             <Image
               src={this.state.image}
