@@ -48,25 +48,20 @@ const ChildNewestNew = (props) => {
     <div className="row-normal">
       <div className="card-normal">
         <a href={`/news/${data[key].id}`}>
-          <img src={data[key].image} alt="abc" />
-          <h3>{data[key].title}</h3>
+          <img src={data[key].image} alt="abc"/>
+          <h3>{data[key].name}</h3>
         </a>
         <div style={{ display: "flex" }}>
           <div className="date" style={{ fontStyle: "italic" }}>
             <small>{moment(data[key].Created_date).format("LL")} &nbsp;</small>
           </div>
         </div>
-        <a href={`/news/${data[key + 1].id}`}>
-          <div>
-            <h3 style={{ marginBottom: "0" }}>{data[key].name}</h3>
-          </div>
-        </a>
         <p>{data[key].content[0].paragraph.substr(0, 130)}...</p>
       </div>
       <div className="card-normal card2">
         <a href={`/news/${data[key + 1].id}`}>
           <img src={data[key + 1].image} alt="abc" />
-          <h3>{data[key + 1].title}</h3>
+          <h3>{data[key + 1].name}</h3>
         </a>
         <div style={{ display: "flex" }}>
           <div className="date" style={{ fontStyle: "italic" }}>
@@ -75,11 +70,6 @@ const ChildNewestNew = (props) => {
             </small>
           </div>
         </div>
-        <a href={`/news/${data[key + 1].id}`}>
-          <div>
-            <h3 style={{ marginBottom: "0" }}>{data[key].name}</h3>
-          </div>
-        </a>
         <p>{data[key + 1].content[0].paragraph.substr(0, 130)}...</p>
       </div>
     </div>

@@ -5,7 +5,11 @@ import moment from "moment";
 
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
-import { getAllEvents, changeStatusEvent, getEventsCategory } from "../API/api";
+import {
+  changeStatusEvent,
+  getEventsCategory,
+  adminEventsPage,
+} from "../API/api";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 
@@ -52,7 +56,7 @@ class AdminListEvent extends Component {
     if (this.props.match.path === "/admin-events-page/:id") {
       const currentPage = this.props.match.params.id || 1;
       if (currentPage !== this.state.pager.currentPage) {
-        const events = await getAllEvents({ currentPage });
+        const events = await adminEventsPage({ currentPage });
 
         let rank = [];
         if (events.data.pages <= 5) {
@@ -180,7 +184,6 @@ class AdminListEvent extends Component {
       });
     } else {
       elmTasks = pageOfItems.map((doc, index) => {
-   
         var defaultStatus;
 
         if (doc.allow === "pending") {
@@ -198,9 +201,7 @@ class AdminListEvent extends Component {
         return (
           <tr>
             <td>
-              <a href={`/admin-event/${doc.id}`}>
-                Triển lãm nghệ thuật hửng nắng
-              </a>
+              <a href={`/admin-event/${doc.id}`}>{doc.title}</a>
             </td>
             <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>
@@ -210,59 +211,69 @@ class AdminListEvent extends Component {
       });
     }
 
+    var elmNav = "";
+    if (localStorage.getItem("userType") === "admin") {
+      elmNav = (
+        <>
+          <div className="row" style={{ margin: "auto" }}>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              href="/admin-events-page/1"
+            >
+              Tất cả
+            </Button>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              href="/admin-events-category/1/1"
+            >
+              Mĩ thuật
+            </Button>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              href="/admin-events-category/2/1"
+            >
+              Cho trẻ em
+            </Button>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              href="/admin-events-category/3/1"
+            >
+              Văn học
+            </Button>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              href="/admin-events-category/4/1"
+            >
+              Âm nhạc
+            </Button>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              href="/admin-events-category/5/1"
+            >
+              Nhiếp ảnh, Phim, Video
+            </Button>
+          </div>
+          <hr />
+        </>
+      );
+    }
+
     return (
       <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 dashboard-event">
-        <div className="row" style={{ margin: "auto" }}>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-page/1"
-          >
-            Tất cả
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/1/1"
-          >
-            Mĩ thuật
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/2/1"
-          >
-            Cho trẻ em
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/3/1"
-          >
-            Văn học
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/4/1"
-          >
-            Âm nhạc
-          </Button>
-          <Button
-            variant="secondary"
-            className="mr-2"
-            href="/admin-events-category/5/1"
-          >
-            Nhiếp ảnh, Phim, Video
-          </Button>
-        </div>
-        <hr />
+        {elmNav}
+
         <h3>DANH SÁCH SỰ KIỆN</h3>
 
         <Table bordered>
           <thead>
             <tr className="text-center">
-              <th>Tên sự kiện</th>
+              <th className="w-50 p-3">Tên sự kiện</th>
               <th>Người đăng</th>
               <th>Ngày đăng</th>
               <th>Trạng thái</th>

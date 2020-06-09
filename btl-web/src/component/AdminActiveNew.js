@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import "../CSS/calendarpage.css";
 import "../CSS/dashboard.css";
 import Table from "react-bootstrap/Table";
-import { changeStatusEvent, adminActiveNews } from "../API/api";
+import {
+  changeStatusEvent,
+  adminActiveNews,
+  changeStatusNew,
+} from "../API/api";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import moment from "moment";
@@ -48,7 +52,7 @@ class AdminActiveNew extends Component {
 
   handleChange(value, id) {
     const status = value.value;
-    changeStatusEvent({ status, id });
+    changeStatusNew({ status, id });
   }
 
   async loadPage() {
@@ -57,7 +61,7 @@ class AdminActiveNew extends Component {
 
     const events = await adminActiveNews({ currentPage });
     console.log(events);
-    
+
     let rank = [];
     if (events.data.pages <= 5) {
       for (let i = 1; i <= events.data.pages; i++) rank.push(i);
@@ -117,8 +121,8 @@ class AdminActiveNew extends Component {
         return (
           <tr>
             <td>
-              <a href="#123">
-                {doc.name}(demo bổ sung)
+              <a target="blank" href={`/demo-new/${doc.id}`}>
+                {doc.name}
               </a>
             </td>
             <td>Đối tác (bổ sung)</td>
@@ -153,11 +157,10 @@ class AdminActiveNew extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
-                {doc.title}
-              </a>
+              <a href={`/admin-new/${doc.id}`}>{doc.name}</a>
             </td>
             <td>Đối tác (bổ sung)</td>
+            <td>{moment(doc.created_at).format("LL")}</td>
             <td>{defaultStatus.label}</td>
           </tr>
         );
@@ -172,7 +175,7 @@ class AdminActiveNew extends Component {
           <Table bordered>
             <thead>
               <tr className="text-center">
-                <th>Tên tin tức</th>
+                <th className="w-50 p-3">Tên tin tức</th>
                 <th>Người đăng</th>
                 <th>Ngày đăng</th>
                 <th>Trạng thái</th>

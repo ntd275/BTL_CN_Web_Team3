@@ -22,12 +22,12 @@ exports.upload_a_photo = function (req, res) {
     upload(req, res, function (err) {
         if (err) {
             return res.json({
-                message: "Fail",
+                message: err,
             });
         } else
             res.json({
                 message: "Success",
-                link: req.headers.host + '/uploads/' + req.file.name, // Trả về link của ảnh
+                link: req.headers.host + '/uploads/' + req.file.filename, // Trả về link của ảnh
             })
     });
 }

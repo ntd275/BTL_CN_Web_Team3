@@ -132,7 +132,7 @@ class TaskBar extends Component {
                 Tin tức
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Tạo tin tức</Dropdown.Item>
+                <Dropdown.Item href="/admin-create-new">Tạo tin tức</Dropdown.Item>
                 <Dropdown.Item href="/admin-news-page/1">
                   Danh sách tin tức của tôi
                 </Dropdown.Item>

@@ -120,7 +120,7 @@ class AdminListNew extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
+              <a target="blank" href={`http://localhost:3000/news/${doc.id}`}>
                 {doc.name}
               </a>
             </td>
@@ -140,7 +140,7 @@ class AdminListNew extends Component {
     } else {
       elmTasks = pageOfItems.map((doc, index) => {
         var defaultStatus;
-
+        console.log(doc);
         if (doc.allow === "pending") {
           defaultStatus = {
             label: "Đang chờ duyệt",
@@ -156,7 +156,7 @@ class AdminListNew extends Component {
         return (
           <tr>
             <td>
-              <a target="blank" href="xem thử">
+              <a href={`/admin-new/${doc.id}`}>
                 {doc.name}
               </a>
             </td>
@@ -175,7 +175,7 @@ class AdminListNew extends Component {
         <Table bordered>
           <thead>
             <tr className="text-center">
-              <th>Tên sự kiện</th>
+              <th className="w-50 p-3">Tên sự kiện</th>
               <th>Người đăng</th>
               <th>Ngày đăng</th>
               <th>Trạng thái</th>

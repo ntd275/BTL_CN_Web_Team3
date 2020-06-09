@@ -12,6 +12,10 @@ import AdminListAccount from "./AdminListAccount";
 import AdminActiveEvent from "./AdminActiveEvent";
 import AdminActiveNew from "./AdminActiveNew";
 import AdminListNew from "./AdminListNew";
+import AdminNew from "./AdminNew";
+// import DemoEvent from "./DemoEvent";
+import DemoNew from "./DemoNew";
+import DemoEvent from "./DemoEvent";
 
 class RouterURL extends Component {
   render() {
@@ -47,6 +51,20 @@ class RouterURL extends Component {
                 exact
                 path="/admin-create-event"
                 component={AdminEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-new/:id"
+                component={AdminNew}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/admin-create-new"
+                component={AdminNew}
               />
 
               <PrivateRoute
@@ -104,7 +122,20 @@ class RouterURL extends Component {
                 path="/admin-news-page/:id"
                 component={AdminListNew}
               />
-              
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/demo-event/:id"
+                component={DemoEvent}
+              />
+
+              <PrivateRoute
+                authenticated={authenticated}
+                exact
+                path="/demo-new/:id"
+                component={DemoNew}
+              />
             </Switch>
           </div>
         </div>
