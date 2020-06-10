@@ -51,8 +51,7 @@ class App extends Component {
             <RouterURL
               authenticated={this.state.authenticated}
               setSignin={this.setSignin}
-            />
-
+            />            
           </Switch>
           <Footer />
         </div>

@@ -188,7 +188,7 @@ module.exports = function (app) {
     .post(newsCtr.get_page_news_pending);
 
   //API lấy 1 bài đang chờ duyệt
-  app.route('/newspending')
+  app.route('/newspendingsss')
     .post(newsCtr.get_news_pending_by_id);
 
   //API thay đổi trạng thái duyệt của 1 bài tin tức
@@ -216,7 +216,7 @@ module.exports = function (app) {
     .post(eventCtr.get_page_event_pending);
 
   //API lấy 1 bài đang chờ duyệt
-  app.route('/eventpending')
+  app.route('/eventpendingsss')
     .post(eventCtr.get_event_pending_by_id);
 
   //API thay đổi trạng thái duyệt của 1 bài

@@ -53,13 +53,14 @@ class ViewCharts extends Component {
     var dataEvents = await statisticViewEvents({ flag });
     var dataNews = await statisticViewNews({ flag });
 
-    console.log(dataEvents.data, dataNews.data);
-
-    if (dataEvents !== undefined && dataNews !== undefined) {
+    var data = [];
+    var mode = "";
+    console.log(dataEvents, dataNews);
+    if (dataEvents.data.length !== 0 && dataNews.data.length !== 0) {
       dataEvents = dataEvents.data;
       dataNews = dataNews.data;
 
-      var mode = "";
+      console.log("th1");
       switch (flag) {
         case 1:
           mode = "Tuần ";
@@ -74,8 +75,6 @@ class ViewCharts extends Component {
           mode = "Tuần ";
           break;
       }
-
-      var data = [];
 
       for (let i = 0; i < dataEvents.length; i++) {
         let temp = {
@@ -164,9 +163,106 @@ class ViewCharts extends Component {
           }
         }
       }
+    } else if (dataEvents.data.length !== 0) {
+      dataEvents = dataEvents.data;
+      console.log("th2", dataEvents);
+      switch (flag) {
+        case 1:
+          mode = "Tuần ";
+          break;
+        case 2:
+          mode = "Tháng ";
+          break;
+        case 3:
+          mode = "Năm ";
+          break;
+        default:
+          mode = "Tuần ";
+          break;
+      }
+
+      for (let i = 0; i < dataEvents.length; i++) {
+        let temp = {
+          id: true,
+          _id: dataEvents[i]._id,
+          count: dataEvents[i].count,
+        };
+        data.push(temp);
+      }
+
+      function compare(a, b) {
+        const weekA = a._id;
+        const weekB = b._id;
+        let comparison = 0;
+        if (weekA > weekB) {
+          comparison = 1;
+        } else if (weekA < weekB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+
+      data.sort(compare);
+
+      for (let i = 0; i < data.length; i++) {
+        data[i] = {
+          name: mode + data[i]._id,
+          Event: data[i].count,
+          New: 0,
+        };
+      }
+    } else {
+      dataNews = dataNews.data;
+      console.log("th3", dataNews);
+      switch (flag) {
+        case 1:
+          mode = "Tuần ";
+          break;
+        case 2:
+          mode = "Tháng ";
+          break;
+        case 3:
+          mode = "Năm ";
+          break;
+        default:
+          mode = "Tuần ";
+          break;
+      }
+
+      for (let i = 0; i < dataNews.length; i++) {
+        let temp = {
+          id: true,
+          _id: dataNews[i]._id,
+          count: dataNews[i].count,
+        };
+        data.push(temp);
+      }
+
+      function compare(a, b) {
+        const weekA = a._id;
+        const weekB = b._id;
+        let comparison = 0;
+        if (weekA > weekB) {
+          comparison = 1;
+        } else if (weekA < weekB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+
+      data.sort(compare);
+
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        data[i] = {
+          name: mode + data[i]._id,
+          Event: data[i].count,
+          New: 0,
+        };
+      }
     }
 
-    console.log(data);
+    console.log(this.state.data);
 
     this.setState({
       data: data,

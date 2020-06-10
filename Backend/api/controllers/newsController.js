@@ -486,7 +486,7 @@ exports.get_page_news_pending = async function (req, res) {
 exports.get_news_pending_by_id = async function (req, res) {
   let condition = {
     allow: "pending",
-    id: req.params.eventId
+    id: req.body.id
   };
   if (req.jwtDecoded.data.user_type != 'admin') {
     condition["user_create"] = req.jwtDecoded.data.username;

@@ -182,6 +182,7 @@ export function adminActiveEvents({ currentPage }) {
   const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
   const username = localStorage.getItem("username");
+
   return axios.post(`/eventspending/${currentPage}`, {
     token: token,
     refreshToken: refreshToken,
@@ -201,13 +202,11 @@ export function adminActiveNews({ currentPage }) {
 }
 
 export function changeStatusEvent({ status, id }) {
-  const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
   const username = localStorage.getItem("username");
 
   return axios.post(`/changeeventallow`, {
     token: token,
-    refreshToken: refreshToken,
     username: username,
     allow: status,
     id: id,
@@ -215,13 +214,11 @@ export function changeStatusEvent({ status, id }) {
 }
 
 export function changeStatusNew({ status, id }) {
-  const refreshToken = localStorage.getItem("refreshToken");
   const token = localStorage.getItem("accessToken");
   const username = localStorage.getItem("username");
 
-  return axios.post(`/changenewallow`, {
+  return axios.post(`/changenewsallow`, {
     token: token,
-    refreshToken: refreshToken,
     username: username,
     allow: status,
     id: id,
@@ -345,13 +342,25 @@ export function statisticViewNews({ flag }) {
   }
 }
 
-export function uploadPhoto({ file }) {
-  const token = localStorage.getItem("accessToken");
-  console.log(file.name);
-  return axios.post("/upload", {
-    token: token,
-    file: file,
-  });
+export function uploadPhoto({ photo }) {
+  return axios.post(
+    "/upload",
+    photo,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress: " +
+            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+            "%"
+        );
+      },
+    },
+    {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    }
+  );
 }
 
 export function createEvent({
@@ -380,7 +389,10 @@ export function createEvent({
 
 export function deleteEvent({ id }) {
   const token = localStorage.getItem("accessToken");
-  return axios.delete(`/events/${id}`, { token: token });
+
+  return axios.delete(`/events/${id}`, {
+    headers: { "x-access-token": token },
+  });
 }
 
 export function editEvent({
@@ -406,5 +418,59 @@ export function editEvent({
     locate: locate,
     content: content,
     category: category,
+  });
+}
+
+export function adminEventsPage({ currentPage }) {
+  const username = localStorage.getItem("username");
+  if (username === "admin") {
+    return axios.get(`/eventspage/${currentPage}`);
+  } else {
+    return axios.get(`/geteventbyuser/${username}/${currentPage}`);
+  }
+}
+
+export function createNew({ image, name, content }) {
+  console.log(name);
+  const token = localStorage.getItem("accessToken");
+  return axios.post("/news", {
+    token: token,
+    image: image,
+    name: name,
+    content: content,
+  });
+}
+
+export function deleteNew({ id }) {
+  const token = localStorage.getItem("accessToken");
+  return axios.delete(`/news/${id}`, {
+    headers: { "x-access-token": token },
+  });
+}
+
+export function editNew({ id, image, name, content }) {
+  const token = localStorage.getItem("accessToken");
+  return axios.put(`/news/${id}`, {
+    id: id,
+    token: token,
+    image: image,
+    name: name,
+    content: content,
+  });
+}
+
+export function getEventAdmin({ eventsId }) {
+  const token = localStorage.getItem("accessToken");
+  return axios.post("/eventpendingsss", {
+    token: token,
+    id: eventsId,
+  });
+}
+
+export function getNewAdmin({ newsId }) {
+  const token = localStorage.getItem("accessToken");
+  return axios.post(`/newspendingsss`, {
+    token: token,
+    id: newsId,
   });
 }
