@@ -157,7 +157,7 @@ class AdminActiveNew extends Component {
         return (
           <tr>
             <td>
-              <a href={`/admin-new/${doc.id}`}>{doc.name}</a>
+              <a target="blank" href={`/admin-new/${doc.id}`}>{doc.name}</a>
             </td>
             <td>Đối tác (bổ sung)</td>
             <td>{moment(doc.created_at).format("LL")}</td>

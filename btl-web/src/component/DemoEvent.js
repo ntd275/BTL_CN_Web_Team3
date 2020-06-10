@@ -45,7 +45,7 @@ class DemoEvent extends Component {
         <div className="big">
           <article>
             <header>
-              <h1>{event.title}</h1>
+              <h1>{event.title}(Demo)</h1>
               <p style={{ display: "flex" }}>
                 <div className="date" style={{ fontStyle: "italic" }}>
                   <small>
