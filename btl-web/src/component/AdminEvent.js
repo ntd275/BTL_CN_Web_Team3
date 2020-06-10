@@ -9,6 +9,7 @@ import "../CSS/dashboard.css";
 import Box from "./Box";
 import Select from "react-select";
 import moment from "moment";
+import DatePicker from "react-datepicker";
 
 import {
   createEvent,
@@ -18,6 +19,8 @@ import {
   getEventAdmin,
   getEvent,
 } from "../API/api";
+
+var count = 0;
 
 class AdminEvent extends Component {
   constructor(props) {
@@ -383,149 +386,147 @@ class AdminEvent extends Component {
   render() {
     const { boxes } = this.state;
     if (this.state.setoff !== 1) {
-      if (this.state.category != null) {
-        return (
-          <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 dashboard-event">
-            <h3>TẠO SỰ KIỆN</h3>
-            {this.elmAlertDelete()}
-            {this.elmAlertSave()}
-            <InputGroup className="mb-3">
-              <FormControl
-                className="mt-2"
-                ref="file"
-                type="file"
-                name="image"
-                multiple
-                onChange={this.onChangeImage}
-              />
-              <Image
-                src={this.state.image}
-                fluid
-                style={{ maxWidth: "80%", margin: "auto" }}
-              />
-            </InputGroup>
+      return (
+        <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 dashboard-event">
+          <h3>TẠO SỰ KIỆN</h3>
+          {this.elmAlertDelete()}
+          {this.elmAlertSave()}
+          <InputGroup className="mb-3">
+            <FormControl
+              className="mt-2"
+              ref="file"
+              type="file"
+              name="image"
+              multiple
+              onChange={this.onChangeImage}
+            />
+            <Image
+              src={this.state.image}
+              fluid
+              style={{ maxWidth: "80%", margin: "auto" }}
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                  Tên sự kiện
-                </InputGroup.Text>
-              </InputGroup.Prepend>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
+                Tên sự kiện
+              </InputGroup.Text>
+            </InputGroup.Prepend>
 
-              <FormControl
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                type="text"
-                name="title"
-                onChange={this.onChange}
-                value={this.state.title}
-              />
-            </InputGroup>
+            <FormControl
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              type="text"
+              name="title"
+              onChange={this.onChange}
+              value={this.state.title}
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                  Loại sự kiện
-                </InputGroup.Text>
-              </InputGroup.Prepend>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
+                Loại sự kiện
+              </InputGroup.Text>
+            </InputGroup.Prepend>
 
-              <Select
-                id="ducpb"
-                onChange={(value) => this.handleChangeCategory(value)}
-                options={this.state.optionsCategory}
-                defaultValue={this.searchCategory()}
-              />
-            </InputGroup>
+            <Select
+              id="ducpb"
+              onChange={(value) => this.handleChangeCategory(value)}
+              options={this.state.optionsCategory}
+              defaultValue={this.searchCategory()}
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                  Thời gian
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                type="date"
-                name="start_time"
-                onChange={this.onChange}
-                value={this.state.start_time}
-              />
-              <FormControl
-                type="date"
-                name="finish_time"
-                onChange={this.onChange}
-                value={moment(this.state.finish_time).format("MM-DD-YYYY")}
-              />
-            </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
+                Thời gian
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              type="date"
+              name="start_time"
+              onChange={this.onChange}
+              // defaultValue={moment.utc(this.state.start_time).format("Y-MM-DD HH:mm:ss")}
+            />
+            <FormControl
+              type="date"
+              name="finish_time"
+              onChange={this.onChange}
+              // defaultValue={this.state.finish_time}
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                  Địa điểm
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                type="text"
-                name="address"
-                onChange={this.onChange}
-                value={this.state.address}
-              />
-            </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
+                Địa điểm
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              type="text"
+              name="address"
+              onChange={this.onChange}
+              value={this.state.address}
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
-                  Khu vực
-                </InputGroup.Text>
-              </InputGroup.Prepend>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1" style={{ width: "120px" }}>
+                Khu vực
+              </InputGroup.Text>
+            </InputGroup.Prepend>
 
-              <Select
-                id="ducpb"
-                onChange={(value) => this.handleChangeLocate(value)}
-                options={this.state.optionsLocate}
-                defaultValue={this.searchLocate()}
-              />
-            </InputGroup>
+            <Select
+              id="ducpb"
+              onChange={(value) => this.handleChangeLocate(value)}
+              options={this.state.optionsLocate}
+              defaultValue={this.searchLocate()}
+            />
+          </InputGroup>
 
-            <div>
-              {boxes.length !== 0 &&
-                boxes.map((Box, index) => (
-                  <Box
-                    key={index}
-                    index={index}
-                    data={this.state.content[index]}
-                    onDeleteBox={this.onDeleteBox}
-                    onUpBox={this.onUpBox}
-                    onDownBox={this.onDownBox}
-                    onAddBox={this.onAddBox}
-                    onChangeTextBox={this.onChangeTextBox}
-                    onChangeImageBox={this.onChangeImageBox}
-                  />
-                ))}
-            </div>
-
-            <div className="mt-2">
-              <Button
-                variant="secondary"
-                className="mr-2"
-                type="submit"
-                onClick={this.onSubmit}
-              >
-                Lưu
-              </Button>
-              <Button
-                variant="secondary"
-                className="mr-2"
-                type="submit"
-                onClick={this.onDelete}
-              >
-                Xoá
-              </Button>
-            </div>
+          <div>
+            {boxes.length !== 0 &&
+              boxes.map((Box, index) => (
+                <Box
+                  key={index}
+                  index={index}
+                  data={this.state.content[index]}
+                  onDeleteBox={this.onDeleteBox}
+                  onUpBox={this.onUpBox}
+                  onDownBox={this.onDownBox}
+                  onAddBox={this.onAddBox}
+                  onChangeTextBox={this.onChangeTextBox}
+                  onChangeImageBox={this.onChangeImageBox}
+                />
+              ))}
           </div>
-        );
-      } else return null;
+
+          <div className="mt-2">
+            <Button
+              variant="secondary"
+              className="mr-2"
+              type="submit"
+              onClick={this.onSubmit}
+            >
+              Lưu
+            </Button>
+            <Button
+              variant="secondary"
+              className="mr-2"
+              type="submit"
+              onClick={this.onDelete}
+            >
+              Xoá
+            </Button>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div style={{ height: "60vh" }}>
