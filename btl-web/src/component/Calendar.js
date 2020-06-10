@@ -14,7 +14,8 @@ class Calendar extends Component {
             showYearNav: false,
             selectedDay: null,
             allevents: [],
-            contentEvent:[]
+            contentEvent: [],
+            beSet: false
         });
     }
     daysInMonth = () => {
@@ -229,28 +230,54 @@ class Calendar extends Component {
         }
     }
     onEvent = (allcontent) => {
-        this.setState((state)=>{
+        if (this.state.beSet === false) {
+            this.setState(state => {
+                return {
+                    beSet: true
+                }
+            })
+        }
+        this.setState((state) => {
             return {
                 contentEvent: allcontent
             }
         })
     }
-    outEvent=()=>{
-        this.setState((state)=>{
-            return {
-                contentEvent: []
+    elementInfor = () => {
+        if (this.state.beSet) {
+            if (this.state.contentEvent.length === 0) {
+                return (
+                    <div>
+                        <div className="text-danger">* Không có sự kiện</div>
+                    </div>
+                )
             }
-        })
-    }
-    elementInfor=()=>{
-        if (this.state.contentEvent.length===0){
-            return <div></div>
+            else {
+                let tr = this.state.contentEvent.map((value, index) => {
+                    return (
+                        <tr>
+                            <th scope="row">{index + 1}</th>
+                            <td>{value.title}</td>
+                        </tr>
+
+                    )
+                })
+                return (
+                    <div>
+                        <table class="table table-striped text-center">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Sự kiện</th>
+                            </tr>
+                            <tbody>
+                                {tr}
+                            </tbody>
+                        </table>
+                    </div>
+                )
+            }
         }
-        else {
-            return this.state.contentEvent.map((value,index)=>{
-                return <div>{index+1},{value.title}</div>
-            })
-        }
+        return "";
     }
     render() {
         const weekdayshort = moment.weekdaysShort();
@@ -275,8 +302,7 @@ class Calendar extends Component {
                 daysInMonth.push(
                     <td key={i}
                         className={`calendar-day ${currentDay} ${eventType}`}
-                        onMouseOver={()=> this.onEvent(listEvent)}
-                        onMouseOut={() => this.outEvent()}
+                        onClick={() => this.onEvent(listEvent)}
                     >
                         <span>
                             {i}
@@ -288,6 +314,7 @@ class Calendar extends Component {
                 daysInMonth.push(
                     <td key={i}
                         className={`calendar-day ${currentDay} ${eventType}`}
+                        onClick={() => this.onEvent([])}
                     >
                         <span>
                             {i}
@@ -335,7 +362,7 @@ class Calendar extends Component {
                                 }}
                                 className="calendar-label"
                             >
-                                {this.month()},
+                                {this.month()}
                             </span>
                         )}
                         <span

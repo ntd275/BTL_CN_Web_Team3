@@ -45,7 +45,7 @@
   margin: 0;
   padding: 0;
   display: table-cell;
-  font-size: 14px;
+  font-size: 18px;
   text-align: center;
   line-height: 30px;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.15);
@@ -55,7 +55,7 @@
 
 .tail-datetime-calendar .calendar-navi span:first-child, .tail-datetime-calendar .calendar-navi span:last-child {
   width: 35px;
-  padding: 0 0 5px 0;
+  padding: 5px 0 10px 0;
   font-size: 22px;
 }
 
@@ -81,8 +81,8 @@
   color: #ffffff;
   width: 35px;
   height: 35px;
-  padding: 0;
-  font-size: 12px;
+  padding: 10px;
+  font-size: 18px;
   text-align: center;
   font-weight: normal;
   line-height: 35px;
@@ -94,7 +94,7 @@
   color: #334455;
   cursor: pointer;
   position: relative;
-  font-size: 14px;
+  font-size: 16px;
   background-color: #ffffff;
 }
 
@@ -108,10 +108,10 @@
 /* Select a Day */
 
 .tail-datetime-calendar .calendar-date table tbody tr>*::after {
-  top: 3px;
-  left: 35px;
-  width: 29px;
-  height: 29px;
+  top: 5px;
+  left: calc((100% - 40px)/2);
+  width: 40px;
+  height: 40px;
   content: "";
   display: block;
   position: absolute;
@@ -286,20 +286,3 @@
   background-color: #17a2b8;
   color: white;
 }
-/* .tail-datetime-calendar .calendar-date table tbody .calendar-day{
-  position: relative;
-}
-.tail-datetime-calendar .calendar-date table tbody .displayInfor{
-  position: absolute;
-  display: none;
-  z-index: 10;
-  background-color: #808080;
-  color: #4bf759;
-  padding: 10px;
-  left: 110px;
-  width: 200px;
-  line-height: normal;
-}
-.tail-datetime-calendar .calendar-date table tbody td:hover .displayInfor{
-  display: inline;
-} */
